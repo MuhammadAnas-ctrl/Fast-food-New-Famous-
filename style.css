@@ -864,91 +864,95 @@ footer h2{
 
 
 
-.hero-section {
-  /* Using a professional fast food image from Unsplash */
-  background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), 
-              url('https://images.unsplash.com/photo-1513104890138-7c749659a591?q=80&w=2070');
-  
+.food-banner {
+  /* This controls the height so it doesn't cover the whole PC screen */
+  height: 500px; 
+  width: 100%;
+  position: relative;
+  /* High-quality pizza/burger image */
+  background-image: url('https://images.unsplash.com/photo-1513104890138-7c749659a591?q=80&w=2070');
   background-size: cover;
   background-position: center;
-  background-attachment: fixed; /* Parallax effect for PC */
-  height: 100vh;
-  border-radius:12px;
+  overflow: hidden;
+}
+
+.banner-overlay {
+  background: rgba(0, 0, 0, 0.5); /* Darkens the image so text pops */
+  height: 100%;
+  width: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
-  text-align: center;
-  color: white;
-  padding: 0 20px;
 }
 
-/* Big Heading */
-.hero-content h1 {
-  font-size: clamp(2.5rem, 8vw, 4.5rem); /* Auto-sizes for all devices! */
-  margin-bottom: 20px;
-  line-height: 1.1;
+.banner-content {
+  text-align: center;
+  color: white;
+  padding: 20px;
+  max-width: 800px;
+}
+
+.banner-content h1 {
+  font-size: 3rem;
+  margin-bottom: 15px;
   font-weight: 800;
 }
 
-/* Small Paragraph */
-.hero-content p {
-  font-size: clamp(1rem, 2vw, 1.25rem);
-  max-width: 650px;
-  margin: 0 auto 40px auto;
+.banner-content p {
+  font-size: 1.1rem;
+  margin-bottom: 25px;
+  line-height: 1.5;
+}
+
+.action-row {
+  display: flex;
+  gap: 15px;
+  justify-content: center;
+}
+
+/* Your new requested class name logic */
+.food-action {
+  padding: 12px 28px;
+  text-decoration: none;
+  font-weight: bold;
+  border-radius: 6px;
+  transition: 0.3s ease;
+}
+
+.chat-style {
+  background-color: #25D366;
+  color: white;
+}
+
+.choice-style {
+  background-color: #f39c12;
+  color: white;
+}
+
+.food-action:hover {
+  transform: scale(1.05);
   opacity: 0.9;
 }
 
-.hero-actions-container {
-  display: flex;
-  gap: 20px;
-  justify-content: center;
-  flex-wrap: wrap; /* Helps buttons wrap on small screens */
-}
-
-/* The New Class you requested */
-.food-action {
-  padding: 16px 35px;
-  text-decoration: none;
-  font-weight: bold;
-  text-transform: uppercase;
-  border-radius: 5px;
-  transition: all 0.3s ease;
-  display: inline-block;
-  min-width: 180px;
-}
-
-.action-chat {
-  background-color: #25D366; /* WhatsApp Green */
-  color: white;
-  box-shadow: 0 4px 15px rgba(37, 211, 102, 0.3);
-}
-
-.action-order {
-  background-color: #e67e22; /* Foodie Orange */
-  color: white;
-  box-shadow: 0 4px 15px rgba(230, 126, 34, 0.3);
-}
-
-/* Hover Effects */
-.food-action:hover {
-  transform: translateY(-5px);
-  filter: brightness(1.1);
-}
-
-/* Responsive Fixes */
+/* RESPONSIVE: Makes it look good on Phones & Tablets */
 @media (max-width: 768px) {
-  .hero-section {
-    background-attachment: scroll; /* Better performance on mobile */
+  .food-banner {
+    height: 400px; /* Shorter on tablets */
+  }
+  .banner-content h1 {
+    font-size: 2.2rem;
   }
 }
 
 @media (max-width: 480px) {
-  .hero-actions-container {
-    flex-direction: column;
-    gap: 15px;
+  .food-banner {
+    height: 450px; /* Adjust height for mobile portrait */
   }
-  .food-action {
-    width: 100%;
+  .action-row {
+    flex-direction: column; /* Stack buttons on phones */
+  }
+  .banner-content h1 {
+    font-size: 1.8rem;
   }
 }
 /* Container to center the search bar */
