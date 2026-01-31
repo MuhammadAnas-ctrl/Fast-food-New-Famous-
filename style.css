@@ -1036,3 +1036,100 @@ footer h2{
     text-decoration: underline;
     cursor: pointer;
 }
+.contact-section {
+    padding: 60px 20px;
+    background-color: #fdfdfd;
+}
+
+.section-title {
+    text-align: center;
+    font-size: 2.5rem;
+    margin-bottom: 40px;
+    font-weight: 800;
+}
+
+.contact-container {
+    display: flex;
+    flex-direction: column; /* Stack vertically on Mobile */
+    gap: 30px;
+    max-width: 1100px;
+    margin: 0 auto;
+}
+
+/* Info Cards */
+.contact-info {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 20px;
+}
+
+.info-card {
+    background: #fff;
+    padding: 25px;
+    border-radius: 15px;
+    text-align: center;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.05);
+    border: 1px solid #eee;
+}
+
+.info-card i {
+    font-size: 2rem;
+    color: #87CEEB; /* Matching your Sky Blue buttons */
+    margin-bottom: 10px;
+}
+
+/* Form Styling */
+.contact-form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.contact-form input, 
+.contact-form textarea {
+    padding: 15px;
+    border: 2px solid #eee;
+    border-radius: 10px;
+    outline: none;
+    font-size: 1rem;
+    transition: 0.3s;
+}
+
+.contact-form input:focus, 
+.contact-form textarea:focus {
+    border-color: #87CEEB;
+}
+
+.send-btn {
+    background-color: #4CAF50; /* Green for success */
+    color: white;
+    padding: 15px;
+    border: none;
+    border-radius: 10px;
+    font-weight: bold;
+    font-size: 1.1rem;
+    cursor: pointer;
+}
+
+/* ==========================================
+   PC & TABLET VIEW (Side-by-Side)
+   ========================================== */
+@media (min-width: 768px) {
+    .contact-container {
+        flex-direction: row; /* Horizontal on PC */
+        align-items: flex-start;
+    }
+
+    .contact-info {
+        flex: 1;
+        grid-template-columns: 1fr; /* Stack cards inside the left column */
+    }
+
+    .contact-form {
+        flex: 1.5; /* Form takes more space */
+    }
+
+    .section-title {
+        font-size: 3rem;
+    }
+}
