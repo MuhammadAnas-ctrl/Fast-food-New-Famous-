@@ -250,7 +250,12 @@ body.active .cartOverlay {
     list-style: none;
     padding: 0;
 }
-
+.productList .name {
+    font-size: 1.2rem; /* Mobile size */
+    font-weight: 700;
+    color: #000;
+    transition: font-size 0.3s ease;
+}
 .productList li {
     display: flex;
     flex-direction: column; /* Name on top */
@@ -308,12 +313,14 @@ body.active .cartOverlay {
 
 /* FOOTER */
 .total {
-    text-align: right;
-    font-size: 1.4rem;
-    font-weight: bold;
-    margin: 20px 0;
+    text-align: center; /* Centers the text horizontally */
+    width: 100%;       /* Ensures it takes full width to center properly */
+    font-size: 1.6rem;
+    font-weight: 800;
+    margin: 30px 0;
+    color: #e67e22;    /* Keeping your nice orange color */
+    display: block;
 }
-
 .checkk {
     width: 100%;
     background: #4CAF50;
@@ -337,9 +344,34 @@ body.active .cartOverlay {
 }
 
 
+/* --- 3. Tablet & Desktop Adjustments (Big Screens) --- */
+@media (min-width: 768px) {
+    /* Make the item name bigger on larger screens */
+    .productList .name {
+        font-size: 1.8rem; 
+    }
 
+    /* Keep items and buttons in the center */
+    .productList li {
+        align-items: center;
+        text-align: center;
+    }
 
+    .quantityContainer {
+        justify-content: center;
+    }
+}
 
+/* Desktop Extra Large (Laptops/Monitors) */
+@media (min-width: 1200px) {
+    .productList .name {
+        font-size: 2.2rem; /* Even bigger for huge screens */
+    }
+    
+    .total {
+        font-size: 2.5rem; /* Make total very easy to read */
+    }
+}
 
 
 
