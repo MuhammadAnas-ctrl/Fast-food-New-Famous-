@@ -1,0 +1,259 @@
+body {
+    font-family: Arial;
+    font-size: 17px;
+    padding: 8px;
+    background-image: url('data:image/svg+xml,%3Csvg width="52" height="26" viewBox="0 0 52 26" xmlns="http://www.w3.org/2000/svg"%3E%3Cg fill="none" fill-rule="evenodd"%3E%3Cg fill="%239C92AC" fill-opacity="0.4"%3E%3Cpath d="M10 10c0-2.21-1.79-4-4-4-3.314 0-6-2.686-6-6h2c0 2.21 1.79 4 4 4 3.314 0 6 2.686 6 6 0 2.21 1.79 4 4 4 3.314 0 6 2.686 6 6 0 2.21 1.79 4 4 4v2c-3.314 0-6-2.686-6-6 0-2.21-1.79-4-4-4-3.314 0-6-2.686-6-6zm25.464-1.95l8.486 8.486-1.414 1.414-8.486-8.486 1.414-1.414z" /%3E%3C/g%3E%3C/g%3E%3C/svg%3E');
+}
+
+h1 {
+    text-align: center;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+.row {
+    display: -ms-flexbox;
+    display: flex;
+    border-radius: 20px;
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap;
+    margin: 0 -16px;
+}
+
+.col-25 {
+    -ms-flex: 25%;
+    flex: 25%;
+    background-color: #cecece;
+    border-radius: 20px;
+}
+
+.col-50 {
+    -ms-flex: 50%;
+    flex: 50%;
+    background-color: #cecece;
+    border-radius: 20px;
+}
+
+.col-75 {
+    -ms-flex: 75%;
+    flex: 75%;
+    border-radius: 20px;
+}
+
+.col-25,
+.col-50,
+.col-75 {
+    padding: 0 16px;
+    border-radius: 20px;
+}
+
+.container {
+    background-color: #f2f2f2;
+    padding: 5px 20px 15px 20px;
+    border: 1px solid lightgrey;
+    border-radius: 3px;
+}
+
+input{
+    width: 100%;
+    margin-bottom: 20px;
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 15px;
+}
+
+label {
+    margin-bottom: 10px;
+    display: block;
+}
+
+.icon-container {
+    margin-bottom: 20px;
+    padding: 0px 0;
+    /* margin-left: -300px; */
+    font-size: 24px;
+}
+
+.btn {
+    background-color: #4CAF50;
+    color: white;
+    padding: 12px;
+    margin: 10px 0;
+    border: none;
+    width: 100%;
+    border-radius: 10px;
+    cursor: pointer;
+    font-size: 17px;
+}
+
+.btn:hover {
+    background-color: #45a049;
+}
+
+a {
+    color: #2196F3;
+}
+
+hr {
+    border: 1px solid lightgrey;
+}
+
+span.price {
+    float: right;
+    color: grey;
+}
+
+/* Responsive layout */
+@media (max-width: 800px) {
+    .row {
+        flex-direction: column-reverse;
+    }
+
+    .col-25 {
+        margin-bottom: 20px;
+    }
+}
+
+.checkoutContainer {
+  width: 80%;
+  margin: 50px auto;
+  font-family: Arial, sans-serif;
+}
+
+.checkoutHeader {
+  display: flex;
+  align-items: center;
+  padding: 10px 0;
+  border-bottom: 2px solid #000;
+  font-weight: bold;
+  font-size: 16px;
+}
+
+.checkoutHeader .headerBook {
+  flex: 2;
+}
+
+.checkoutHeader .headerQuantity {
+  flex: 1;
+  text-align: center;
+}
+
+.checkoutHeader .headerAction {
+  flex: 1;
+  text-align: center;
+}
+
+.checkoutList {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.checkoutList .name {
+  font-size: 14px;
+  margin-right: 13px;
+  flex: 2;
+  white-space: nowrap;       
+  overflow: hidden;          
+  text-overflow: ellipsis;   
+}
+
+.checkoutList li {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  padding: 10px 0;
+  border-bottom: 1px solid #ddd;
+  min-height: 50px; 
+    gap:10px;
+}
+
+.checkoutList img {
+  width: 30px;
+  height: 45px;
+  object-fit: cover;
+  margin-right: 20px;
+  border-radius: 4px;
+
+}
+
+
+
+.checkoutList .quantityContainer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex: 1;
+    gap:5px;
+}
+
+.checkoutList .quantityContainer button {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  padding: 2px 8px;
+  font-size: 14px;
+  cursor: pointer;
+  border-radius: 4px;
+}
+
+.checkoutList .quantityContainer button:hover {
+  opacity: 0.8;
+}
+
+.checkoutList .quantityContainer .quantity {
+  margin: 0 8px;
+  font-size: 16px;
+  min-width: 20px;
+  text-align: center;
+}
+
+.checkoutList .removeBtn {
+  background-color: red;
+  border: none;
+  color: white;
+  font-size: 14px;
+  padding: 5px 8px; /* smaller padding */
+  cursor: pointer;
+  border-radius: 4px;
+  flex: 0 0 auto; /* prevent flex from stretching */
+  width: auto; /* remove previous flex 1 */
+}
+
+.checkoutList .removeBtn:hover {
+  opacity: 0.8;
+}
+
+.checkoutTotal {
+  margin-top: 20px;
+  font-size: 18px;
+  font-weight: bold;
+  text-align: right;
+}
+.btn-whatsapp {
+  background-color: #25D366; /* WhatsApp green */
+  color: white;
+  padding: 15px 25px;       /* bigger button */
+  font-size: 18px;          /* larger text */
+  font-weight: bold;
+  border: none;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+    margin-top:10px;
+  width: 100%;              /* full width */
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;                /* space if you want an icon */
+}
+
+.btn-whatsapp:hover {
+  background-color: #1ebe5d; /* slightly darker green on hover */
+  transform: translateY(-2px); /* subtle lift effect */
+  box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+}
+
+
