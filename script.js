@@ -1,3 +1,6 @@
+// ==========================================
+// 1. DATA ARRAY (ArrProducts)
+// ==========================================
 const ArrProducts = [
   // --- FAMOUS B.B.Q ---
   { id: 1, category: "B.B.Q", name: "Chicken Tikka (Chest)", price: 450 },
@@ -44,44 +47,14 @@ const ArrProducts = [
   { id: 36, category: "Burger", name: "Chicken Grill Burger", price: 400 },
 
   // --- FAMOUS PIZZA (With Sizes) ---
-  { 
-    id: 37, 
-    category: "Pizza", 
-    name: "Chicken Tikka / Fajita / Supreme", 
-    price: { small: 400, medium: 700, large: 999 } 
-  },
-  { 
-    id: 38, 
-    category: "Pizza", 
-    name: "Pizza Kabab Hunter", 
-    price: { small: 400, medium: 800, large: 1199 } 
-  },
-  { 
-    id: 39, 
-    category: "Pizza", 
-    name: "Famous Speciality Pizza", 
-    price: { medium: 900, large: 1299 } 
-  },
-  { 
-    id: 40, 
-    category: "Pizza", 
-    name: "Kabab Popper (Any Flavor)", 
-    price: { medium: 1000, large: 1399 } 
-  },
+  { id: 37, category: "Pizza", name: "Chicken Tikka / Fajita / Supreme", price: { small: 400, medium: 700, large: 999 } },
+  { id: 38, category: "Pizza", name: "Pizza Kabab Hunter", price: { small: 400, medium: 800, large: 1199 } },
+  { id: 39, category: "Pizza", name: "Famous Speciality Pizza", price: { medium: 900, large: 1299 } },
+  { id: 40, category: "Pizza", name: "Kabab Popper (Any Flavor)", price: { medium: 1000, large: 1399 } },
 
-  // --- PIZZA FRIES (With Sizes) ---
-  { 
-    id: 41, 
-    category: "Pizza Fries", 
-    name: "Pizza Fries Creamy Blast", 
-    price: { small: 400, medium: 600 } 
-  },
-  { 
-    id: 42, 
-    category: "Pizza Fries", 
-    name: "Pizza Fries Peri Peri Garlic", 
-    price: { small: 400, medium: 600 } 
-  },
+  // --- PIZZA FRIES ---
+  { id: 41, category: "Pizza Fries", name: "Pizza Fries Creamy Blast", price: { small: 400, medium: 600 } },
+  { id: 42, category: "Pizza Fries", name: "Pizza Fries Peri Peri Garlic", price: { small: 400, medium: 600 } },
 
   // --- SIDES ---
   { id: 43, category: "SIDES", name: "French Fries", price: 100 },
@@ -89,11 +62,14 @@ const ArrProducts = [
   { id: 45, category: "SIDES", name: "Puri Paratha (Large)", price: 80 }
 ];
 
+// ==========================================
+// 2. SELECTORS
+// ==========================================
 const body = document.querySelector("body"),
-  productsContainer = document.querySelector(".products"), // Your main grid
+  productsContainer = document.querySelector(".products"),
   shoppingBasket = document.querySelector(".shoppingBasket"),
   closeCart = document.querySelector(".close"),
-  productList = document.querySelector(".productList"), // Inside the cart
+  productList = document.querySelector(".productList"),
   quantity = document.querySelector(".quantity"),
   total = document.querySelector(".total"),
   checkk = document.querySelector(".checkk"),
@@ -101,51 +77,87 @@ const body = document.querySelector("body"),
 
 let checkOutList = JSON.parse(localStorage.getItem("cartItems")) || [];
 
-// --- 1. DISPLAY LOGIC ---
+// ==========================================
+// 3. CATEGORY FILTER LOGIC
+// ==========================================
+function setupCategoryFilters() {
+    const filterContainer = document.getElementById('categoryFilter');
+    if (!filterContainer) return;
 
+    const categories = ['All', ...new Set(ArrProducts.map(item => item.category))];
+    filterContainer.innerHTML = categories.map(cat => `
+        <button class="filter-btn" onclick="filterByCategory('${cat}')">${cat}</button>
+    `).join('');
+}
+
+function filterByCategory(selectedCategory) {
+    if (selectedCategory === 'All') {
+        displayProducts(ArrProducts);
+    } else {
+        const filtered = ArrProducts.filter(item => item.category === selectedCategory);
+        displayProducts(filtered);
+    }
+}
+
+// ==========================================
+// 4. PRODUCT DISPLAY LOGIC
+// ==========================================
 function displayProducts(itemsToDisplay) {
-    productsContainer.innerHTML = ""; // Clear grid
+    productsContainer.innerHTML = ""; 
 
     if (itemsToDisplay.length === 0) {
-        productsContainer.innerHTML = `<p style="color:black; text-align:center; width:100%; grid-column: 1/-1;">No books found matching that search. 📚</p>`;
+        productsContainer.innerHTML = `<p style="text-align:center; width:100%; grid-column: 1/-1;">No food found... 🍔</p>`;
         return;
     }
 
-    itemsToDisplay.forEach((item) => {
-        // Find the original index in ArrProducts so addtoCart works correctly
-        let originalIndex = ArrProducts.findIndex(p => p.id === item.id);
+    const currentCategories = [...new Set(itemsToDisplay.map(item => item.category))];
+
+    currentCategories.forEach(cat => {
+        let header = document.createElement("h2");
+        header.classList.add("category-header");
+        header.innerHTML = `<span></span> ${cat} <span></span>`;
+        header.style.gridColumn = "1 / -1";
+        productsContainer.appendChild(header);
+
+        const categoryItems = itemsToDisplay.filter(item => item.category === cat);
         
-        let div = document.createElement("div");
-        div.classList.add("item");
+        categoryItems.forEach((item) => {
+            let originalIndex = ArrProducts.findIndex(p => p.id === item.id);
+            let div = document.createElement("div");
+            div.classList.add("item");
 
-        let star = "";
-        for (let i = 0; i < item.rating; i++) {
-            star += `<i class="fa fa-star"></i>`;
-        }
+            let priceDisplay = typeof item.price === 'object' 
+                ? `S:${item.price.small} | M:${item.price.medium}` 
+                : `${item.price} Rs`;
 
-        div.innerHTML = `
-            <img src="images/${item.image}"/>
-            <div class="name">${item.name}</div>
-            <div>${star}</div>
-            <div class="price">${item.price} <small>$</small></div>
-            <button onClick="addtoCart(${originalIndex})"><i class="fa fa-cart-plus"></i> Add to Cart</button>
-        `;
-        productsContainer.appendChild(div);
+            div.innerHTML = `
+                <img src="images/${item.id}.jpg" onerror="this.src='images/default-food.jpg'"/>
+                <div class="name">${item.name}</div>
+                <div class="price">${priceDisplay}</div>
+                <button onClick="addtoCart(${originalIndex})"><i class="fa fa-cart-plus"></i> Add to Cart</button>
+            `;
+            productsContainer.appendChild(div);
+        });
     });
 }
 
-// --- 2. SEARCH LOGIC ---
-
+// ==========================================
+// 5. SEARCH LOGIC
+// ==========================================
 if (searchInput) {
     searchInput.addEventListener('input', (e) => {
         const searchTerm = e.target.value.toLowerCase();
-        const filtered = ArrProducts.filter(item => item.name.toLowerCase().includes(searchTerm));
+        const filtered = ArrProducts.filter(item => 
+            item.name.toLowerCase().includes(searchTerm) || 
+            item.category.toLowerCase().includes(searchTerm)
+        );
         displayProducts(filtered);
     });
 }
 
-// --- 3. CART LOGIC ---
-
+// ==========================================
+// 6. CART LOGIC
+// ==========================================
 function addtoCart(index) {
   if (checkOutList[index] == null) {
     checkOutList[index] = { ...ArrProducts[index], quantity: 1 };
@@ -162,13 +174,16 @@ function reloadCart() {
 
   checkOutList.forEach((item, key) => {
     if (item != null) {
-      totalPrice += item.price * item.quantity;
+      let itemPrice = typeof item.price === 'object' ? item.price.small : item.price;
+      totalPrice += itemPrice * item.quantity;
       count += item.quantity;
 
       let li = document.createElement("li");
       li.innerHTML = `
-        <img src="images/${item.image}" />
-        <div class="name">${item.name}</div>
+        <div class="cart-item-info">
+            <div class="name">${item.name}</div>
+            <div class="price">${itemPrice} Rs</div>
+        </div>
         <div class="quantityContainer">
           <button onclick="changeQuantity(${key}, ${item.quantity - 1})">-</button>
           <div class="quantity">${item.quantity}</div>
@@ -180,9 +195,8 @@ function reloadCart() {
     }
   });
 
-  total.innerHTML = `<small>Subtotal (${count} items) $</small>` + totalPrice;
+  total.innerHTML = `<small>Total: </small> ${totalPrice} Rs`;
   quantity.innerHTML = count;
-
   saveCart();
   updateCheckoutButton();
 }
@@ -207,23 +221,20 @@ function saveCart() {
 
 function updateCheckoutButton() {
   if (!checkk) return;
-  if (quantity.innerHTML == 0) {
-    checkk.disabled = true;
-    checkk.style.opacity = "0.5";
-  } else {
-    checkk.disabled = false;
-    checkk.style.opacity = "1";
-  }
+  checkk.disabled = (quantity.innerHTML == 0);
+  checkk.style.opacity = (quantity.innerHTML == 0) ? "0.5" : "1";
 }
 
-// --- 4. EVENT LISTENERS ---
-
-shoppingBasket.onclick = () => body.classList.add("active");
-closeCart.onclick = () => body.classList.remove("active");
-
+// ==========================================
+// 7. INITIALIZE
+// ==========================================
 function onInIt() {
+    setupCategoryFilters();
     displayProducts(ArrProducts);
     reloadCart();
 }
+
+shoppingBasket.onclick = () => body.classList.add("active");
+closeCart.onclick = () => body.classList.remove("active");
 
 onInIt();
