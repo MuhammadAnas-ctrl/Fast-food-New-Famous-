@@ -8,6 +8,16 @@
     background-color: aqua;
     color: #fff;
 }
+html {
+    scroll-behavior: smooth;
+    /* This ensures that when you click a link, it slides smoothly */
+}
+
+/* Optional: Offset for the Sticky Header */
+section {
+    scroll-margin-top: 80px; 
+    /* This prevents the sticky navbar from covering the section title */
+}
 /* --- Desktop & Base Styles --- */
 .logo {
     font-size: 1.8rem;      /* Increased size from 1.5rem */
