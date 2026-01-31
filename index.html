@@ -42,22 +42,20 @@
 </div>
 <div class="cartOverlay">
   <div class="cartContent">
-    <h3 class="cartTitle">Your Cart</h3>
+    <h1 class="cartTitle">Your Cart</h1>
     <hr>
     <ul class="productList">
-      <!-- Cart items will appear here -->
-    </ul>
+      </ul>
 
     <div class="cartFooter">
       <div class="total">
-        <small>Subtotal (0 items)</small> ₹0
+        <small>Subtotal: </small> <span id="cartTotalText">0</span> Rs
       </div>
-      <button type="button" class="checkk">CheckOut</button>
-      <button class="close">Close</button>
+      <button type="button" class="checkk" onclick="goToCheckout()">CheckOut</button>
+      <button class="close" onclick="toggleCart()">Close</button>
     </div>
   </div>
 </div>
-
 
 <div id="sizeModal" class="modal">
     <div class="modal-content">
