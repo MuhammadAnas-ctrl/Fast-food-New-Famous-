@@ -12,13 +12,21 @@ const ArrProducts = [
   { id: 37, category: "Pizza", name: "Chicken Tikka Pizza", price: { small: 400, medium: 700, large: 999 }, image: "https://images.unsplash.com/photo-1513104890138-7c749659a591?auto=format&fit=crop&w=500" },
   { id: 43, category: "SIDES", name: "French Fries", price: 100, image: "https://images.unsplash.com/photo-1630384066252-11e1f1582231?auto=format&fit=crop&w=500" }
 ];
+const hamburger = document.getElementById('hamburger');
+const navMenu = document.getElementById('navMenu');
 
+if(hamburger) {
+    hamburger.addEventListener('click', () => {
+        navMenu.classList.toggle('active');
+        console.log("Menu toggled!"); // This helps us see if it works
+    });
+}
 // ==========================================
 // 2. SELECTORS & INITIALIZATION
 // ==========================================
 const body = document.querySelector("body"),
   productsContainer = document.querySelector(".products"),
-  shoppingBasket = document.querySelector(".shoppingBasket"),
+  shoppingBasket = document.querySelector(".fa fa-shopping-cart"),
   closeCart = document.querySelector(".close"),
   productList = document.querySelector(".productList"),
   quantity = document.querySelector(".quantity"),
