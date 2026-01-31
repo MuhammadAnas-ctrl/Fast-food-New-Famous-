@@ -222,8 +222,8 @@ function reloadCart() {
                 <div class="quantityContainer">
                     <button class="btn-minus" onclick="changeQuantity('${key}', ${item.quantity - 1})">-</button>
                     <div class="quantity-val">${item.quantity}</div>
-                    <button class="removeBtn" onclick="removeItem('${key}')">🗑️</button>
                     <button class="btn-plus" onclick="changeQuantity('${key}', ${item.quantity + 1})">+</button>
+                    <button class="removeBtn" onclick="removeItem('${key}')">🗑️</button>
                 </div>  `;
       productList.appendChild(li);
     }
