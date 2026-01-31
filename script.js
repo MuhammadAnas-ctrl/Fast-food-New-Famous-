@@ -215,17 +215,16 @@ function reloadCart() {
 
       let li = document.createElement("li");
       li.innerHTML = `
-        <div class="cart-item-info">
-            <div class="name">${item.name} (${item.selectedSize})</div>
-            <div class="price">${item.price} Rs</div>
-        </div>
-        <div class="quantityContainer">
-          <button onclick="changeQuantity('${key}', ${item.quantity - 1})">-</button>
-          <div class="quantity">${item.quantity}</div>
-          <button onclick="changeQuantity('${key}', ${item.quantity + 1})">+</button>
-        </div>
-        <button class="removeBtn" onclick="removeItem('${key}')">🗑️</button>
-      `;
+        <div class="item-info">
+                    <div class="name">${item.name}</div>
+                    <div style="font-size: 0.9rem; color: #666;">${item.price} Rs</div>
+                </div>
+                <div class="quantityContainer">
+                    <button class="btn-minus" onclick="changeQuantity('${key}', ${item.quantity - 1})">-</button>
+                    <div class="quantity-val">${item.quantity}</div>
+                    <button class="removeBtn" onclick="removeItem('${key}')">🗑️</button>
+                    <button class="btn-plus" onclick="changeQuantity('${key}', ${item.quantity + 1})">+</button>
+                </div>  `;
       productList.appendChild(li);
     }
   });
