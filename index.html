@@ -34,8 +34,12 @@
 </section>
 
 
-    <input type="text" class="search-input" placeholder="Search for food... 🔍">
-
+    <div class="search-container">
+    <div class="search-box">
+        <i class="fa fa-search search-icon"></i>
+        <input type="text" class="search-input" placeholder="Search your favorite food..." onkeyup="searchFood()">
+    </div>
+    </div>
 <div class="category-filter-container" id="categoryFilter"></div>
 
     <div class="products"></div>
