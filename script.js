@@ -30,7 +30,7 @@ if (hamburger && navMenu) {
 // ==========================================
 const body = document.querySelector("body"),
   productsContainer = document.querySelector(".products"),
-  shoppingBasket = document.querySelector(".fa fa-shopping-cart"),
+  shoppingBasket = document.querySelector(".cart-count"),
   closeCart = document.querySelector(".close"),
   productList = document.querySelector(".productList"),
   quantity = document.querySelector(".quantity"),
@@ -257,7 +257,10 @@ function reloadCart() {
 
   if (total) total.innerHTML = `<small>Total: </small> ${totalPrice} Rs`;
   if (quantity) quantity.innerHTML = count;
-  
+  const cartBadge = document.getElementById('cart-count');
+  if (cartBadge) {
+      cartBadge.textContent = count;
+  }
   localStorage.setItem("cartItems", JSON.stringify(checkOutList));
   
   if (checkk) {
