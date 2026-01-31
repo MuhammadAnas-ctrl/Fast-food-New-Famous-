@@ -156,7 +156,7 @@ if (searchInput) {
 }
 
 // ==========================================
-// 6. CART LOGIC
+// 6. CART LOGIC & WHATSAPP CHECKOUT
 // ==========================================
 function addtoCart(index) {
   if (checkOutList[index] == null) {
@@ -201,6 +201,26 @@ function reloadCart() {
   updateCheckoutButton();
 }
 
+// --- NEW: SEND TO WHATSAPP FUNCTION ---
+function sendOrderToWhatsApp() {
+    let phoneNumber = "YOUR_PHONE_NUMBER"; // Put your number here (e.g., 923001234567)
+    let message = "🍔 *NEW ORDER RECEIVED* 🍟%0A%0A";
+    let totalBill = 0;
+
+    checkOutList.forEach(item => {
+        if (item != null) {
+            let itemPrice = typeof item.price === 'object' ? item.price.small : item.price;
+            message += `✅ *${item.name}* x ${item.quantity} = ${itemPrice * item.quantity} Rs%0A`;
+            totalBill += itemPrice * item.quantity;
+        }
+    });
+
+    message += `%0A💰 *Total Bill: ${totalBill} Rs*%0A%0APlease confirm my order!`;
+
+    // Open WhatsApp link
+    window.open(`https://wa.me/${phoneNumber}?text=${message}`, '_blank');
+}
+
 function removeItem(key) {
   delete checkOutList[key];
   reloadCart();
@@ -234,7 +254,13 @@ function onInIt() {
     reloadCart();
 }
 
+// Open and Close Cart
 shoppingBasket.onclick = () => body.classList.add("active");
 closeCart.onclick = () => body.classList.remove("active");
+
+// Attach the WhatsApp function to the checkout button! 
+if(checkk) {
+    checkk.onclick = () => sendOrderToWhatsApp();
+}
 
 onInIt();
