@@ -326,20 +326,37 @@ if (yearSpan) {
 }
 
 
-// 1. Function to fill the dropdown with food names
 function fillReviewDropdown() {
     const select = document.getElementById('reviewItem');
     
-    // Safety check: Make sure ArrProducts exists
-    if (typeof ArrProducts !== 'undefined') {
-        ArrProducts.forEach(product => {
-            let option = document.createElement('option');
-            option.value = product.name;
-            option.innerText = product.name;
-            select.appendChild(option);
-        });
+    // 1. Check if the select box and the array actually exist
+    if (!select) {
+        console.error("Could not find the 'reviewItem' dropdown!");
+        return;
     }
+
+    if (typeof ArrProducts === 'undefined' || !ArrProducts.length) {
+        console.error("ArrProducts is empty or not defined!");
+        return;
+    }
+
+    // 2. Clear existing options (except the first one)
+    select.innerHTML = '<option value="General">Select Item</option>';
+
+    // 3. Loop through your array and add names
+    ArrProducts.forEach(product => {
+        let option = document.createElement('option');
+        option.value = product.name;
+        option.innerText = product.name;
+        select.appendChild(option);
+    });
+
+    console.log("Review dropdown filled with " + ArrProducts.length + " items!");
 }
+
+// 4. Run it immediately AND when the window loads to be 100% sure
+fillReviewDropdown(); 
+window.addEventListener('load', fillReviewDropdown);
 
 // 2. Run this function when the page loads
 window.addEventListener('load', fillReviewDropdown);
