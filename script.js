@@ -78,6 +78,20 @@ style.innerHTML = `
 `;
 document.head.appendChild(style);
 
+
+
+
+function searchFood() {
+    let input = document.querySelector('.search-input').value.toLowerCase();
+    
+    // Filter the ArrProducts array based on the name
+    let filteredProducts = ArrProducts.filter(item => {
+        return item.name.toLowerCase().includes(input);
+    });
+
+    // Use your existing display function to show the results
+    displayProducts(filteredProducts);
+}
 // ==========================================
 // 4. UTILITY FUNCTIONS (Toast & Scroll)
 // ==========================================
