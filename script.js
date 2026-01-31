@@ -374,10 +374,16 @@ function timeAgo(date) {
     return days + " days ago";
 }
 
-// 2. Load and Auto-Clean Function
+// 1. Your "Featured" Reviews (These show up if the container is empty)
+const defaultReviews = [
+    { item: "Chicken Tikka", name: "Management", text: "Our best seller! Always fresh and juicy.", time: new Date().toISOString() },
+    { item: "Zinger Burger", name: "Chef Choice", text: "Crunchy, spicy, and perfectly fried.", time: new Date().toISOString() },
+    { item: "Beef Burger", name: "Foodie Guide", text: "The most authentic beef taste in the city!", time: new Date().toISOString() }
+];
+
 function loadReviews() {
     const container = document.getElementById('reviewsContainer');
-    if (!container) return; // Guard clause
+    if (!container) return;
 
     let allReviews = JSON.parse(localStorage.getItem("customerReviews")) || [];
     const tenDaysInMs = 10 * 24 * 60 * 60 * 1000;
@@ -389,19 +395,22 @@ function loadReviews() {
 
     container.innerHTML = ""; 
 
-    // Show latest reviews at the front
-    allReviews.slice().reverse().forEach(rev => {
+    // 💡 THE TRICK: If no customer reviews exist, use the Default ones!
+    const reviewsToDisplay = allReviews.length > 0 ? allReviews.reverse() : defaultReviews;
+
+    reviewsToDisplay.forEach(rev => {
         const timeDisplay = timeAgo(rev.time);
-        if (timeDisplay) {
-            const card = document.createElement('div');
-            card.className = 'review-card';
-            card.innerHTML = `
-                <h4>${rev.item}</h4>
-                <p>"${rev.text}"</p>
-                <span>- ${rev.name} • <small>${timeDisplay}</small></span>
-            `;
-            container.appendChild(card);
-        }
+        const card = document.createElement('div');
+        card.className = 'review-card';
+        // If it's a default review, show "Featured" instead of time
+        const displayTime = timeDisplay ? timeDisplay : "Featured"; 
+
+        card.innerHTML = `
+            <h4>${rev.item}</h4>
+            <p>"${rev.text}"</p>
+            <span>- ${rev.name} • <small>${displayTime}</small></span>
+        `;
+        container.appendChild(card);
     });
 }
 
