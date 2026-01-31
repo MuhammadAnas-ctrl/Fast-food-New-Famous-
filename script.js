@@ -362,30 +362,81 @@ window.addEventListener('load', fillReviewDropdown);
 window.addEventListener('load', fillReviewDropdown);
 
 
+// 1. Function to format the time (e.g., "5 min ago")
+function timeAgo(date) {
+    const seconds = Math.floor((new Date() - new Date(date)) / 1000);
+    let interval = seconds / 31536000;
+
+    if (interval > 1) return Math.floor(interval) + " years ago";
+    interval = seconds / 2592000;
+    if (interval > 1) return Math.floor(interval) + " months ago";
+    interval = seconds / 864000; // 10 days check
+    if (interval >= 1) return null; // Return null if older than 10 days
+    
+    interval = seconds / 86400;
+    if (interval > 1) return Math.floor(interval) + " days ago";
+    interval = seconds / 3600;
+    if (interval > 1) return Math.floor(interval) + " hours ago";
+    interval = seconds / 60;
+    if (interval > 1) return Math.floor(interval) + " min ago";
+    return Math.floor(seconds) + " sec ago";
+}
+
+// 2. Function to Load and Clean Reviews
+function loadReviews() {
+    const container = document.getElementById('reviewsContainer');
+    let allReviews = JSON.parse(localStorage.getItem("customerReviews")) || [];
+    
+    // FILTER: Only keep reviews younger than 10 days (864,000 seconds)
+    const tenDaysInMs = 10 * 24 * 60 * 60 * 1000;
+    const now = new Date().getTime();
+    
+    const validReviews = allReviews.filter(rev => (now - new Date(rev.time).getTime()) < tenDaysInMs);
+
+    // Save the "Cleaned" list back to storage
+    localStorage.setItem("customerReviews", JSON.stringify(validReviews));
+
+    container.innerHTML = ""; 
+    
+    validReviews.reverse().forEach(rev => {
+        const timeDisplay = timeAgo(rev.time);
+        if (timeDisplay) {
+            const card = document.createElement('div');
+            card.className = 'review-card';
+            card.innerHTML = `
+                <h4>${rev.item}</h4>
+                <p>"${rev.text}"</p>
+                <span>- ${rev.name} • <small>${timeDisplay}</small></span>
+            `;
+            container.appendChild(card);
+        }
+    });
+}
+
+// 3. Updated Add Function with Timestamp
 function addReview() {
     const item = document.getElementById('reviewItem').value;
     const name = document.getElementById('reviewName').value;
     const text = document.getElementById('reviewText').value;
-    const container = document.getElementById('reviewsContainer');
 
     if (name === "" || text === "") {
         alert("Please fill in your name and message! 😊");
         return;
     }
 
-    // Create the new review card
-    const card = document.createElement('div');
-    card.className = 'review-card';
-    card.innerHTML = `
-        <h4>${item}</h4>
-        <p>"${text}"</p>
-        <span>- ${name}</span>
-    `;
+    const newReview = { 
+        item, 
+        name, 
+        text, 
+        time: new Date().toISOString() // Saves the exact time of the review
+    };
 
-    // Add it to the container (at the beginning)
-    container.prepend(card);
+    const allReviews = JSON.parse(localStorage.getItem("customerReviews")) || [];
+    allReviews.push(newReview);
+    localStorage.setItem("customerReviews", JSON.stringify(allReviews));
 
-    // Clear the form
+    loadReviews();
+
     document.getElementById('reviewName').value = "";
     document.getElementById('reviewText').value = "";
 }
