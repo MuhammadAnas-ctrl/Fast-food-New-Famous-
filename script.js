@@ -26,18 +26,6 @@ if (hamburger && navMenu) {
     });
 }
 
-window.addEventListener('load', function() {
-    const loader = document.getElementById('loading-screen');
-    
-    // Add a tiny delay so it doesn't flash too fast
-    setTimeout(() => {
-        loader.style.opacity = '0';
-        setTimeout(() => {
-            loader.style.display = 'none';
-        }, 500); // Wait for fade transition to finish
-    }, 1000); 
-});
-
 function hideLoader() {
     const loader = document.getElementById('loading-screen');
     if (loader) {
