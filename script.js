@@ -14,7 +14,7 @@ const ArrProducts = [
 ];
 
 // ==========================================
-// 2. SELECTORS
+// 2. SELECTORS & INITIALIZATION
 // ==========================================
 const body = document.querySelector("body"),
   productsContainer = document.querySelector(".products"),
@@ -26,11 +26,54 @@ const body = document.querySelector("body"),
   checkk = document.querySelector(".checkk"),
   searchInput = document.querySelector(".search-input");
 
-// Initialize cart from LocalStorage immediately
 let checkOutList = JSON.parse(localStorage.getItem("cartItems")) || {};
 
 // ==========================================
-// 3. CATEGORY & DISPLAY LOGIC
+// 3. STYLISH POPUP (TOAST) INJECTOR
+// ==========================================
+// This adds the "Cool" popup styles automatically
+const style = document.createElement('style');
+style.innerHTML = `
+  .toast-notification {
+    position: fixed;
+    bottom: 30px;
+    left: 50%;
+    transform: translateX(-50%) translateY(100px);
+    background: #333;
+    color: white;
+    padding: 12px 25px;
+    border-radius: 50px;
+    font-weight: bold;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+    z-index: 10000;
+    transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .toast-active { transform: translateX(-50%) translateY(0); }
+  .toast-icon { background: #ffbe76; color: #000; border-radius: 50%; width: 20px; height: 20px; display: flex; justify-content: center; align-items: center; font-size: 12px; }
+`;
+document.head.appendChild(style);
+
+function showToast(itemName) {
+    let toast = document.createElement("div");
+    toast.className = "toast-notification";
+    toast.innerHTML = `<span class="toast-icon">✓</span> ${itemName} added to cart!`;
+    document.body.appendChild(toast);
+
+    // Trigger animation
+    setTimeout(() => toast.classList.add("toast-active"), 100);
+
+    // Remove after 3 seconds
+    setTimeout(() => {
+        toast.classList.remove("toast-active");
+        setTimeout(() => toast.remove(), 400);
+    }, 2500);
+}
+
+// ==========================================
+// 4. CATEGORY & DISPLAY LOGIC
 // ==========================================
 function setupCategoryFilters() {
     const filterContainer = document.getElementById('categoryFilter');
@@ -76,7 +119,7 @@ function displayProducts(itemsToDisplay) {
 }
 
 // ==========================================
-// 4. CART CORE LOGIC
+// 5. CART CORE LOGIC
 // ==========================================
 function addtoCart(index) {
     const item = ArrProducts[index];
@@ -84,6 +127,7 @@ function addtoCart(index) {
         showSizeModal(index);
     } else {
         confirmAddToCart(index, item.price, 'Standard');
+        showToast(item.name); // 👈 Stylish Popup here
     }
 }
 
@@ -100,6 +144,7 @@ function showSizeModal(index) {
         btn.innerText = `${size.toUpperCase()} - ${item.price[size]} Rs`;
         btn.onclick = () => {
             confirmAddToCart(index, item.price[size], size);
+            showToast(`${item.name} (${size})`); // 👈 Stylish Popup for Pizza
             closeModal();
         };
         optionsContainer.appendChild(btn);
@@ -123,7 +168,6 @@ function reloadCart() {
   let count = 0;
   let totalPrice = 0;
 
-  // Loop through items and build HTML with your specific classes
   Object.keys(checkOutList).forEach(key => {
     let item = checkOutList[key];
     if (item != null) {
@@ -150,7 +194,6 @@ function reloadCart() {
   if (total) total.innerHTML = `<small>Total: </small> ${totalPrice} Rs`;
   if (quantity) quantity.innerHTML = count;
   
-  // Save to memory
   localStorage.setItem("cartItems", JSON.stringify(checkOutList));
   
   if (checkk) {
@@ -173,12 +216,12 @@ function changeQuantity(key, q) {
 function closeModal() { document.getElementById('sizeModal').style.display = "none"; }
 
 // ==========================================
-// 5. INITIALIZE
+// 6. INITIALIZE
 // ==========================================
 function onInIt() {
     setupCategoryFilters();
     displayProducts(ArrProducts);
-    reloadCart(); // This pulls the data on mobile reload!
+    reloadCart();
 }
 
 if (shoppingBasket) shoppingBasket.onclick = () => body.classList.add("active");
