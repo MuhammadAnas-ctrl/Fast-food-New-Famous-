@@ -1289,3 +1289,8 @@ footer h2{
     font-size: 0.8rem;
     color: #777;
 }
+.review-card span small {
+    color: #888;
+    font-weight: normal;
+    margin-left: 5px;
+}
