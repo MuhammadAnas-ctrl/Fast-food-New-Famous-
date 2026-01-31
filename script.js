@@ -127,6 +127,7 @@ function displayProducts(itemsToDisplay) {
                 : `${item.price} Rs`;
 
             div.innerHTML = `
+            <img src="images/${item.id}.jpg" onerror="this.src='images/default-food.jpg'"/>
                 <div class="name">${item.name}</div>
                 <div class="price">${priceDisplay}</div>
                 <button onClick="addtoCart(${originalIndex})"><i class="fa fa-cart-plus"></i> Add to Cart</button>
