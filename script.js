@@ -151,21 +151,28 @@ function showSizeModal(index) {
 }
 
 function confirmAddToCart(index, price, size) {
-    // Create a unique key so Small Pizza and Large Pizza stay separate in cart
+    // We create a unique key so Small and Large pizzas don't overwrite each other
     let cartKey = index + "_" + size;
+
+    // IMPORTANT: Read existing cart first!
+    let checkOutList = JSON.parse(localStorage.getItem("cartItems")) || {};
 
     if (checkOutList[cartKey] == null) {
         checkOutList[cartKey] = { 
             ...ArrProducts[index], 
             quantity: 1, 
-            price: price, // Save the selected price
+            price: price, 
             selectedSize: size 
         };
     } else {
         checkOutList[cartKey].quantity += 1;
     }
     
-    reloadCart();
+    // SAVE TO LOCAL STORAGE
+    localStorage.setItem("cartItems", JSON.stringify(checkOutList));
+    
+    // If you have a reloadCart function on this page, call it
+    if (typeof reloadCart === "function") reloadCart();
 }
 
 function closeModal() {
