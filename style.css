@@ -9,6 +9,28 @@
     color: #fff;
 }
 /* --- Desktop & Base Styles --- */
+.logo {
+    font-size: 1.8rem;      /* Increased size from 1.5rem */
+    font-weight: 900;      /* Extra bold weight */
+    color: #333;           /* Dark color for contrast */
+    letter-spacing: 1px;   /* Tiny bit of space between letters for style */
+    text-transform: uppercase; /* Makes it look like a real brand logo */
+    cursor: pointer;
+    white-space: nowrap;   /* Prevents it from breaking into two lines */
+}
+
+/* Optional: Add a small hover effect to make it feel premium */
+.logo:hover {
+    color: #87CEEB; /* Your Sky Blue */
+    transition: 0.3s;
+}
+
+/* 📱 Mobile Check: Slightly smaller on tiny screens so it doesn't crowd the cart */
+@media (max-width: 480px) {
+    .logo {
+        font-size: 1.5rem;
+    }
+}
 .main-header {
     display: flex;
     justify-content: space-between;
