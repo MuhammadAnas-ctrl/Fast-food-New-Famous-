@@ -37,6 +37,22 @@ window.addEventListener('load', function() {
         }, 500); // Wait for fade transition to finish
     }, 1000); 
 });
+
+function hideLoader() {
+    const loader = document.getElementById('loading-screen');
+    if (loader) {
+        loader.style.opacity = '0';
+        setTimeout(() => {
+            loader.style.display = 'none';
+        }, 500); // Time for the fade-out effect
+    }
+}
+
+// 1. Hide it when everything is 100% loaded
+window.addEventListener('load', hideLoader);
+
+// 2. SAFETY TIMER: If it takes more than 3 seconds, force it to hide!
+setTimeout(hideLoader, 3000);
 // ==========================================
 // 2. SELECTORS & INITIALIZATION
 // ==========================================
