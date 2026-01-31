@@ -121,7 +121,10 @@ img{
   gap: 5px;
   transition: background 0.2s;
 }
-
+.item img:hover {
+    transform: scale(1.05);
+    transition: 0.3s ease;
+}
 .item button:hover {
   background-color: #f0932b;
   color: white;
