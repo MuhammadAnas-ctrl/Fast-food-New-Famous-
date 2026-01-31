@@ -20,9 +20,11 @@ if (hamburger && navMenu) {
         navMenu.classList.toggle('active');
     };
 
-    // Close menu when a link is clicked (good for mobile)
+    // 🚀 NEW: Close the menu when any link is clicked
     document.querySelectorAll('.nav-menu a').forEach(link => {
-        link.onclick = () => navMenu.classList.remove('active');
+        link.onclick = () => {
+            navMenu.classList.remove('active');
+        };
     });
 }
 
