@@ -133,7 +133,33 @@ section {
   padding: 12px;
   background-color: #f9f9f9;
 }
-
+#menu h2 {
+    font-size: 2.5rem;
+    font-weight: 800;
+    margin-bottom: 10px;
+    color: #333;
+    text-transform: uppercase;
+}
+#menu h2::after {
+    content: '';
+    display: block;
+    width: 60px;
+    height: 4px;
+    background: #87CEEB; /* Your Sky Blue */
+    margin: 10px auto;
+    border-radius: 2px;
+}
+#menu .subtitle {
+    font-size: 1.1rem;
+    color: #666;
+    margin-bottom: 40px;
+    display: block;
+}
+@media (max-width: 768px) {
+    #menu h2 {
+        font-size: 1.8rem;
+    }
+}
 /* Individual Food Card */
 .item {
   background: white;
