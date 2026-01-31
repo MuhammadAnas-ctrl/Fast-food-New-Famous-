@@ -1,12 +1,12 @@
 const ArrProducts = [
   // --- B.B.Q ---
   { id: 1, category: "B.B.Q", name: "Chicken Tikka (Chest)", price: 450, image: "https://images.unsplash.com/photo-1599487488170-d11ec9c172f0?auto=format&fit=crop&w=500" },
-  { id: 2, category: "B.B.Q", name: "Chicken Tikka (Leg)", price: 400, image: "https://unsplash.com/s/photos/bbq" },
+  { id: 2, category: "B.B.Q", name: "Chicken Tikka (Leg)", price: 400, image: "https://unsplash.com/photos/grilled-meat-3wzps8KbdCQ" },
   { id: 3, category: "B.B.Q", name: "Green Tikka (Chest)", price: 520, image: "https://images.unsplash.com/photo-1606787366850-de6330128bfc?auto=format&fit=crop&w=500" },
 
   // --- ROLLS ---
-  { id: 14, category: "Rolls", name: "Chicken Roll", price: 220, image: "https://images.unsplash.com/photo-1626700051175-656a433b915d?auto=format&fit=crop&w=500" },
-  { id: 15, category: "Rolls", name: "Chicken Zinger Roll", price: 350, image: "https://images.unsplash.com/photo-1662116765994-1e0e00c67089?auto=format&fit=crop&w=500" },
+  { id: 14, category: "Rolls", name: "Chicken Roll", price: 220, image: "https://www.google.com/search?client=ms-android-xiaomi-terr1-rso2&hs=2kv9&sca_esv=4f31704060aa6193&sxsrf=ANbL-n5MuiZ5k5TULjVX7ZZrVOwX_U_d8Q:1769837291458&udm=2&fbs=ADc_l-aN0CWEZBOHjofHoaMMDiKpaEWjvZ2Py1XXV8d8KvlI3vWUtYx0DZdicpfE1faGYek-FGtKxD7AwCl01PyIDDoh3JcXAiS5pTxB6RsrrZG4swMNBsuh4Ofkws4KxGh5aFXvPoahcK6aUgnjP8cby3QPtAUclpKWWRjssGicxX1Ur9lg2BmeFAgYalpC2FotQt7HuEiL&q=chicken+roll+photos&sa=X&sqi=2&ved=2ahUKEwjz98TYhbWSAxWQ87sIHUEgFvkQtKgLegQIEhAB&biw=360&bih=683&dpr=2&aic=0" },
+  { id: 15, category: "Rolls", name: "Chicken Zinger Roll", price: 350, image: "https://www.google.com/search?client=ms-android-xiaomi-terr1-rso2&hs=2kv9&sca_esv=4f31704060aa6193&sxsrf=ANbL-n5MuiZ5k5TULjVX7ZZrVOwX_U_d8Q:1769837291458&udm=2&fbs=ADc_l-aN0CWEZBOHjofHoaMMDiKpaEWjvZ2Py1XXV8d8KvlI3vWUtYx0DZdicpfE1faGYek-FGtKxD7AwCl01PyIDDoh3JcXAiS5pTxB6RsrrZG4swMNBsuh4Ofkws4KxGh5aFXvPoahcK6aUgnjP8cby3QPtAUclpKWWRjssGicxX1Ur9lg2BmeFAgYalpC2FotQt7HuEiL&q=chicken+roll+photos&sa=X&sqi=2&ved=2ahUKEwjz98TYhbWSAxWQ87sIHUEgFvkQtKgLegQIEhAB&biw=360&bih=683&dpr=2&aic=0" },
 
   // --- BURGERS ---
   { id: 31, category: "Burger", name: "Zinger Burger", price: 400, image: "https://images.unsplash.com/photo-1571091718767-18b5b1457add?auto=format&fit=crop&w=500" },
@@ -16,7 +16,7 @@ const ArrProducts = [
   { id: 37, category: "Pizza", name: "Chicken Tikka Pizza", price: { small: 400, medium: 700, large: 999 }, image: "https://images.unsplash.com/photo-1513104890138-7c749659a591?auto=format&fit=crop&w=500" },
 
   // --- SIDES ---
-  { id: 43, category: "SIDES", name: "French Fries", price: 100, image: "https://images.unsplash.com/photo-1630384066252-11e1f1582231?auto=format&fit=crop&w=500" }
+  { id: 43, category: "SIDES", name: "French Fries", price: 100, image: "https://unsplash.com/photos/a-basket-of-french-fries-sitting-on-top-of-a-wooden-table-ChXHveqrb28" }
 ];
 // Note: In your displayProducts function, change the img src line to:
 // <img src="${item.image}"/>
