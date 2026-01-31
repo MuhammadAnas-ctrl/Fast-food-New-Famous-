@@ -7,7 +7,7 @@ const ArrProducts = [
   { id: 3, category: "B.B.Q", name: "Green Tikka (Chest)", price: 520 },
   { id: 14, category: "Rolls", name: "Chicken Roll", price: 220 },
   { id: 15, category: "Rolls", name: "Chicken Zinger Roll", price: 350},
-  { id: 31, category: "Burger", name: "Zinger Burger", price: 400l},
+  { id: 31, category: "Burger", name: "Zinger Burger", price: 400},
   { id: 32, category: "Burger", name: "Zinger Cheese Burger", price: 450 },
   { id: 37, category: "Pizza", name: "Chicken Tikka Pizza", price: { small: 400, medium: 700, large: 999 } },
   { id: 43, category: "SIDES", name: "French Fries", price: 100 }
