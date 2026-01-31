@@ -113,50 +113,100 @@ if (searchInput) {
 // ==========================================
 // 6. CART LOGIC
 // ==========================================
+
 function addtoCart(index) {
-  if (checkOutList[index] == null) {
-    checkOutList[index] = { ...ArrProducts[index], quantity: 1 };
-  } else {
-    checkOutList[index].quantity += 1;
-  }
-  reloadCart();
+    const item = ArrProducts[index];
+
+    // If item has sizes (like Pizza), show the Modal
+    if (typeof item.price === 'object') {
+        showSizeModal(index);
+    } else {
+        // Regular item (Burger/BBQ), add directly
+        confirmAddToCart(index, item.price, 'Standard');
+    }
 }
 
+function showSizeModal(index) {
+    const item = ArrProducts[index];
+    const modal = document.getElementById('sizeModal');
+    const optionsContainer = document.getElementById('sizeOptions');
+    const nameLabel = document.getElementById('modalItemName');
+
+    nameLabel.innerText = item.name;
+    optionsContainer.innerHTML = ""; // Clear old buttons
+
+    // Create buttons for available sizes
+    for (let size in item.price) {
+        let btn = document.createElement("button");
+        btn.classList.add("size-choice-btn");
+        btn.innerText = `${size.toUpperCase()} - ${item.price[size]} Rs`;
+        btn.onclick = () => {
+            confirmAddToCart(index, item.price[size], size);
+            closeModal();
+        };
+        optionsContainer.appendChild(btn);
+    }
+
+    modal.style.display = "flex";
+}
+
+function confirmAddToCart(index, price, size) {
+    // Create a unique key so Small Pizza and Large Pizza stay separate in cart
+    let cartKey = index + "_" + size;
+
+    if (checkOutList[cartKey] == null) {
+        checkOutList[cartKey] = { 
+            ...ArrProducts[index], 
+            quantity: 1, 
+            price: price, // Save the selected price
+            selectedSize: size 
+        };
+    } else {
+        checkOutList[cartKey].quantity += 1;
+    }
+    
+    reloadCart();
+}
+
+function closeModal() {
+    document.getElementById('sizeModal').style.display = "none";
+}
+
+// Update reloadCart to show the size name in the cart
 function reloadCart() {
   if (!productList) return;
   productList.innerHTML = "";
   let count = 0;
   let totalPrice = 0;
 
-  checkOutList.forEach((item, key) => {
+  for (let key in checkOutList) {
+    let item = checkOutList[key];
     if (item != null) {
-      let itemPrice = typeof item.price === 'object' ? item.price.small : item.price;
-      totalPrice += itemPrice * item.quantity;
+      totalPrice += item.price * item.quantity;
       count += item.quantity;
 
       let li = document.createElement("li");
       li.innerHTML = `
         <div class="cart-item-info">
-            <div class="name">${item.name}</div>
-            <div class="price">${itemPrice} Rs</div>
+            <div class="name">${item.name} (${item.selectedSize})</div>
+            <div class="price">${item.price} Rs</div>
         </div>
         <div class="quantityContainer">
-          <button onclick="changeQuantity(${key}, ${item.quantity - 1})">-</button>
+          <button onclick="changeQuantity('${key}', ${item.quantity - 1})">-</button>
           <div class="quantity">${item.quantity}</div>
-          <button onclick="changeQuantity(${key}, ${item.quantity + 1})">+</button>
+          <button onclick="changeQuantity('${key}', ${item.quantity + 1})">+</button>
         </div>
-        <button class="removeBtn" onclick="removeItem(${key})">🗑️</button>
+        <button class="removeBtn" onclick="removeItem('${key}')">🗑️</button>
       `;
       productList.appendChild(li);
     }
-  });
+  }
 
   if (total) total.innerHTML = `<small>Total: </small> ${totalPrice} Rs`;
   if (quantity) quantity.innerHTML = count;
   saveCart();
   updateCheckoutButton();
 }
-
 function removeItem(key) {
   delete checkOutList[key];
   reloadCart();
