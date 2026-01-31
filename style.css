@@ -873,6 +873,7 @@ footer h2{
   background-position: center;
   background-attachment: fixed; /* Parallax effect for PC */
   height: 100vh;
+  border-radius:12px;
   display: flex;
   align-items: center;
   justify-content: center;
