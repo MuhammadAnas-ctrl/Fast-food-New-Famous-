@@ -361,44 +361,36 @@ window.addEventListener('load', fillReviewDropdown);
 // 2. Run this function when the page loads
 window.addEventListener('load', fillReviewDropdown);
 
-
-// 1. Function to format the time (e.g., "5 min ago")
+// 1. Time Calculation Function
 function timeAgo(date) {
     const seconds = Math.floor((new Date() - new Date(date)) / 1000);
-    let interval = seconds / 31536000;
-
-    if (interval > 1) return Math.floor(interval) + " years ago";
-    interval = seconds / 2592000;
-    if (interval > 1) return Math.floor(interval) + " months ago";
-    interval = seconds / 864000; // 10 days check
-    if (interval >= 1) return null; // Return null if older than 10 days
-    
-    interval = seconds / 86400;
-    if (interval > 1) return Math.floor(interval) + " days ago";
-    interval = seconds / 3600;
-    if (interval > 1) return Math.floor(interval) + " hours ago";
-    interval = seconds / 60;
-    if (interval > 1) return Math.floor(interval) + " min ago";
-    return Math.floor(seconds) + " sec ago";
+    if (seconds < 60) return seconds + " sec ago";
+    const minutes = Math.floor(seconds / 60);
+    if (minutes < 60) return minutes + " min ago";
+    const hours = Math.floor(minutes / 60);
+    if (hours < 24) return hours + " hours ago";
+    const days = Math.floor(hours / 24);
+    if (days >= 10) return null; // Deletes after 10 days
+    return days + " days ago";
 }
 
-// 2. Function to Load and Clean Reviews
+// 2. Load and Auto-Clean Function
 function loadReviews() {
     const container = document.getElementById('reviewsContainer');
+    if (!container) return; // Guard clause
+
     let allReviews = JSON.parse(localStorage.getItem("customerReviews")) || [];
-    
-    // FILTER: Only keep reviews younger than 10 days (864,000 seconds)
     const tenDaysInMs = 10 * 24 * 60 * 60 * 1000;
     const now = new Date().getTime();
-    
-    const validReviews = allReviews.filter(rev => (now - new Date(rev.time).getTime()) < tenDaysInMs);
 
-    // Save the "Cleaned" list back to storage
-    localStorage.setItem("customerReviews", JSON.stringify(validReviews));
+    // Remove reviews older than 10 days
+    allReviews = allReviews.filter(rev => (now - new Date(rev.time).getTime()) < tenDaysInMs);
+    localStorage.setItem("customerReviews", JSON.stringify(allReviews));
 
     container.innerHTML = ""; 
-    
-    validReviews.reverse().forEach(rev => {
+
+    // Show latest reviews at the front
+    allReviews.slice().reverse().forEach(rev => {
         const timeDisplay = timeAgo(rev.time);
         if (timeDisplay) {
             const card = document.createElement('div');
@@ -413,13 +405,13 @@ function loadReviews() {
     });
 }
 
-// 3. Updated Add Function with Timestamp
+// 3. Add Review Function
 function addReview() {
     const item = document.getElementById('reviewItem').value;
     const name = document.getElementById('reviewName').value;
     const text = document.getElementById('reviewText').value;
 
-    if (name === "" || text === "") {
+    if (name.trim() === "" || text.trim() === "") {
         alert("Please fill in your name and message! 😊");
         return;
     }
@@ -428,15 +420,23 @@ function addReview() {
         item, 
         name, 
         text, 
-        time: new Date().toISOString() // Saves the exact time of the review
+        time: new Date().toISOString() 
     };
 
     const allReviews = JSON.parse(localStorage.getItem("customerReviews")) || [];
     allReviews.push(newReview);
     localStorage.setItem("customerReviews", JSON.stringify(allReviews));
 
-    loadReviews();
-
+    // Reset form
     document.getElementById('reviewName').value = "";
     document.getElementById('reviewText').value = "";
+
+    loadReviews(); // Refresh display
 }
+
+// 4. THE FIX: Run this when the page is fully loaded
+window.addEventListener('DOMContentLoaded', () => {
+    if (typeof fillReviewDropdown === 'function') fillReviewDropdown();
+    loadReviews();
+});
+
