@@ -321,136 +321,147 @@ hr {
     padding: 18px;
     border-radius: 12px;
     font-size: 1.2rem;
+/* 1. FULL SCREEN OVERLAY (Covers Mobile, PC, Tablet) */
+.cartOverlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: #ffffff; /* Pure white background */
+    z-index: 10000;
+    display: none; /* Hidden by default */
+    overflow-y: auto;
+}
+
+/* Show cart when active */
+body.active .cartOverlay {
+    display: block;
+}
+
+/* 2. THE CONTENT BOX */
+.cartContent {
+    width: 100%;
+    min-height: 100%;
+    display: flex;
+    flex-direction: column;
+    padding: 25px;
+}
+
+/* 3. HEADINGS & HR */
+.cartTitle {
+    text-align: center;
+    font-size: 2rem;
+    font-weight: 800;
+    color: #222;
+    margin-bottom: 10px;
+}
+
+hr {
+    border: 0;
+    height: 1px;
+    background: #e0e0e0;
+    margin-bottom: 20px;
+}
+
+/* 4. PRODUCT LIST (VERTICAL STACK) */
+.productList {
+    flex: 1;
+    list-style: none;
+    padding: 0;
+}
+
+.productList li {
+    display: flex;
+    flex-direction: column; /* 👈 Puts controls UNDER the name */
+    padding: 20px 0;
+    border-bottom: 1px solid #f1f1f1;
+    gap: 15px; /* Gap between name and buttons */
+}
+
+/* Item Name Styling */
+.productList .name {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: #000000;
+    display: block;
+}
+
+/* 5. QUANTITY & DELETE CONTROLS */
+.quantityContainer {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.quantityContainer button {
+    width: 40px;
+    height: 40px;
+    border: none;
+    border-radius: 8px;
+    font-size: 18px;
+    font-weight: bold;
+    cursor: pointer;
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.btn-minus, .btn-plus {
+    background-color: #007bff; /* Blue */
+}
+
+.removeBtn {
+    background-color: #ff0000; /* Red Delete */
+    margin-left: auto; /* Pushes trash can to the far right */
+}
+
+.quantity {
+    font-size: 1.2rem;
+    font-weight: bold;
+    min-width: 30px;
+    text-align: center;
+    color: #000;
+}
+
+/* 6. FOOTER BUTTONS (CHECKOUT & CLOSE) */
+.cartFooter {
+    margin-top: 30px;
+    padding-bottom: 30px;
+}
+
+.total {
+    text-align: right;
+    font-size: 1.5rem;
+    font-weight: 800;
+    margin-bottom: 20px;
+    color: #e67e22;
+}
+
+.checkk {
+    width: 100%;
+    background-color: #4CAF50; /* Green */
+    color: white;
+    padding: 20px;
+    border-radius: 12px;
+    font-size: 1.2rem;
     font-weight: bold;
     border: none;
-    margin-bottom: 10px;
+    margin-bottom: 12px;
+    cursor: pointer;
 }
 
 .close {
     width: 100%;
-    background: #f44336;
+    background-color: #f44336; /* Red */
     color: white;
     padding: 15px;
     border-radius: 12px;
-    border: none;
     font-weight: bold;
-}
-
-
-
-/* 1. Main List Container */
-.productList {
-    flex: 1;
-    overflow-y: auto;
-    padding: 10px;
-    color: black;
-    list-style: none;
-    /* Ensure the container doesn't horizontal scroll */
-    overflow-x: hidden; 
-}
-
-/* 2. List Item (The Row) */
-.productList li {
-    display: flex;
-    align-items: center;
-    padding: 12px 8px;
-    color: black;
-    border-bottom: 1px solid #eee;
-    width: 100%; /* Ensure it takes full width */
-    box-sizing: border-box; /* Adds consistent spacing between all elements in the row */
-}
-
-/* 3. Book Image */
-.productList li img {
-    width: 50px;
-    height: 65px;
-    object-fit: contain;
-    flex-shrink: 0;
-}
-
-/* 4. Book Name - FIXED */
-.productList .name {
-    display: block;      /* Ensure it's treated as a block */
-    flex: 1 1 auto;      /* Grow and shrink as needed */
-       /* Space from the image */
-    margin-right: 20px;  /* Space before the buttons */
-    font-size: 14px;
-    font-weight: 600;
-    color: #000000;      /* Force pure black */
-    text-align: left;    /* Keep it to the left side */
-    
-    /* These lines prevent the name from disappearing if it's long */
-    min-width: 50px;     
-    white-space: normal; /* Allows wrapping if the name is long */
-    overflow: visible;/* Prevents long names from breaking the layout */
-}
-
-/* 5. Quantity Controls - FIXED */
-.productList .quantityContainer {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    flex-shrink: 0;      /* Prevents buttons from getting squashed */
-    margin-left: auto;
-    color:black;
-}
-
-/* 6. Buttons & Remove Button */
-.productList .quantityContainer button,
-.productList .removeBtn {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
     border: none;
-    border-radius: 6px;
-    font-size: 16px;
-    flex-shrink: 0;
+    cursor: pointer;
 }
-
-.productList .quantityContainer button {
-    width: 32px;
-    height: 32px;
-    background: #007bff;
-    color: #fff;
-}
-
-.productList .removeBtn {
-    background: red;
-    color: white;
-    width: 34px;
-    height: 34px;
-    margin-left: 4px; /* Small gap from quantity */
-}
-
-.cartFooter {
-  padding: 15px;
-  border-top: 1px solid #ddd;
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-  background: #f9f9f9;
-}
-
-.cartFooter button {
-  padding: 12px;
-  font-size: 16px;
-  cursor: pointer;
-  border-radius: 6px;
-  border: none;
-}
-
-.cartFooter .checkk {
-  background-color: #4CAF50;
-  color: white;
-}
-
-.cartFooter .close {
-  background-color: #f44336;
-  color: white;
-}
-
-
 
 
 
