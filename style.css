@@ -211,6 +211,7 @@ img{
 
 
 /* FULL SCREEN CART FOR ALL DEVICES */
+/* FULL SCREEN CART */
 .cartOverlay {
     position: fixed;
     top: 0;
@@ -231,7 +232,7 @@ body.active .cartOverlay {
     height: 100%;
     display: flex;
     flex-direction: column;
-    padding: 25px;
+    padding: 20px;
     box-sizing: border-box;
 }
 
@@ -239,10 +240,10 @@ body.active .cartOverlay {
     text-align: center;
     font-size: 2rem;
     font-weight: 800;
-    margin-bottom: 10px;
+    margin-bottom: 5px;
 }
 
-/* PRODUCT LIST STACK */
+/* PRODUCT LIST */
 .productList {
     flex: 1;
     overflow-y: auto;
@@ -252,94 +253,88 @@ body.active .cartOverlay {
 
 .productList li {
     display: flex;
-    flex-direction: column; /* Name on top, buttons below */
-    padding: 20px 0;
-    border-bottom: 1px solid #f1f1f1;
-    gap: 12px;
+    flex-direction: column; /* Name on top */
+    padding: 15px 0;
+    border-bottom: 1px solid #eee;
+    gap: 10px;
 }
 
-.productList .name {
-    font-size: 1.2rem;
+.productList .item-info {
+    font-size: 1.1rem;
     font-weight: 700;
     color: #000;
 }
 
-/* QUANTITY CONTROLS */
+/* BUTTONS GROUP (The line with buttons) */
 .quantityContainer {
     display: flex;
-    align-items: center;
+    align-items: center; /* Keeps them in a straight line */
     gap: 12px;
 }
 
-/* Sky Blue Buttons */
+/* Sky Blue Styling for + and - */
 .btn-minus, .btn-plus {
-    background-color: #87CEEB; 
+    background-color: #87CEEB !important; /* Sky Blue */
     color: white;
-    width: 40px;
-    height: 40px;
-    border: none;
-    border-radius: 8px;
-    font-size: 22px;
+    width: 35px;
+    height: 35px;
+    border: none; /* No Border */
+    border-radius: 8px; /* Curved edges */
+    font-size: 18px;
     font-weight: bold;
     cursor: pointer;
 }
 
-/* Red Delete Button with Radius and No Border */
+/* Red Delete Button Styling */
 .removeBtn {
-    background-color: #ff4d4d;
+    background-color: #ff4d4d !important;
     color: white;
-    width: 40px;
-    height: 40px;
-    border: none;
-    border-radius: 8px;
+    width: 35px;
+    height: 35px;
+    border: none; /* No Border */
+    border-radius: 8px; /* Curved edges */
     cursor: pointer;
     display: flex;
     justify-content: center;
     align-items: center;
 }
 
-.quantity {
-    font-size: 1.2rem;
+.quantity-val {
+    font-size: 1.1rem;
     font-weight: bold;
-    min-width: 25px;
+    min-width: 20px;
     text-align: center;
 }
 
-/* FOOTER BUTTONS */
-.cartFooter {
-    padding-top: 20px;
-}
-
+/* FOOTER */
 .total {
     text-align: right;
-    font-size: 1.5rem;
+    font-size: 1.4rem;
     font-weight: bold;
-    margin-bottom: 20px;
+    margin: 20px 0;
 }
 
 .checkk {
     width: 100%;
     background: #4CAF50;
     color: white;
-    padding: 20px;
+    padding: 18px;
     border-radius: 12px;
+    border: none;
     font-size: 1.2rem;
     font-weight: bold;
-    border: none;
-    margin-bottom: 10px;
 }
 
 .close {
     width: 100%;
     background: #f44336;
     color: white;
-    padding: 15px;
+    padding: 12px;
     border-radius: 12px;
     border: none;
+    margin-top: 10px;
     font-weight: bold;
 }
-
-
 
 
 
