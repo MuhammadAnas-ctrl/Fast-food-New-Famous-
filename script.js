@@ -191,7 +191,6 @@ function displayProducts(itemsToDisplay) {
             let priceDisplay = typeof item.price === 'object' ? `S:${item.price.small} Rs` : `${item.price} Rs`;
 
             div.innerHTML = `
-                <img src="${item.image}" onerror="this.src='images/default-food.jpg'"/>
                 <div class="name">${item.name}</div>
                 <div class="price">${priceDisplay}</div>
                 <button onClick="addtoCart(${originalIndex})"><i class="fa fa-cart-plus"></i> Add</button>
