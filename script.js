@@ -326,7 +326,23 @@ if (yearSpan) {
 }
 
 
+// 1. Function to fill the dropdown with food names
+function fillReviewDropdown() {
+    const select = document.getElementById('reviewItem');
+    
+    // Safety check: Make sure ArrProducts exists
+    if (typeof ArrProducts !== 'undefined') {
+        ArrProducts.forEach(product => {
+            let option = document.createElement('option');
+            option.value = product.name;
+            option.innerText = product.name;
+            select.appendChild(option);
+        });
+    }
+}
 
+// 2. Run this function when the page loads
+window.addEventListener('load', fillReviewDropdown);
 
 
 function addReview() {
