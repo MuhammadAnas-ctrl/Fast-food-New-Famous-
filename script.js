@@ -1,10 +1,34 @@
-let ArrProducts = [
-  { id: 1, name: "Product 1", image: "img1.png", price: "1000", rating: 5 },
-  { id: 2, name: "Product 2", image: "img2.png", price: "700", rating: 4 },
-  { id: 3, name: "Product 3", image: "img3.png", price: "3500", rating: 5 },
-  { id: 4, name: "Product 4", image: "img4.png", price: "1500", rating: 3 },
-  { id: 5, name: "Product 5", image: "img5.png", price: "2500", rating: 4 },
-  { id: 6, name: "Product 6", image: "img6.png", price: "900", rating: 3 },
+const ArrProducts = [
+  {
+    id: 1,
+    name: "Classic Cheeseburger",
+    price: 300,
+    category: "Burgers"
+  },
+  {
+    id: 2,
+    name: "Crispy Chicken Sandwich",
+    price: 400,
+    category: "Sandwiches"
+  },
+  {
+    id: 3,
+    name: "Large Golden Fries",
+    price: 100,
+    category: "Sides"
+  },
+  {
+    id: 4,
+    name: "Double Pepperoni Pizza",
+    price: 1200,
+    category: "Pizza"
+  },
+  {
+    id: 5,
+    name: "Tikka",
+    price: 300,
+    category: "Tikka"
+  }
 ];
 
 const body = document.querySelector("body"),
