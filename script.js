@@ -30,7 +30,7 @@ if (hamburger && navMenu) {
 // ==========================================
 const body = document.querySelector("body"),
   productsContainer = document.querySelector(".products"),
-  shoppingBasket = document.querySelector(".cart-count"),
+  shoppingBasket = document.querySelector(".cart-icon"),
   closeCart = document.querySelector(".close"),
   productList = document.querySelector(".productList"),
   quantity = document.querySelector(".quantity"),
