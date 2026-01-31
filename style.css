@@ -210,69 +210,109 @@ img{
 */
 
 
+/* 1. The Background Blur/Darkness */
 .cartOverlay {
-  position: fixed;
-  inset: 0;
-  background: rgba(0,0,0,0.4);
-  display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7); /* Darkens the rest of the screen */
+    z-index: 2000;
+    display: none; /* Hidden by default - JS toggles this */
+    justify-content: flex-end; /* Pushes the cart to the right side */
 }
 
-.cartOverlay.active {
-  display: flex;
-  
-}
-
-.cartContent {
-  background: #fff;
-  width: 100%;
-  
-  height: 100vh;
-    color: black;
-  display: flex;
-  flex-direction: column;
-}
-
-/*
-
-.cartOverlay {
-  position: fixed;
-  top: 0;
-  right: 0;
-  width: 400px;
-  height: 100%;
-  background-color: #fff;
-  box-shadow: -2px 0 10px rgba(0,0,0,0.2);
-  z-index: 1000;
-  display: none;
-  flex-direction: column;
-  overflow: hidden;
-  border-left: 1px solid #ddd;
-  padding: 10px 0;
-}
-*/
+/* When the cart is open (triggered by JS) */
 body.active .cartOverlay {
-  display: flex;
+    display: flex;
 }
-/*
+
+/* 2. The White Cart Sidebar */
 .cartContent {
-  display: flex;
-  flex-direction: column;
-  height: 100%;
+    width: 100%;
+    max-width: 400px; /* Looks like a sidebar on desktop, full width on small mobile */
+    background-color: #fff;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+    box-shadow: -5px 0 15px rgba(0,0,0,0.2);
 }
-*/
+
 .cartTitle {
-  font-size: 22px;
-  font-weight: 700;
-  padding: 15px;
-  text-align: center;
+    font-size: 1.5rem;
+    margin-bottom: 10px;
+    color: #333;
+    text-align: center;
 }
 
-
-.cartContent hr {
-  border: 1px solid #ddd;
-  margin-bottom: 10px;
+/* 3. The Scrollable List Area */
+.productList {
+    flex: 1; /* Takes up all available space between header and footer */
+    overflow-y: auto; /* Makes only the items scrollable */
+    margin-top: 15px;
+    padding: 0;
+    list-style: none;
 }
 
+/* 4. Cart Footer & Buttons */
+.cartFooter {
+    border-top: 2px solid #eee;
+    padding-top: 20px;
+    margin-top: 10px;
+}
+
+.total {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 1.2rem;
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+
+.total small {
+    font-size: 0.9rem;
+    color: #777;
+}
+
+/* Checkout Button */
+.checkk {
+    width: 100%;
+    padding: 15px;
+    background-color: #ffbe76; /* Your theme color */
+    color: #000;
+    border: none;
+    border-radius: 8px;
+    font-size: 1rem;
+    font-weight: bold;
+    cursor: pointer;
+    margin-bottom: 10px;
+}
+
+.checkk:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+/* Close Button */
+.close {
+    width: 100%;
+    padding: 10px;
+    background-color: #eee;
+    color: #333;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+/* 5. Mobile Adjustments */
+@media (max-width: 480px) {
+    .cartContent {
+        max-width: 85%; /* Shows a little bit of the background so user knows they can tap out */
+    }
+}
 
 /* 1. Main List Container */
 .productList {
