@@ -208,111 +208,110 @@ img{
     transition: 0.5s;
 }
 */
-
-
-/* 1. The Background Blur/Darkness */
+/* 1. The Main Overlay (The Background) */
 .cartOverlay {
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    background-color: rgba(0, 0, 0, 0.7); /* Darkens the rest of the screen */
-    z-index: 2000;
-    display: none; /* Hidden by default - JS toggles this */
-    justify-content: flex-end; /* Pushes the cart to the right side */
+    background-color: rgba(0, 0, 0, 0.7);
+    z-index: 3000;
+    display: none; /* JS toggles body.active to show this */
+    /* Mobile Default: Center it */
+    justify-content: center; 
+    align-items: center;
 }
 
-/* When the cart is open (triggered by JS) */
+/* Show overlay when body has .active class */
 body.active .cartOverlay {
     display: flex;
 }
 
-/* 2. The White Cart Sidebar */
+/* 2. The Cart Box (The White Part) */
 .cartContent {
-    width: 100%;
-    max-width: 400px; /* Looks like a sidebar on desktop, full width on small mobile */
     background-color: #fff;
-    height: 100%;
     display: flex;
     flex-direction: column;
+    position: relative;
+    transition: all 0.4s ease;
+    
+    /* MOBILE: Covers 100% of the screen */
+    width: 100vw;
+    height: 100vh;
     padding: 20px;
-    box-shadow: -5px 0 15px rgba(0,0,0,0.2);
 }
 
-.cartTitle {
-    font-size: 1.5rem;
-    margin-bottom: 10px;
-    color: #333;
-    text-align: center;
-}
-
-/* 3. The Scrollable List Area */
+/* 3. The List Area (Scrollable) */
 .productList {
-    flex: 1; /* Takes up all available space between header and footer */
-    overflow-y: auto; /* Makes only the items scrollable */
-    margin-top: 15px;
+    flex: 1;
+    overflow-y: auto;
+    margin: 15px 0;
     padding: 0;
     list-style: none;
 }
 
-/* 4. Cart Footer & Buttons */
+/* 4. Individual Item Layout (Flex Fix) */
+.productList li {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 0;
+    border-bottom: 1px solid #eee;
+}
+
+/* 5. Footer and Buttons */
 .cartFooter {
-    border-top: 2px solid #eee;
-    padding-top: 20px;
-    margin-top: 10px;
+    border-top: 2px solid #f8f9fa;
+    padding-top: 15px;
 }
 
 .total {
     display: flex;
     justify-content: space-between;
-    align-items: center;
     font-size: 1.2rem;
     font-weight: bold;
-    margin-bottom: 20px;
+    margin-bottom: 15px;
 }
 
-.total small {
-    font-size: 0.9rem;
-    color: #777;
-}
-
-/* Checkout Button */
-.checkk {
+.checkk, .close {
     width: 100%;
     padding: 15px;
-    background-color: #ffbe76; /* Your theme color */
-    color: #000;
-    border: none;
-    border-radius: 8px;
-    font-size: 1rem;
+    border-radius: 10px;
     font-weight: bold;
-    cursor: pointer;
-    margin-bottom: 10px;
-}
-
-.checkk:disabled {
-    opacity: 0.5;
-    cursor: not-allowed;
-}
-
-/* Close Button */
-.close {
-    width: 100%;
-    padding: 10px;
-    background-color: #eee;
-    color: #333;
     border: none;
-    border-radius: 8px;
+    margin-bottom: 10px;
     cursor: pointer;
 }
 
-/* 5. Mobile Adjustments */
-@media (max-width: 480px) {
+.checkk { background: #ffbe76; color: #000; }
+.close { background: #eee; color: #333; }
+
+/* ==========================================
+   6. RESPONSIVE: TABLET & DESKTOP 
+   ========================================== */
+@media (min-width: 768px) {
+    .cartOverlay {
+        /* On bigger screens, push it to the LEFT */
+        justify-content: flex-start; 
+    }
+
     .cartContent {
-        max-width: 85%; /* Shows a little bit of the background so user knows they can tap out */
+        /* On bigger screens, don't cover everything */
+        width: 400px; 
+        height: 100vh;
+        box-shadow: 5px 0 15px rgba(0,0,0,0.3);
+        /* Simple slide animation from left */
+        animation: slideFromLeft 0.4s ease-out;
     }
 }
+
+@keyframes slideFromLeft {
+    from { transform: translateX(-100%); }
+    to { transform: translateX(0); }
+}
+
+
 
 /* 1. Main List Container */
 .productList {
