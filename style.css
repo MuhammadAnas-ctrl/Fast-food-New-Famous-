@@ -1204,3 +1204,88 @@ footer h2{
         text-align: left;
     }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+.reviews-section {
+    padding: 50px 20px;
+    background: #f9f9f9;
+    overflow: hidden;
+}
+
+.review-form {
+    max-width: 600px;
+    margin: 0 auto 40px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.review-form input, .review-form textarea, .review-form select {
+    padding: 12px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    outline: none;
+}
+
+.review-form button {
+    background: #87CEEB; /* Your Sky Blue */
+    color: white;
+    padding: 12px;
+    border: none;
+    border-radius: 8px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+/* HORIZONTAL CONTAINER */
+.reviews-container {
+    display: flex;
+    gap: 20px;
+    overflow-x: auto; /* Enables horizontal scroll */
+    padding: 20px 10px;
+    scroll-behavior: smooth;
+    scrollbar-width: none; /* Hides scrollbar on Firefox */
+}
+
+.reviews-container::-webkit-scrollbar {
+    display: none; /* Hides scrollbar on Chrome/Safari */
+}
+
+/* THE CARDS */
+.review-card {
+    min-width: 280px; /* Width of each review card */
+    max-width: 280px;
+    background: white;
+    padding: 20px;
+    border-radius: 15px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+    flex-shrink: 0; /* Prevents cards from squishing */
+    border-top: 4px solid #87CEEB;
+}
+
+.review-card h4 {
+    color: #e67e22; /* Foodie Orange */
+    margin-bottom: 8px;
+}
+
+.review-card p {
+    font-style: italic;
+    font-size: 0.95rem;
+    margin-bottom: 10px;
+}
+
+.review-card span {
+    font-weight: bold;
+    font-size: 0.8rem;
+    color: #777;
+}
