@@ -2,15 +2,15 @@
 // 1. DATA ARRAY (ArrProducts)
 // ==========================================
 const ArrProducts = [
-  { id: 1, category: "B.B.Q", name: "Chicken Tikka (Chest)", price: 450, image: "https://images.unsplash.com/photo-1599487488170-d11ec9c172f0?auto=format&fit=crop&w=500" },
-  { id: 2, category: "B.B.Q", name: "Chicken Tikka (Leg)", price: 400, image: "https://images.unsplash.com/photo-1632778149975-420e0e75ee08?auto=format&fit=crop&w=500" },
-  { id: 3, category: "B.B.Q", name: "Green Tikka (Chest)", price: 520, image: "https://images.unsplash.com/photo-1606787366850-de6330128bfc?auto=format&fit=crop&w=500" },
-  { id: 14, category: "Rolls", name: "Chicken Roll", price: 220, image: "https://images.unsplash.com/photo-1626700051175-656a433b915d?auto=format&fit=crop&w=500" },
-  { id: 15, category: "Rolls", name: "Chicken Zinger Roll", price: 350, image: "https://images.unsplash.com/photo-1662116765994-1e0e00c67089?auto=format&fit=crop&w=500" },
-  { id: 31, category: "Burger", name: "Zinger Burger", price: 400, image: "https://images.unsplash.com/photo-1571091718767-18b5b1457add?auto=format&fit=crop&w=500" },
-  { id: 32, category: "Burger", name: "Zinger Cheese Burger", price: 450, image: "https://images.unsplash.com/photo-1550547660-d9450f859349?auto=format&fit=crop&w=500" },
-  { id: 37, category: "Pizza", name: "Chicken Tikka Pizza", price: { small: 400, medium: 700, large: 999 }, image: "https://images.unsplash.com/photo-1513104890138-7c749659a591?auto=format&fit=crop&w=500" },
-  { id: 43, category: "SIDES", name: "French Fries", price: 100, image: "https://images.unsplash.com/photo-1630384066252-11e1f1582231?auto=format&fit=crop&w=500" }
+  { id: 1, category: "B.B.Q", name: "Chicken Tikka (Chest)", price: 450},
+  { id: 2, category: "B.B.Q", name: "Chicken Tikka (Leg)", price: 400 },
+  { id: 3, category: "B.B.Q", name: "Green Tikka (Chest)", price: 520 },
+  { id: 14, category: "Rolls", name: "Chicken Roll", price: 220 },
+  { id: 15, category: "Rolls", name: "Chicken Zinger Roll", price: 350},
+  { id: 31, category: "Burger", name: "Zinger Burger", price: 400l},
+  { id: 32, category: "Burger", name: "Zinger Cheese Burger", price: 450 },
+  { id: 37, category: "Pizza", name: "Chicken Tikka Pizza", price: { small: 400, medium: 700, large: 999 } },
+  { id: 43, category: "SIDES", name: "French Fries", price: 100 }
 ];
 const hamburger = document.getElementById('hamburger');
 const navMenu = document.getElementById('navMenu');
