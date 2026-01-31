@@ -1,175 +1,120 @@
-let cartItems = JSON.parse(localStorage.getItem("cartItems")) || [];
+// ==========================================
+// 1. SELECTORS & DATA
+// ==========================================
+// We use {} because cartItems is now an Object (for size keys)
+let cartItems = JSON.parse(localStorage.getItem("cartItems")) || {};
 
 const checkoutList = document.querySelector(".checkoutList");
 const checkoutTotal = document.querySelector(".checkoutTotal");
-
-// Load and render checkout list
-function loadCheckout() {
-  checkoutList.innerHTML = "";
-  let totalPrice = 0;
-  let count = 0;
-
-  cartItems.forEach((item, index) => {
-    if(item != null){
-      totalPrice += item.price * item.quantity;
-      count += item.quantity;
-
-      const li = document.createElement("li");
-      li.innerHTML = `
-        <img src="images/${item.image}" alt="${item.name}" />
-        <div class="name">${item.name}</div>
-        <div class="quantityContainer">
-          <button onclick="changeQuantity(${index}, ${item.quantity - 1})">-</button>
-          <div class="quantity">${item.quantity}</div>
-          <button onclick="changeQuantity(${index}, ${item.quantity + 1})">+</button>
-        </div>
-        <button class="removeBtn" onclick="removeItem(${index})">🗑️</button>
-      `;
-      checkoutList.appendChild(li);
-    }
-  });
-
-  checkoutTotal.innerHTML = `Subtotal (${count} items): ₹${totalPrice}`;
-}
-
-// Remove item
-function removeItem(index) {
-  cartItems.splice(index, 1);
-  localStorage.setItem("cartItems", JSON.stringify(cartItems));
-  loadCheckout();
-}
-
-// Change quantity
-function changeQuantity(index, newQuantity) {
-  if(newQuantity <= 0){
-    removeItem(index);
-  } else {
-    cartItems[index].quantity = newQuantity;
-    localStorage.setItem("cartItems", JSON.stringify(cartItems));
-    loadCheckout();
-  }
-}
-
-loadCheckout();
-
 const placeOrderBtn = document.getElementById("placeOrderBtn");
 
+// ==========================================
+// 2. RENDER CHECKOUT LIST
+// ==========================================
+function loadCheckout() {
+    if (!checkoutList) return;
+    checkoutList.innerHTML = "";
+    let totalPrice = 0;
+    let count = 0;
 
+    // Loop through the Object keys (e.g., "37_medium")
+    Object.keys(cartItems).forEach((key) => {
+        let item = cartItems[key];
+        
+        if (item != null) {
+            let itemTotal = item.price * item.quantity;
+            totalPrice += itemTotal;
+            count += item.quantity;
 
-function placeOrder() {
-  let cartItems = JSON.parse(localStorage.getItem("cartItems")) || [];
+            // Check if it's a pizza with a size
+            let sizeDisplay = item.selectedSize !== 'Standard' ? `<span class="size-tag">(${item.selectedSize})</span>` : '';
 
-  // 🛑 If cart is empty
-  if (cartItems.length === 0) {
-    alert("🛒 Your cart is empty!");
-    return;
-  }
+            const li = document.createElement("li");
+            li.style.display = "flex";
+            li.style.alignItems = "center";
+            li.style.gap = "15px";
+            li.style.marginBottom = "15px";
+            li.style.padding = "10px";
+            li.style.borderBottom = "1px solid #eee";
 
-  // Customer details
-  let name = document.getElementById("name").value.trim();
-  let phone = document.getElementById("phone").value.trim();
-  let address = document.getElementById("address").value.trim();
-  let city = document.getElementById("city").value.trim();
+            li.innerHTML = `
+                <img src="${item.image}" style="width:70px; height:70px; object-fit:cover; border-radius:8px;" />
+                <div style="flex:1;">
+                    <div class="name" style="font-weight:bold;">${item.name} ${sizeDisplay}</div>
+                    <div class="price" style="color:#e67e22;">${item.price} Rs</div>
+                </div>
+                <div class="quantityContainer" style="display:flex; align-items:center; gap:10px;">
+                    <button onclick="changeQuantity('${key}', ${item.quantity - 1})" style="padding:5px 10px;">-</button>
+                    <div class="quantity">${item.quantity}</div>
+                    <button onclick="changeQuantity('${key}', ${item.quantity + 1})" style="padding:5px 10px;">+</button>
+                </div>
+                <button class="removeBtn" onclick="removeItem('${key}')" style="background:none; border:none; cursor:pointer; font-size:1.2rem; margin-left:10px;">🗑️</button>
+            `;
+            checkoutList.appendChild(li);
+        }
+    });
 
-  if (!name || !phone || !address || !city) {
-    alert("⚠️ Please fill all details");
-    return;
-  }
-
-  // Generate Customer ID
-  let customerId = "ORD" + Date.now();
-
-  let message = `🛍️ *New Order Received*\n\n`;
-  message += `🆔 Order ID: ${customerId}\n`;
-  message += `👤 Name: ${name}\n`;
-  message += `📞 Phone: ${phone}\n`;
-  message += `🏠 Address: ${address}\n 🏙️ City: ${city}\n\n`;
-  message += `📚 *Order Items:*\n`;
-
-  let total = 0;
-
-  cartItems.forEach(item => {
-    if (item) {
-      let sub = item.price * item.quantity;
-      total += sub;
-      message += `• ${item.name} × ${item.quantity} = ₹${sub}\n`;
+    if (checkoutTotal) {
+        checkoutTotal.innerHTML = `<h3>Subtotal (${count} items): ${totalPrice} Rs</h3>`;
     }
-  });
-
-  message += `\n💰 *Total Amount:* ₹${total}\n`;
-  message += `\nThank you for your order 😊`;
-
-  const encodedMessage = encodeURIComponent(message);
-  
-  // WhatsApp number (OWNER)
-  let ownerNumber = "03021206595"; // replace with your number
-
-  window.open(`https://wa.me/${ownerNumber}?text=${encodedMessage}`, "_blank");
-
-
-  // Clear cart
-  localStorage.removeItem("cartItems");
 }
 
-
-
-
-
-
-/*
-// Generate a simple customer ID
-function generateCustomerID() {
-  return 'CUST-' + Math.floor(1000 + Math.random() * 9000);
+// ==========================================
+// 3. CART ACTIONS (Quantity & Remove)
+// ==========================================
+function removeItem(key) {
+    delete cartItems[key];
+    localStorage.setItem("cartItems", JSON.stringify(cartItems));
+    loadCheckout();
 }
 
-placeOrderBtn.addEventListener("click", (e) => {
-  e.preventDefault(); // prevent form submission
+function changeQuantity(key, newQuantity) {
+    if (newQuantity <= 0) {
+        removeItem(key);
+    } else {
+        cartItems[key].quantity = newQuantity;
+        localStorage.setItem("cartItems", JSON.stringify(cartItems));
+        loadCheckout();
+    }
+}
 
-  // Get customer details
-  const name = document.getElementById("name").value.trim();
-  const phone = document.getElementById("phone").value.trim();
-  const address = document.getElementById("address").value.trim();
-  const city = document.getElementById("city").value.trim();
+// ==========================================
+// 4. PLACE ORDER (WHATSAPP)
+// ==========================================
+function placeOrder() {
+    // Refresh cart items from storage
+    let currentCart = JSON.parse(localStorage.getItem("cartItems")) || {};
 
-  if (!name || !phone || !address || !city) {
-    alert("Please fill all details!");
-    return;
-  }
+    if (Object.keys(currentCart).length === 0) {
+        alert("🛒 Your cart is empty!");
+        return;
+    }
 
-  // Get cart items
-  let cartItems = JSON.parse(localStorage.getItem("cartItems")) || [];
-  if(cartItems.length === 0){
-    alert("Your cart is empty!");
-    return;
-  }
+    // Get Customer Details
+    let name = document.getElementById("name").value.trim();
+    let phone = document.getElementById("phone").value.trim();
+    let address = document.getElementById("address").value.trim();
+    let city = document.getElementById("city").value.trim();
 
-  // Generate customer ID
-  const customerID = generateCustomerID();
+    if (!name || !phone || !address || !city) {
+        alert("⚠️ Please fill all delivery details!");
+        return;
+    }
 
-  // Build message
-  let message = `🛒 *New Order Received*\n`;
-  message += `Customer ID: ${customerID}\n`;
-  message += `Name: ${name}\n`;
-  message += `Phone: ${phone}\n`;
-  message += `Address: ${address}\n`;
-  message += `City: ${city}\n\n`;
-  message += `📚 *Order Details:*\n`;
+    let customerId = "ORD" + Date.now().toString().slice(-6);
+    let message = `🛍️ *NEW ORDER RECEIVED*\n`;
+    message += `--------------------------\n`;
+    message += `🆔 *Order ID:* ${customerId}\n`;
+    message += `👤 *Name:* ${name}\n`;
+    message += `📞 *Phone:* ${phone}\n`;
+    message += `🏠 *Address:* ${address}, ${city}\n`;
+    message += `--------------------------\n`;
+    message += `🍕 *Items Ordered:*\n`;
 
-  let subtotal = 0;
-  cartItems.forEach((item, index) => {
-    message += `${index + 1}. ${item.name} × ${item.quantity} = ₹${item.price * item.quantity}\n`;
-    subtotal += item.price * item.quantity;
-  });
-
-  message += `\n💰 Subtotal: ₹${subtotal}`;
-
-  // Encode message for URL
-  const encodedMessage = encodeURIComponent(message);
-
-  // Your WhatsApp number (replace with your number with country code, no + or 0)
-  const yourNumber = "03021206595"; // Example: 919876543210 for India
-
-  // Open WhatsApp link
-  window.open(`https://wa.me/${yourNumber}?text=${encodedMessage}`, "_blank");
-});
-      */                                                             
+    let total = 0;
+    Object.keys(currentCart).forEach(key => {
+        let item = currentCart[key];
+        let sub = item.price * item.quantity;
+        total += sub;
+        let sizeInfo = item.selectedSize !== 'Standard' ? `(${item.selectedSize})` : '';
+        message += `• ${item.name} ${sizeInfo} x ${item.quantity} = ${sub
