@@ -1,46 +1,117 @@
 // ==========================================
-// 1. DATA ARRAY (With Stable Image Links)
+// 1. DATA ARRAY (ArrProducts)
 // ==========================================
 const ArrProducts = [
-  // --- B.B.Q ---
-  { id: 1, category: "B.B.Q", name: "Chicken Tikka (Chest)", price: 450, image: "https://images.unsplash.com/photo-1599487488170-d11ec9c172f0?w=500" },
-  { id: 2, category: "B.B.Q", name: "Chicken Tikka (Leg)", price: 400, image: "https://images.unsplash.com/photo-1632778149975-420e0e75ee08?w=500" },
-  { id: 5, category: "B.B.Q", name: "Chicken Malai Boti", price: 700, image: "https://images.unsplash.com/photo-1606491956689-2ea8c5369511?w=500" },
+  // --- FAMOUS B.B.Q ---
+  { id: 1, category: "B.B.Q", name: "Chicken Tikka (Chest)", price: 450 },
+  { id: 2, category: "B.B.Q", name: "Chicken Tikka (Leg)", price: 400 },
+  { id: 3, category: "B.B.Q", name: "Green Tikka (Chest)", price: 520 },
+  { id: 4, category: "B.B.Q", name: "Malai Tikka (Chest)", price: 520 },
+  { id: 5, category: "B.B.Q", name: "Chicken Malai Boti (Plate)", price: 700 },
+  { id: 6, category: "B.B.Q", name: "Beef Boti (Plate)", price: 700 },
+  { id: 7, category: "B.B.Q", name: "Beef Bihari Boti (Plate)", price: 700 },
+  { id: 8, category: "B.B.Q", name: "Seekh Kabab Beef (Plate)", price: 600 },
+  { id: 9, category: "B.B.Q", name: "Chicken Boti Spicy (Plate)", price: 550 },
+  { id: 10, category: "B.B.Q", name: "Gola Kabab (Plate)", price: 550 },
+  { id: 11, category: "B.B.Q", name: "Reshmi Kabab (Plate)", price: 550 },
+  { id: 12, category: "B.B.Q", name: "Dhaga Kabab (Plate)", price: 550 },
+  { id: 13, category: "B.B.Q", name: "Turkish Kabab (Plate)", price: 650 },
 
-  // --- ROLLS ---
-  { id: 14, category: "Rolls", name: "Chicken Roll", price: 220, image: "https://images.unsplash.com/photo-1626700051175-656a433b915d?w=500" },
-  { id: 15, category: "Rolls", name: "Chicken Zinger Roll", price: 350, image: "https://images.unsplash.com/photo-1662116765994-1e0e00c67089?w=500" },
+  // --- FAMOUS ROLLS ---
+  { id: 14, category: "Rolls", name: "Chicken Roll", price: 220 },
+  { id: 15, category: "Rolls", name: "Chicken Zinger Roll", price: 350 },
+  { id: 16, category: "Rolls", name: "Chicken Cheese Roll", price: 280 },
+  { id: 17, category: "Rolls", name: "Chicken Mayo Garlic Roll", price: 280 },
+  { id: 18, category: "Rolls", name: "Beef Boti Roll", price: 260 },
+  { id: 19, category: "Rolls", name: "Beef Cheese Roll", price: 300 },
+  { id: 20, category: "Rolls", name: "Kabab Roll", price: 250 },
+  { id: 21, category: "Rolls", name: "Kabab Cheese Roll", price: 300 },
+  { id: 22, category: "Rolls", name: "Beef Mayo Garlic Roll", price: 300 },
+  { id: 23, category: "Rolls", name: "Reshmi Kabab Roll", price: 280 },
+  { id: 24, category: "Rolls", name: "Reshmi Kabab Cheese Roll", price: 300 },
+  { id: 25, category: "Rolls", name: "Chicken Malai Roll", price: 280 },
 
-  // --- BURGERS ---
-  { id: 31, category: "Burger", name: "Zinger Burger", price: 400, image: "https://images.unsplash.com/photo-1571091718767-18b5b1457add?w=500" },
-  { id: 32, category: "Burger", name: "Zinger Cheese Burger", price: 450, image: "https://images.unsplash.com/photo-1550547660-d9450f859349?w=500" },
+  // --- FAMOUS BROAST ---
+  { id: 26, category: "Broast", name: "Quarter Broast (Chest)", price: 480 },
+  { id: 27, category: "Broast", name: "Crispy Broast (Quarter)", price: 500 },
+  { id: 28, category: "Broast", name: "Spicy Broast (Quarter)", price: 500 },
+  { id: 29, category: "Broast", name: "Garlic Broast", price: 550 },
+  { id: 30, category: "Broast", name: "Cheese Broast", price: 550 },
 
-  // --- PIZZA (Sizes Object) ---
-  { id: 37, category: "Pizza", name: "Chicken Tikka Pizza", price: { small: 400, medium: 700, large: 999 }, image: "https://images.unsplash.com/photo-1513104890138-7c749659a591?w=500" },
-  { id: 38, category: "Pizza", name: "Kabab Hunter Pizza", price: { small: 400, medium: 800, large: 1199 }, image: "https://images.unsplash.com/photo-1593560708920-61dd98c46a4e?w=500" },
+  // --- FAMOUS BURGERS ---
+  { id: 31, category: "Burger", name: "Zinger Burger", price: 400 },
+  { id: 32, category: "Burger", name: "Zinger Cheese Burger", price: 450 },
+  { id: 33, category: "Burger", name: "Jumbo Zinger", price: 750 },
+  { id: 34, category: "Burger", name: "Chicken Burger", price: 330 },
+  { id: 35, category: "Burger", name: "Beef Burger", price: 350 },
+  { id: 36, category: "Burger", name: "Chicken Grill Burger", price: 400 },
+
+  // --- FAMOUS PIZZA (With Sizes) ---
+  { id: 37, category: "Pizza", name: "Chicken Tikka / Fajita / Supreme", price: { small: 400, medium: 700, large: 999 } },
+  { id: 38, category: "Pizza", name: "Pizza Kabab Hunter", price: { small: 400, medium: 800, large: 1199 } },
+  { id: 39, category: "Pizza", name: "Famous Speciality Pizza", price: { medium: 900, large: 1299 } },
+  { id: 40, category: "Pizza", name: "Kabab Popper (Any Flavor)", price: { medium: 1000, large: 1399 } },
+
+  // --- PIZZA FRIES ---
+  { id: 41, category: "Pizza Fries", name: "Pizza Fries Creamy Blast", price: { small: 400, medium: 600 } },
+  { id: 42, category: "Pizza Fries", name: "Pizza Fries Peri Peri Garlic", price: { small: 400, medium: 600 } },
 
   // --- SIDES ---
-  { id: 43, category: "SIDES", name: "French Fries", price: 100, image: "https://images.unsplash.com/photo-1630384066252-11e1f1582231?w=500" }
+  { id: 43, category: "SIDES", name: "French Fries", price: 100 },
+  { id: 44, category: "SIDES", name: "Puri Paratha (Small)", price: 50 },
+  { id: 45, category: "SIDES", name: "Puri Paratha (Large)", price: 80 }
 ];
 
-// Initialize Cart as Object for Size Support
-let cartItems = JSON.parse(localStorage.getItem("cartItems")) || {};
+// ==========================================
+// 2. SELECTORS
+// ==========================================
+const body = document.querySelector("body"),
+  productsContainer = document.querySelector(".products"),
+  shoppingBasket = document.querySelector(".shoppingBasket"),
+  closeCart = document.querySelector(".close"),
+  productList = document.querySelector(".productList"),
+  quantity = document.querySelector(".quantity"),
+  total = document.querySelector(".total"),
+  checkk = document.querySelector(".checkk"),
+  searchInput = document.querySelector(".search-input");
+
+let checkOutList = JSON.parse(localStorage.getItem("cartItems")) || [];
 
 // ==========================================
-// 2. DISPLAY PRODUCTS
+// 3. CATEGORY FILTER LOGIC
+// ==========================================
+function setupCategoryFilters() {
+    const filterContainer = document.getElementById('categoryFilter');
+    if (!filterContainer) return;
+
+    const categories = ['All', ...new Set(ArrProducts.map(item => item.category))];
+    filterContainer.innerHTML = categories.map(cat => `
+        <button class="filter-btn" onclick="filterByCategory('${cat}')">${cat}</button>
+    `).join('');
+}
+
+function filterByCategory(selectedCategory) {
+    if (selectedCategory === 'All') {
+        displayProducts(ArrProducts);
+    } else {
+        const filtered = ArrProducts.filter(item => item.category === selectedCategory);
+        displayProducts(filtered);
+    }
+}
+
+// ==========================================
+// 4. PRODUCT DISPLAY LOGIC
 // ==========================================
 function displayProducts(itemsToDisplay) {
-    const productsContainer = document.getElementById('productsContainer');
     if (!productsContainer) return;
     productsContainer.innerHTML = ""; 
 
-    const categories = [...new Set(itemsToDisplay.map(item => item.category))];
+    const currentCategories = [...new Set(itemsToDisplay.map(item => item.category))];
 
-    categories.forEach(cat => {
-        // Add Category Header
+    currentCategories.forEach(cat => {
         let header = document.createElement("h2");
         header.classList.add("category-header");
-        header.innerHTML = cat;
+        header.innerHTML = `<span></span> ${cat} <span></span>`;
         header.style.gridColumn = "1 / -1";
         productsContainer.appendChild(header);
 
@@ -51,13 +122,12 @@ function displayProducts(itemsToDisplay) {
             let div = document.createElement("div");
             div.classList.add("item");
 
-            // Display "Starting from" price for pizzas
             let priceDisplay = typeof item.price === 'object' 
-                ? `Starts at ${item.price.small} Rs` 
+                ? `S:${item.price.small} | M:${item.price.medium}` 
                 : `${item.price} Rs`;
 
             div.innerHTML = `
-                <img src="${item.image}" alt="${item.name}"/>
+                <img src="images/${item.id}.jpg" onerror="this.src='images/default-food.jpg'"/>
                 <div class="name">${item.name}</div>
                 <div class="price">${priceDisplay}</div>
                 <button onClick="addtoCart(${originalIndex})"><i class="fa fa-cart-plus"></i> Add to Cart</button>
@@ -68,13 +138,32 @@ function displayProducts(itemsToDisplay) {
 }
 
 // ==========================================
-// 3. CART & MODAL LOGIC
+// 5. SEARCH LOGIC
 // ==========================================
+if (searchInput) {
+    searchInput.addEventListener('input', (e) => {
+        const searchTerm = e.target.value.toLowerCase();
+        const filtered = ArrProducts.filter(item => 
+            item.name.toLowerCase().includes(searchTerm) || 
+            item.category.toLowerCase().includes(searchTerm)
+        );
+        displayProducts(filtered);
+    });
+}
+
+// ==========================================
+// 6. CART LOGIC
+// ==========================================
+// --- Updated Cart Logic with Size Selection ---
+
 function addtoCart(index) {
     const item = ArrProducts[index];
+
+    // If item has sizes (like Pizza), show the Modal
     if (typeof item.price === 'object') {
         showSizeModal(index);
     } else {
+        // Regular item (Burger/BBQ), add directly
         confirmAddToCart(index, item.price, 'Standard');
     }
 }
@@ -86,11 +175,12 @@ function showSizeModal(index) {
     const nameLabel = document.getElementById('modalItemName');
 
     nameLabel.innerText = item.name;
-    optionsContainer.innerHTML = ""; 
+    optionsContainer.innerHTML = ""; // Clear old buttons
 
+    // Create buttons for available sizes
     for (let size in item.price) {
         let btn = document.createElement("button");
-        btn.classList.add("size-btn");
+        btn.classList.add("size-choice-btn");
         btn.innerText = `${size.toUpperCase()} - ${item.price[size]} Rs`;
         btn.onclick = () => {
             confirmAddToCart(index, item.price[size], size);
@@ -98,81 +188,110 @@ function showSizeModal(index) {
         };
         optionsContainer.appendChild(btn);
     }
+
     modal.style.display = "flex";
 }
 
 function confirmAddToCart(index, price, size) {
-    // Fresh read from storage
-    cartItems = JSON.parse(localStorage.getItem("cartItems")) || {};
-    
+    // Create a unique key so Small Pizza and Large Pizza stay separate in cart
     let cartKey = index + "_" + size;
 
-    if (cartItems[cartKey]) {
-        cartItems[cartKey].quantity += 1;
-    } else {
-        cartItems[cartKey] = { 
+    if (checkOutList[cartKey] == null) {
+        checkOutList[cartKey] = { 
             ...ArrProducts[index], 
             quantity: 1, 
-            price: price, 
+            price: price, // Save the selected price
             selectedSize: size 
         };
+    } else {
+        checkOutList[cartKey].quantity += 1;
     }
     
-    localStorage.setItem("cartItems", JSON.stringify(cartItems));
-    updateCartCount();
-}
-
-function updateCartCount() {
-    const countElement = document.getElementById('cartCount');
-    if (!countElement) return;
-    
-    let totalCount = 0;
-    Object.keys(cartItems).forEach(key => {
-        totalCount += cartItems[key].quantity;
-    });
-    countElement.innerText = totalCount;
+    reloadCart();
 }
 
 function closeModal() {
     document.getElementById('sizeModal').style.display = "none";
 }
 
-// ==========================================
-// 4. SEARCH & FILTERS
-// ==========================================
-const searchInput = document.getElementById('searchInput');
-if (searchInput) {
-    searchInput.addEventListener('input', (e) => {
-        const term = e.target.value.toLowerCase();
-        const filtered = ArrProducts.filter(p => 
-            p.name.toLowerCase().includes(term) || p.category.toLowerCase().includes(term)
-        );
-        displayProducts(filtered);
-    });
+// Update reloadCart to show the size name in the cart
+function reloadCart() {
+  if (!productList) return;
+  productList.innerHTML = "";
+  let count = 0;
+  let totalPrice = 0;
+
+  for (let key in checkOutList) {
+    let item = checkOutList[key];
+    if (item != null) {
+      totalPrice += item.price * item.quantity;
+      count += item.quantity;
+
+      let li = document.createElement("li");
+      li.innerHTML = `
+        <div class="cart-item-info">
+            <div class="name">${item.name} (${item.selectedSize})</div>
+            <div class="price">${item.price} Rs</div>
+        </div>
+        <div class="quantityContainer">
+          <button onclick="changeQuantity('${key}', ${item.quantity - 1})">-</button>
+          <div class="quantity">${item.quantity}</div>
+          <button onclick="changeQuantity('${key}', ${item.quantity + 1})">+</button>
+        </div>
+        <button class="removeBtn" onclick="removeItem('${key}')">🗑️</button>
+      `;
+      productList.appendChild(li);
+    }
+  }
+
+  if (total) total.innerHTML = `<small>Total: </small> ${totalPrice} Rs`;
+  if (quantity) quantity.innerHTML = count;
+  saveCart();
+  updateCheckoutButton();
 }
 
-function setupCategoryFilters() {
-    const filterContainer = document.getElementById('categoryFilter');
-    if (!filterContainer) return;
-
-    const cats = ['All', ...new Set(ArrProducts.map(p => p.category))];
-    filterContainer.innerHTML = cats.map(cat => `
-        <button class="filter-btn" onclick="filterBy('${cat}')">${cat}</button>
-    `).join('');
+function removeItem(key) {
+  delete checkOutList[key];
+  reloadCart();
 }
 
-function filterBy(cat) {
-    const filtered = (cat === 'All') ? ArrProducts : ArrProducts.filter(p => p.category === cat);
-    displayProducts(filtered);
+function changeQuantity(key, q) {
+  if (q <= 0) {
+    delete checkOutList[key];
+  } else {
+    checkOutList[key].quantity = q;
+  }
+  reloadCart();
+}
+
+function saveCart() {
+  localStorage.setItem("cartItems", JSON.stringify(checkOutList));
+}
+
+function updateCheckoutButton() {
+  if (!checkk) return;
+  checkk.disabled = (quantity.innerHTML == 0);
+  checkk.style.opacity = (quantity.innerHTML == 0) ? "0.5" : "1";
 }
 
 // ==========================================
-// 5. INIT
+// 7. INITIALIZE & NAVIGATION
 // ==========================================
-function init() {
-    displayProducts(ArrProducts);
+function onInIt() {
     setupCategoryFilters();
-    updateCartCount();
+    displayProducts(ArrProducts);
+    reloadCart();
 }
 
-window.onload = init;
+// Cart UI Toggle
+if (shoppingBasket) shoppingBasket.onclick = () => body.classList.add("active");
+if (closeCart) closeCart.onclick = () => body.classList.remove("active");
+
+// THIS IS THE FIX: Open your checkout page
+if (checkk) {
+    checkk.onclick = () => {
+        window.location.href = "checkout.html"; // Make sure your file is named exactly this
+    };
+}
+
+onInIt();
