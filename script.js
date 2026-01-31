@@ -1,7 +1,7 @@
 const ArrProducts = [
   // --- B.B.Q ---
   { id: 1, category: "B.B.Q", name: "Chicken Tikka (Chest)", price: 450, image: "https://images.unsplash.com/photo-1599487488170-d11ec9c172f0?auto=format&fit=crop&w=500" },
-  { id: 2, category: "B.B.Q", name: "Chicken Tikka (Leg)", price: 400, image: "https://images.unsplash.com/photo-1632778149975-420e0e75ee08?auto=format&fit=crop&w=500" },
+  { id: 2, category: "B.B.Q", name: "Chicken Tikka (Leg)", price: 400, image: "https://unsplash.com/s/photos/bbq" },
   { id: 3, category: "B.B.Q", name: "Green Tikka (Chest)", price: 520, image: "https://images.unsplash.com/photo-1606787366850-de6330128bfc?auto=format&fit=crop&w=500" },
 
   // --- ROLLS ---
