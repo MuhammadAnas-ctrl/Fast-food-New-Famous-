@@ -281,3 +281,39 @@ if (closeCart) closeCart.onclick = () => body.classList.remove("active");
 if (checkk) checkk.onclick = () => window.location.href = "checkout.html";
 
 onInIt();
+
+
+
+
+
+
+
+
+
+
+
+function sendToWhatsApp() {
+    // 1. Get the values from the input fields
+    const name = document.getElementById('contactName').value;
+    const email = document.getElementById('contactEmail').value;
+    const message = document.getElementById('contactMessage').value;
+
+    // 2. Simple validation to make sure they filled the fields
+    if (name === "" || message === "") {
+        alert("Please enter your name and message first! 😊");
+        return;
+    }
+
+    // 3. Your phone number (with country code, no + or 00)
+    const phoneNumber = "923021206595"; 
+
+    // 4. Format the text for WhatsApp (using %0A for new lines)
+    const text = `*New Contact Message*%0A%0A` +
+                 `👤 *Name:* ${name}%0A` +
+                 `📧 *Email:* ${email}%0A` +
+                 `💬 *Message:* ${message}`;
+
+    // 5. Open the WhatsApp URL
+    const whatsappURL = `https://wa.me/${phoneNumber}?text=${text}`;
+    window.open(whatsappURL, '_blank');
+}
