@@ -14,9 +14,9 @@ html {
 }
 
 /* Optional: Offset for the Sticky Header */
+/* This adds a "buffer" so the header doesn't cover your title */
 section {
     scroll-margin-top: 80px; 
-    /* This prevents the sticky navbar from covering the section title */
 }
 /* --- Desktop & Base Styles --- */
 .logo {
