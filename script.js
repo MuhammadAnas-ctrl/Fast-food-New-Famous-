@@ -29,11 +29,11 @@ const body = document.querySelector("body"),
 let checkOutList = JSON.parse(localStorage.getItem("cartItems")) || {};
 
 // ==========================================
-// 3. STYLISH POPUP (TOAST) INJECTOR
+// 3. STYLES INJECTOR (Toast + BackToTop)
 // ==========================================
-// This adds the "Cool" popup styles automatically
 const style = document.createElement('style');
 style.innerHTML = `
+  /* Toast Popup */
   .toast-notification {
     position: fixed;
     bottom: 30px;
@@ -52,28 +52,67 @@ style.innerHTML = `
     gap: 10px;
   }
   .toast-active { transform: translateX(-50%) translateY(0); }
-  .toast-icon { background: #ffbe76; color: #000; border-radius: 50%; width: 20px; height: 20px; display: flex; justify-content: center; align-items: center; font-size: 12px; }
+  
+  /* Back to Top Button */
+  #backToTop {
+    position: fixed;
+    bottom: 90px;
+    right: 20px;
+    background: #ffbe76;
+    color: #333;
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+    cursor: pointer;
+    z-index: 999;
+    opacity: 0;
+    visibility: hidden;
+    transition: 0.3s;
+    border: none;
+  }
+  #backToTop.show { opacity: 1; visibility: visible; }
 `;
 document.head.appendChild(style);
 
+// ==========================================
+// 4. UTILITY FUNCTIONS (Toast & Scroll)
+// ==========================================
 function showToast(itemName) {
     let toast = document.createElement("div");
     toast.className = "toast-notification";
-    toast.innerHTML = `<span class="toast-icon">✓</span> ${itemName} added to cart!`;
+    toast.innerHTML = `<i class="fa fa-check-circle" style="color:#ffbe76"></i> ${itemName} added!`;
     document.body.appendChild(toast);
-
-    // Trigger animation
     setTimeout(() => toast.classList.add("toast-active"), 100);
-
-    // Remove after 3 seconds
     setTimeout(() => {
         toast.classList.remove("toast-active");
         setTimeout(() => toast.remove(), 400);
     }, 2500);
 }
 
+// Back to Top Logic
+const bttBtn = document.createElement("button");
+bttBtn.id = "backToTop";
+bttBtn.innerHTML = `<i class="fa fa-arrow-up"></i>`;
+document.body.appendChild(bttBtn);
+
+window.onscroll = function() {
+    if (document.body.scrollTop > 300 || document.documentElement.scrollTop > 300) {
+        bttBtn.classList.add("show");
+    } else {
+        bttBtn.classList.remove("show");
+    }
+};
+
+bttBtn.onclick = () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+};
+
 // ==========================================
-// 4. CATEGORY & DISPLAY LOGIC
+// 5. PRODUCT & FILTER LOGIC
 // ==========================================
 function setupCategoryFilters() {
     const filterContainer = document.getElementById('categoryFilter');
@@ -105,13 +144,13 @@ function displayProducts(itemsToDisplay) {
             let originalIndex = ArrProducts.findIndex(p => p.id === item.id);
             let div = document.createElement("div");
             div.classList.add("item");
-            let priceDisplay = typeof item.price === 'object' ? `S:${item.price.small} | M:${item.price.medium}` : `${item.price} Rs`;
+            let priceDisplay = typeof item.price === 'object' ? `S:${item.price.small} Rs` : `${item.price} Rs`;
 
             div.innerHTML = `
                 <img src="${item.image}" onerror="this.src='images/default-food.jpg'"/>
                 <div class="name">${item.name}</div>
                 <div class="price">${priceDisplay}</div>
-                <button onClick="addtoCart(${originalIndex})"><i class="fa fa-cart-plus"></i> Add to Cart</button>
+                <button onClick="addtoCart(${originalIndex})"><i class="fa fa-cart-plus"></i> Add</button>
             `;
             productsContainer.appendChild(div);
         });
@@ -119,7 +158,7 @@ function displayProducts(itemsToDisplay) {
 }
 
 // ==========================================
-// 5. CART CORE LOGIC
+// 6. CART CORE LOGIC
 // ==========================================
 function addtoCart(index) {
     const item = ArrProducts[index];
@@ -127,7 +166,7 @@ function addtoCart(index) {
         showSizeModal(index);
     } else {
         confirmAddToCart(index, item.price, 'Standard');
-        showToast(item.name); // 👈 Stylish Popup here
+        showToast(item.name);
     }
 }
 
@@ -144,7 +183,7 @@ function showSizeModal(index) {
         btn.innerText = `${size.toUpperCase()} - ${item.price[size]} Rs`;
         btn.onclick = () => {
             confirmAddToCart(index, item.price[size], size);
-            showToast(`${item.name} (${size})`); // 👈 Stylish Popup for Pizza
+            showToast(`${item.name} (${size})`);
             closeModal();
         };
         optionsContainer.appendChild(btn);
@@ -216,7 +255,7 @@ function changeQuantity(key, q) {
 function closeModal() { document.getElementById('sizeModal').style.display = "none"; }
 
 // ==========================================
-// 6. INITIALIZE
+// 7. INITIALIZE
 // ==========================================
 function onInIt() {
     setupCategoryFilters();
