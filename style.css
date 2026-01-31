@@ -8,70 +8,89 @@
     background-color: aqua;
     color: #fff;
 }
-body{
-    background-color: #fff;
-}
+/* --- Desktop & Base Styles --- */
 .main-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 15px 5%;
+    padding: 10px 5%;
     background: #fff;
     box-shadow: 0 2px 5px rgba(0,0,0,0.1);
     position: sticky;
     top: 0;
-    z-index: 10000; /* High z-index to stay on top */
+    z-index: 10000;
+    height: 70px; /* Keeps height consistent */
 }
 
 .nav-menu {
     display: flex;
     list-style: none;
-    gap: 25px;
+    gap: 30px;
+    margin: 0;
+    padding: 0;
+}
+
+/* 💻 PC VIEW: Force links to absolute center */
+@media (min-width: 993px) {
+    .hamburger {
+        display: none !important; /* Never show on PC */
+    }
+
+    .nav-menu {
+        position: absolute;
+        left: 50%;
+        transform: translateX(-50%);
+        display: flex !important; /* Always show on PC */
+    }
+}
+
+/* 📱 MOBILE & TABLET VIEW */
+@media (max-width: 992px) {
+    .hamburger {
+        display: block;
+        font-size: 24px;
+        cursor: pointer;
+        order: 3; /* Keeps it to the right of the cart if needed */
+    }
+
+    .nav-menu {
+        display: none; /* Hidden until toggled */
+        flex-direction: column;
+        position: absolute;
+        top: 70px; /* Right below the header */
+        left: 0;
+        width: 100%;
+        background: #fff;
+        padding: 20px 0;
+        text-align: center;
+        box-shadow: 0 5px 10px rgba(0,0,0,0.1);
+    }
+
+    /* This class is added by JavaScript */
+    .nav-menu.active {
+        display: flex !important;
+    }
+
+    .nav-menu li {
+        margin: 15px 0;
+    }
 }
 
 .nav-menu a {
     text-decoration: none;
     color: #333;
-    font-weight: bold;
+    font-weight: 600;
+    transition: 0.3s;
 }
 
-.hamburger {
-    display: none; /* Hidden on PC */
-    font-size: 24px;
-    cursor: pointer;
+.nav-menu a:hover {
+    color: #87CEEB; /* Your Sky Blue */
 }
 
-/* 📱 TABLET & MOBILE VIEW */
-@media (max-width: 992px) {
-    .hamburger {
-        display: block; /* Show 3-lines on Mobile */
-        margin-left: 15px;
-    }
-
-    .nav-menu {
-        display: none; /* Hide links on Mobile */
-        flex-direction: column;
-        position: absolute;
-        top: 100%;
-        left: 0;
-        width: 100%;
-        background: #fff;
-        padding: 20px;
-        box-shadow: 0 5px 5px rgba(0,0,0,0.1);
-    }
-
-    .nav-menu.active {
-        display: flex; /* Show when icon clicked */
-    }
-}
-
-/* 💻 PC VIEW (Centering the links) */
-@media (min-width: 993px) {
-    .nav-menu {
-        position: absolute;
-        left: 50%;
-        transform: translateX(-50%);
-    }
+.header-right {
+    display: flex;
+    align-items: center;
+    gap: 20px;
 }
 /* 1. The Main Grid Container */
 /* Container for the products */
