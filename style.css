@@ -11,121 +11,67 @@
 body{
     background-color: #fff;
 }
-.navbar {
-    position: sticky;
-    top: 0;
-    background: white;
-    padding: 15px 20px;
-    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-    z-index: 1000;
-}
-
-.nav-container {
+.main-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    max-width: 1200px;
-    margin: 0 auto;
+    padding: 15px 5%;
+    background: #fff;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    position: sticky;
+    top: 0;
+    z-index: 10000; /* High z-index to stay on top */
 }
 
-/* 📱 MOBILE VIEW (Default) */
-.nav-links {
-    display: none; /* Hidden by default on mobile */
-    position: absolute;
-    top: 70px;
-    left: 0;
-    width: 100%;
-    background: white;
-    flex-direction: column;
-    text-align: center;
-    padding: 20px 0;
-    box-shadow: 0 5px 10px rgba(0,0,0,0.1);
-}
-
-.nav-links.active {
-    display: flex; /* Shows when clicking the menu icon */
-}
-
-.nav-links li {
+.nav-menu {
+    display: flex;
     list-style: none;
-    margin: 15px 0;
+    gap: 25px;
 }
 
-.nav-links a {
+.nav-menu a {
     text-decoration: none;
     color: #333;
-    font-weight: 600;
+    font-weight: bold;
 }
 
-.nav-icons {
-    display: flex;
-    align-items: center;
-    gap: 15px;
-}
-
-.menu-toggle {
-    font-size: 1.5rem;
+.hamburger {
+    display: none; /* Hidden on PC */
+    font-size: 24px;
     cursor: pointer;
-    color: #333;
 }
 
-/* 💻 PC VIEW (Large Screens) */
-@media (min-width: 992px) {
-    .menu-toggle {
-        display: none; /* Hide the 3 lines icon on PC */
+/* 📱 TABLET & MOBILE VIEW */
+@media (max-width: 992px) {
+    .hamburger {
+        display: block; /* Show 3-lines on Mobile */
+        margin-left: 15px;
     }
 
-    .nav-links {
-        display: flex; /* Show links on PC */
-        position: static;
-        flex-direction: row;
-        width: auto;
-        box-shadow: none;
-        gap: 30px;
-        /* This pushes links to center */
+    .nav-menu {
+        display: none; /* Hide links on Mobile */
+        flex-direction: column;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        width: 100%;
+        background: #fff;
+        padding: 20px;
+        box-shadow: 0 5px 5px rgba(0,0,0,0.1);
+    }
+
+    .nav-menu.active {
+        display: flex; /* Show when icon clicked */
+    }
+}
+
+/* 💻 PC VIEW (Centering the links) */
+@media (min-width: 993px) {
+    .nav-menu {
         position: absolute;
         left: 50%;
         transform: translateX(-50%);
     }
-
-    .nav-links li {
-        margin: 0;
-    }
-}
-.container{
-    margin: auto;
-    transition: 0.5s;
-    width: 900px;
-    max-width: 90vw;
-}
-header{
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 15px 80px;
-    height: 80px;
-}
-h2{
-    cursor: pointer;
-}
-#carticon{
-    cursor: pointer;
-}
-.shoppingBasket{
-    position: relative;
-}
-
-.shoppingBasket .quantity{
-    background-color: red;
-    color: #fff;
-    border-radius: 50%;
-    padding: 0 8px;
-    position: absolute;
-    top: -15px;
-    left: 20px;
-}
-img{
-    width: 50px;
 }
 /* 1. The Main Grid Container */
 /* Container for the products */
