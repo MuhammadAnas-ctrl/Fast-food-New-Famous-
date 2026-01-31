@@ -15,10 +15,14 @@ const ArrProducts = [
 const hamburger = document.getElementById('hamburger');
 const navMenu = document.getElementById('navMenu');
 
-if(hamburger) {
-    hamburger.addEventListener('click', () => {
+if (hamburger && navMenu) {
+    hamburger.onclick = function() {
         navMenu.classList.toggle('active');
-        console.log("Menu toggled!"); // This helps us see if it works
+    };
+
+    // Close menu when a link is clicked (good for mobile)
+    document.querySelectorAll('.nav-menu a').forEach(link => {
+        link.onclick = () => navMenu.classList.remove('active');
     });
 }
 // ==========================================
