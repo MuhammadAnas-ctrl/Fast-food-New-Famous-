@@ -324,3 +324,35 @@ const yearSpan = document.getElementById('currentYear');
 if (yearSpan) {
     yearSpan.textContent = new Date().getFullYear();
 }
+
+
+
+
+
+function addReview() {
+    const item = document.getElementById('reviewItem').value;
+    const name = document.getElementById('reviewName').value;
+    const text = document.getElementById('reviewText').value;
+    const container = document.getElementById('reviewsContainer');
+
+    if (name === "" || text === "") {
+        alert("Please fill in your name and message! 😊");
+        return;
+    }
+
+    // Create the new review card
+    const card = document.createElement('div');
+    card.className = 'review-card';
+    card.innerHTML = `
+        <h4>${item}</h4>
+        <p>"${text}"</p>
+        <span>- ${name}</span>
+    `;
+
+    // Add it to the container (at the beginning)
+    container.prepend(card);
+
+    // Clear the form
+    document.getElementById('reviewName').value = "";
+    document.getElementById('reviewText').value = "";
+}
