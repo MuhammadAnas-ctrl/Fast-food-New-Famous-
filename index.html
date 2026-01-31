@@ -70,7 +70,26 @@
         <button class="close-modal" onclick="closeModal()">Cancel</button>
     </div>
 </div>
+<section class="reviews-section">
+    <h2 class="section-title">Customer Reviews</h2>
 
+    <div class="review-form">
+        <select id="reviewItem">
+            <option value="General">Select Item</option>
+            </select>
+        <input type="text" id="reviewName" placeholder="Your Name">
+        <textarea id="reviewText" placeholder="What do you think about the food?"></textarea>
+        <button type="button" onclick="addReview()">Post Review</button>
+    </div>
+
+    <div class="reviews-container" id="reviewsContainer">
+        <div class="review-card">
+            <h4>Zinger Burger</h4>
+            <p>"The best burger I've had in a long time! So juicy."</p>
+            <span>- Ali Khan</span>
+        </div>
+    </div>
+</section>
 <section class="contact-section" id="contact">
     <h2 class="section-title">Contact Us</h2>
     <div class="contact-container">
