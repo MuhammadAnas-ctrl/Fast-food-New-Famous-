@@ -1133,3 +1133,71 @@ footer h2{
         font-size: 3rem;
     }
 }
+
+
+
+.small-footer {
+    background-color: #1a1a1a; /* Dark professional background */
+    color: #ffffff;
+    padding: 20px 0;
+    margin-top: 50px;
+    width: 100%;
+}
+
+.footer-content {
+    max-width: 1100px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column; /* Stack on mobile */
+    align-items: center;
+    gap: 15px;
+    padding: 0 20px;
+}
+
+.small-footer p {
+    font-size: 0.9rem;
+    opacity: 0.8;
+    text-align: center;
+}
+
+.footer-links a {
+    color: #87CEEB; /* Your Sky Blue color */
+    text-decoration: none;
+    font-size: 0.85rem;
+    margin: 0 10px;
+    transition: 0.3s;
+}
+
+.footer-links a:hover {
+    text-decoration: underline;
+}
+
+.footer-socials {
+    display: flex;
+    gap: 20px;
+}
+
+.footer-socials a {
+    color: #fff;
+    font-size: 1.2rem;
+    transition: transform 0.3s, color 0.3s;
+}
+
+.footer-socials a:hover {
+    color: #87CEEB;
+    transform: translateY(-3px);
+}
+
+/* ==========================================
+   PC & TABLET VIEW (Horizontal)
+   ========================================== */
+@media (min-width: 768px) {
+    .footer-content {
+        flex-direction: row; /* Side-by-side on PC */
+        justify-content: space-between;
+    }
+    
+    .small-footer p {
+        text-align: left;
+    }
+}
