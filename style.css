@@ -209,106 +209,131 @@ img{
 }
 */
 /* 1. The Main Overlay (The Background) */
+/* 1. Full Screen Overlay for ALL devices */
 .cartOverlay {
     position: fixed;
     top: 0;
     left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.7);
-    z-index: 3000;
-    display: none; /* JS toggles body.active to show this */
-    /* Mobile Default: Center it */
-    justify-content: center; 
-    align-items: center;
-}
-
-/* Show overlay when body has .active class */
-body.active .cartOverlay {
-    display: flex;
-}
-
-/* 2. The Cart Box (The White Part) */
-.cartContent {
-    background-color: #fff;
-    display: flex;
-    flex-direction: column;
-    position: relative;
-    transition: all 0.4s ease;
-    
-    /* MOBILE: Covers 100% of the screen */
     width: 100vw;
     height: 100vh;
-    padding: 20px;
+    background-color: white; /* No transparency, covers everything */
+    z-index: 9999;
+    display: none; /* Toggled by JS */
 }
 
-/* 3. The List Area (Scrollable) */
+body.active .cartOverlay {
+    display: block; /* Show full screen */
+}
+
+/* 2. The Content Container */
+.cartContent {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+/* 3. Heading and Line */
+.cartTitle {
+    text-align: center;
+    font-size: 1.8rem;
+    margin: 10px 0;
+    color: #333;
+}
+
+hr {
+    border: 0;
+    border-top: 1px solid #ddd;
+    margin-bottom: 20px;
+}
+
+/* 4. The Product List Area */
 .productList {
     flex: 1;
     overflow-y: auto;
-    margin: 15px 0;
     padding: 0;
+    margin: 0;
     list-style: none;
 }
 
-/* 4. Individual Item Layout (Flex Fix) */
+/* 5. Item Row: Vertical Stack Fix */
 .productList li {
     display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 10px 0;
+    flex-direction: column; /* Puts controls UNDER the name */
+    padding: 20px 0;
     border-bottom: 1px solid #eee;
+    gap: 12px;
 }
 
-/* 5. Footer and Buttons */
+.productList li .name {
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: #222;
+}
+
+/* 6. Controls Container (Quantity + Delete) */
+.quantityContainer {
+    display: flex;
+    align-items: center;
+    gap: 15px; /* Space between buttons */
+}
+
+.quantityContainer button {
+    padding: 10px 15px;
+    font-size: 1rem;
+    font-weight: bold;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    color: white;
+}
+
+/* Colors from your screenshot */
+.btn-minus { background-color: #007bff; }
+.btn-plus { background-color: #007bff; }
+.removeBtn { background-color: #ff0000; padding: 10px 12px !important; }
+
+.quantity {
+    font-size: 1.1rem;
+    font-weight: bold;
+    min-width: 20px;
+    text-align: center;
+}
+
+/* 7. Bottom Buttons */
 .cartFooter {
-    border-top: 2px solid #f8f9fa;
-    padding-top: 15px;
+    padding-top: 20px;
 }
 
 .total {
-    display: flex;
-    justify-content: space-between;
-    font-size: 1.2rem;
+    text-align: right;
+    font-size: 1.4rem;
     font-weight: bold;
-    margin-bottom: 15px;
+    margin-bottom: 20px;
 }
 
-.checkk, .close {
+.checkk {
     width: 100%;
-    padding: 15px;
-    border-radius: 10px;
+    background: #4CAF50;
+    color: white;
+    padding: 18px;
+    border-radius: 12px;
+    font-size: 1.2rem;
     font-weight: bold;
     border: none;
     margin-bottom: 10px;
-    cursor: pointer;
 }
 
-.checkk { background: #ffbe76; color: #000; }
-.close { background: #eee; color: #333; }
-
-/* ==========================================
-   6. RESPONSIVE: TABLET & DESKTOP 
-   ========================================== */
-@media (min-width: 768px) {
-    .cartOverlay {
-        /* On bigger screens, push it to the LEFT */
-        justify-content: flex-start; 
-    }
-
-    .cartContent {
-        /* On bigger screens, don't cover everything */
-        width: 400px; 
-        height: 100vh;
-        box-shadow: 5px 0 15px rgba(0,0,0,0.3);
-        /* Simple slide animation from left */
-        animation: slideFromLeft 0.4s ease-out;
-    }
-}
-
-@keyframes slideFromLeft {
-    from { transform: translateX(-100%); }
-    to { transform: translateX(0); }
+.close {
+    width: 100%;
+    background: #f44336;
+    color: white;
+    padding: 15px;
+    border-radius: 12px;
+    border: none;
+    font-weight: bold;
 }
 
 
