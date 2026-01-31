@@ -7,28 +7,27 @@
     <title>New Famous</title>
 </head>
 <body>
-<nav class="navbar">
-    <div class="nav-container">
-        <div class="logo">CRUNCHY🍟</div>
+<header class="main-header">
+    <div class="logo">CRUNCHY🍟</div>
+    
+    <ul class="nav-menu" id="navMenu">
+        <li><a href="#home">Home</a></li>
+        <li><a href="#menu">Menu</a></li>
+        <li><a href="#reviews">Reviews</a></li>
+        <li><a href="#contact">Contact</a></li>
+    </ul>
 
-        <ul class="nav-links" id="navLinks">
-            <li><a href="#home">Home</a></li>
-            <li><a href="#menu">Menu</a></li>
-            <li><a href="#reviews">Reviews</a></li>
-            <li><a href="#contact">Contact</a></li>
-        </ul>
-
-        <div class="nav-icons">
-            <div class="cart-icon">
-                <i class="fa fa-shopping-cart"></i>
-                <span class="cart-count">0</span>
-            </div>
-            <div class="menu-toggle" id="mobile-menu">
-                <i class="fa fa-bars"></i>
-            </div>
+    <div class="header-right">
+        <div class="cart-icon" onclick="toggleCart()">
+             <i class="fa fa-shopping-cart"></i>
+             <span id="cart-count">0</span>
+        </div>
+        
+        <div class="hamburger" id="hamburger">
+            <i class="fa fa-bars"></i>
         </div>
     </div>
-</nav>
+</header>
 <section class="food-banner">
   <div class="banner-overlay">
     <div class="banner-content">
