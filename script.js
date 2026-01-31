@@ -338,7 +338,7 @@ function sendToWhatsApp() {
     }
 
     // 3. Your phone number (with country code, no + or 00)
-    const phoneNumber = "923021206595"; 
+    const phoneNumber = "YOUR Number"; 
 
     // 4. Format the text for WhatsApp (using %0A for new lines)
     const text = `*New Contact Message*%0A%0A` +
