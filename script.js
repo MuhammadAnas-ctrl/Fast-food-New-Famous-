@@ -25,6 +25,18 @@ if (hamburger && navMenu) {
         link.onclick = () => navMenu.classList.remove('active');
     });
 }
+
+window.addEventListener('load', function() {
+    const loader = document.getElementById('loading-screen');
+    
+    // Add a tiny delay so it doesn't flash too fast
+    setTimeout(() => {
+        loader.style.opacity = '0';
+        setTimeout(() => {
+            loader.style.display = 'none';
+        }, 500); // Wait for fade transition to finish
+    }, 1000); 
+});
 // ==========================================
 // 2. SELECTORS & INITIALIZATION
 // ==========================================
