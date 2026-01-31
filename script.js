@@ -1,34 +1,92 @@
 const ArrProducts = [
-  {
-    id: 1,
-    name: "Classic Cheeseburger",
-    price: 300,
-    category: "Burgers"
+  // --- FAMOUS B.B.Q ---
+  { id: 1, category: "B.B.Q", name: "Chicken Tikka (Chest)", price: 450 },
+  { id: 2, category: "B.B.Q", name: "Chicken Tikka (Leg)", price: 400 },
+  { id: 3, category: "B.B.Q", name: "Green Tikka (Chest)", price: 520 },
+  { id: 4, category: "B.B.Q", name: "Malai Tikka (Chest)", price: 520 },
+  { id: 5, category: "B.B.Q", name: "Chicken Malai Boti (Plate)", price: 700 },
+  { id: 6, category: "B.B.Q", name: "Beef Boti (Plate)", price: 700 },
+  { id: 7, category: "B.B.Q", name: "Beef Bihari Boti (Plate)", price: 700 },
+  { id: 8, category: "B.B.Q", name: "Seekh Kabab Beef (Plate)", price: 600 },
+  { id: 9, category: "B.B.Q", name: "Chicken Boti Spicy (Plate)", price: 550 },
+  { id: 10, category: "B.B.Q", name: "Gola Kabab (Plate)", price: 550 },
+  { id: 11, category: "B.B.Q", name: "Reshmi Kabab (Plate)", price: 550 },
+  { id: 12, category: "B.B.Q", name: "Dhaga Kabab (Plate)", price: 550 },
+  { id: 13, category: "B.B.Q", name: "Turkish Kabab (Plate)", price: 650 },
+
+  // --- FAMOUS ROLLS ---
+  { id: 14, category: "Rolls", name: "Chicken Roll", price: 220 },
+  { id: 15, category: "Rolls", name: "Chicken Zinger Roll", price: 350 },
+  { id: 16, category: "Rolls", name: "Chicken Cheese Roll", price: 280 },
+  { id: 17, category: "Rolls", name: "Chicken Mayo Garlic Roll", price: 280 },
+  { id: 18, category: "Rolls", name: "Beef Boti Roll", price: 260 },
+  { id: 19, category: "Rolls", name: "Beef Cheese Roll", price: 300 },
+  { id: 20, category: "Rolls", name: "Kabab Roll", price: 250 },
+  { id: 21, category: "Rolls", name: "Kabab Cheese Roll", price: 300 },
+  { id: 22, category: "Rolls", name: "Beef Mayo Garlic Roll", price: 300 },
+  { id: 23, category: "Rolls", name: "Reshmi Kabab Roll", price: 280 },
+  { id: 24, category: "Rolls", name: "Reshmi Kabab Cheese Roll", price: 300 },
+  { id: 25, category: "Rolls", name: "Chicken Malai Roll", price: 280 },
+
+  // --- FAMOUS BROAST ---
+  { id: 26, category: "Broast", name: "Quarter Broast (Chest)", price: 480 },
+  { id: 27, category: "Broast", name: "Crispy Broast (Quarter)", price: 500 },
+  { id: 28, category: "Broast", name: "Spicy Broast (Quarter)", price: 500 },
+  { id: 29, category: "Broast", name: "Garlic Broast", price: 550 },
+  { id: 30, category: "Broast", name: "Cheese Broast", price: 550 },
+
+  // --- FAMOUS BURGERS ---
+  { id: 31, category: "Burger", name: "Zinger Burger", price: 400 },
+  { id: 32, category: "Burger", name: "Zinger Cheese Burger", price: 450 },
+  { id: 33, category: "Burger", name: "Jumbo Zinger", price: 750 },
+  { id: 34, category: "Burger", name: "Chicken Burger", price: 330 },
+  { id: 35, category: "Burger", name: "Beef Burger", price: 350 },
+  { id: 36, category: "Burger", name: "Chicken Grill Burger", price: 400 },
+
+  // --- FAMOUS PIZZA (With Sizes) ---
+  { 
+    id: 37, 
+    category: "Pizza", 
+    name: "Chicken Tikka / Fajita / Supreme", 
+    price: { small: 400, medium: 700, large: 999 } 
   },
-  {
-    id: 2,
-    name: "Crispy Chicken Sandwich",
-    price: 400,
-    category: "Sandwiches"
+  { 
+    id: 38, 
+    category: "Pizza", 
+    name: "Pizza Kabab Hunter", 
+    price: { small: 400, medium: 800, large: 1199 } 
   },
-  {
-    id: 3,
-    name: "Large Golden Fries",
-    price: 100,
-    category: "Sides"
+  { 
+    id: 39, 
+    category: "Pizza", 
+    name: "Famous Speciality Pizza", 
+    price: { medium: 900, large: 1299 } 
   },
-  {
-    id: 4,
-    name: "Double Pepperoni Pizza",
-    price: 1200,
-    category: "Pizza"
+  { 
+    id: 40, 
+    category: "Pizza", 
+    name: "Kabab Popper (Any Flavor)", 
+    price: { medium: 1000, large: 1399 } 
   },
-  {
-    id: 5,
-    name: "Tikka",
-    price: 300,
-    category: "Tikka"
-  }
+
+  // --- PIZZA FRIES (With Sizes) ---
+  { 
+    id: 41, 
+    category: "Pizza Fries", 
+    name: "Pizza Fries Creamy Blast", 
+    price: { small: 400, medium: 600 } 
+  },
+  { 
+    id: 42, 
+    category: "Pizza Fries", 
+    name: "Pizza Fries Peri Peri Garlic", 
+    price: { small: 400, medium: 600 } 
+  },
+
+  // --- SIDES ---
+  { id: 43, category: "SIDES", name: "French Fries", price: 100 },
+  { id: 44, category: "SIDES", name: "Puri Paratha (Small)", price: 50 },
+  { id: 45, category: "SIDES", name: "Puri Paratha (Large)", price: 80 }
 ];
 
 const body = document.querySelector("body"),
