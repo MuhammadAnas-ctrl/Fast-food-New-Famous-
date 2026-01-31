@@ -4,41 +4,28 @@ let cartItems = JSON.parse(localStorage.getItem("cartItems")) || {};
 const checkoutList = document.querySelector(".checkoutList");
 const checkoutTotal = document.querySelector(".checkoutTotal");
 
-// Load and render checkout list
+// Load and render checkout l
+console.log("Current Cart Data:", localStorage.getItem("cartItems"));
+
 function loadCheckout() {
+  // Always fetch fresh data from LocalStorage
+  let cartItems = JSON.parse(localStorage.getItem("cartItems")) || {};
+  
   if (!checkoutList) return;
   checkoutList.innerHTML = "";
+  
+  let keys = Object.keys(cartItems);
+  
+  if (keys.length === 0) {
+    checkoutList.innerHTML = "<p>Your cart is empty! 🛒</p>";
+    return;
+  }
+
   let totalPrice = 0;
-  let count = 0;
-
-  // Use Object.keys because cartItems is an object now
-  Object.keys(cartItems).forEach((key) => {
+  keys.forEach((key) => {
     let item = cartItems[key];
-    
-    if (item != null) {
-      let sub = item.price * item.quantity;
-      totalPrice += sub;
-      count += item.quantity;
-
-      // Handle displaying size (like "Small") next to the name
-      let sizeText = item.selectedSize !== 'Standard' ? `(${item.selectedSize})` : '';
-
-      const li = document.createElement("li");
-      li.innerHTML = `
-        <img src="${item.image}" alt="${item.name}" />
-        <div class="name">${item.name} ${sizeText}</div>
-        <div class="quantityContainer">
-          <button onclick="changeQuantity('${key}', ${item.quantity - 1})">-</button>
-          <div class="quantity">${item.quantity}</div>
-          <button onclick="changeQuantity('${key}', ${item.quantity + 1})">+</button>
-        </div>
-        <button class="removeBtn" onclick="removeItem('${key}')">🗑️</button>
-      `;
-      checkoutList.appendChild(li);
-    }
+    // ... rest of your rendering code
   });
-
-  checkoutTotal.innerHTML = `Subtotal (${count} items): Rs ${totalPrice}`;
 }
 
 // Remove item using the unique Key (like "37_small")
