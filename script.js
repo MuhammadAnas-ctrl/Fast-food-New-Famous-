@@ -1,31 +1,23 @@
 const ArrProducts = [
-  // --- FAMOUS B.B.Q ---
-  { id: 1, category: "B.B.Q", name: "Chicken Tikka (Chest)", price: 450, image: "https://images.unsplash.com/photo-1599487488170-d11ec9c172f0?w=500&q=80" },
-  { id: 2, category: "B.B.Q", name: "Chicken Tikka (Leg)", price: 400, image: "https://images.unsplash.com/photo-1632778149975-420e0e75ee08?w=500&q=80" },
-  { id: 3, category: "B.B.Q", name: "Green Tikka (Chest)", price: 520, image: "https://images.unsplash.com/photo-1606787366850-de6330128bfc?w=500&q=80" },
-  { id: 9, category: "B.B.Q", name: "Chicken Boti Spicy", price: 550, image: "https://images.unsplash.com/photo-1594002494883-d1024395c0bb?w=500&q=80" },
+  // --- B.B.Q ---
+  { id: 1, category: "B.B.Q", name: "Chicken Tikka (Chest)", price: 450, image: "https://images.unsplash.com/photo-1599487488170-d11ec9c172f0?auto=format&fit=crop&w=500" },
+  { id: 2, category: "B.B.Q", name: "Chicken Tikka (Leg)", price: 400, image: "https://images.unsplash.com/photo-1632778149975-420e0e75ee08?auto=format&fit=crop&w=500" },
+  { id: 3, category: "B.B.Q", name: "Green Tikka (Chest)", price: 520, image: "https://images.unsplash.com/photo-1606787366850-de6330128bfc?auto=format&fit=crop&w=500" },
 
-  // --- FAMOUS ROLLS ---
-  { id: 14, category: "Rolls", name: "Chicken Roll", price: 220, image: "https://images.unsplash.com/photo-1626700051175-656a433b915d?w=500&q=80" },
-  { id: 15, category: "Rolls", name: "Chicken Zinger Roll", price: 350, image: "https://images.unsplash.com/photo-1662116765994-1e0e00c67089?w=500&q=80" },
+  // --- ROLLS ---
+  { id: 14, category: "Rolls", name: "Chicken Roll", price: 220, image: "https://images.unsplash.com/photo-1626700051175-656a433b915d?auto=format&fit=crop&w=500" },
+  { id: 15, category: "Rolls", name: "Chicken Zinger Roll", price: 350, image: "https://images.unsplash.com/photo-1662116765994-1e0e00c67089?auto=format&fit=crop&w=500" },
 
-  // --- FAMOUS BROAST ---
-  { id: 26, category: "Broast", name: "Quarter Broast", price: 480, image: "https://images.unsplash.com/photo-1562967914-608f82629710?w=500&q=80" },
-  { id: 27, category: "Broast", name: "Crispy Broast", price: 500, image: "https://images.unsplash.com/photo-1626645738196-c2a7c87a8f58?w=500&q=80" },
+  // --- BURGERS ---
+  { id: 31, category: "Burger", name: "Zinger Burger", price: 400, image: "https://images.unsplash.com/photo-1571091718767-18b5b1457add?auto=format&fit=crop&w=500" },
+  { id: 32, category: "Burger", name: "Zinger Cheese Burger", price: 450, image: "https://images.unsplash.com/photo-1550547660-d9450f859349?auto=format&fit=crop&w=500" },
 
-  // --- FAMOUS BURGERS ---
-  { id: 31, category: "Burger", name: "Zinger Burger", price: 400, image: "https://images.unsplash.com/photo-1571091718767-18b5b1457add?w=500&q=80" },
-  { id: 32, category: "Burger", name: "Zinger Cheese Burger", price: 450, image: "https://images.unsplash.com/photo-1550547660-d9450f859349?w=500&q=80" },
-  { id: 33, category: "Burger", name: "Jumbo Zinger", price: 750, image: "https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=500&q=80" },
-
-  // --- FAMOUS PIZZA ---
-  { id: 37, category: "Pizza", name: "Chicken Tikka Pizza", price: { small: 400, medium: 700, large: 999 }, image: "https://images.unsplash.com/photo-1513104890138-7c749659a591?w=500&q=80" },
-  { id: 38, category: "Pizza", name: "Kabab Hunter Pizza", price: { small: 400, medium: 800, large: 1199 }, image: "https://images.unsplash.com/photo-1593560708920-61dd98c46a4e?w=500&q=80" },
+  // --- PIZZA ---
+  { id: 37, category: "Pizza", name: "Chicken Tikka Pizza", price: { small: 400, medium: 700, large: 999 }, image: "https://images.unsplash.com/photo-1513104890138-7c749659a591?auto=format&fit=crop&w=500" },
 
   // --- SIDES ---
-  { id: 43, category: "SIDES", name: "French Fries", price: 100, image: "https://images.unsplash.com/photo-1630384066252-11e1f1582231?w=500&q=80" }
+  { id: 43, category: "SIDES", name: "French Fries", price: 100, image: "https://images.unsplash.com/photo-1630384066252-11e1f1582231?auto=format&fit=crop&w=500" }
 ];
-
 // Note: In your displayProducts function, change the img src line to:
 // <img src="${item.image}"/>
 
