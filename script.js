@@ -35,7 +35,8 @@ const body = document.querySelector("body"),
   checkk = document.querySelector(".checkk"),
   searchInput = document.querySelector(".search-input");
 
-let checkOutList = JSON.parse(localStorage.getItem("cartItems")) || [];
+// --- FIX 1: Initialize as an OBJECT {} not an Array [] ---
+let checkOutList = JSON.parse(localStorage.getItem("cartItems")) || {};
 
 // ==========================================
 // 3. CATEGORY FILTER LOGIC
@@ -51,12 +52,10 @@ function setupCategoryFilters() {
 }
 
 function filterByCategory(selectedCategory) {
-    if (selectedCategory === 'All') {
-        displayProducts(ArrProducts);
-    } else {
-        const filtered = ArrProducts.filter(item => item.category === selectedCategory);
-        displayProducts(filtered);
-    }
+    const filtered = (selectedCategory === 'All') 
+        ? ArrProducts 
+        : ArrProducts.filter(item => item.category === selectedCategory);
+    displayProducts(filtered);
 }
 
 // ==========================================
@@ -82,12 +81,13 @@ function displayProducts(itemsToDisplay) {
             let div = document.createElement("div");
             div.classList.add("item");
 
+            // --- FIX 2: Use item.image from array if your local images folder isn't ready ---
             let priceDisplay = typeof item.price === 'object' 
                 ? `S:${item.price.small} | M:${item.price.medium}` 
                 : `${item.price} Rs`;
 
             div.innerHTML = `
-                <img src="images/${item.id}.jpg" onerror="this.src='images/default-food.jpg'"/>
+                <img src="${item.image}" alt="${item.name}"/>
                 <div class="name">${item.name}</div>
                 <div class="price">${priceDisplay}</div>
                 <button onClick="addtoCart(${originalIndex})"><i class="fa fa-cart-plus"></i> Add to Cart</button>
@@ -114,16 +114,11 @@ if (searchInput) {
 // ==========================================
 // 6. CART LOGIC
 // ==========================================
-// --- Updated Cart Logic with Size Selection ---
-
 function addtoCart(index) {
     const item = ArrProducts[index];
-
-    // If item has sizes (like Pizza), show the Modal
     if (typeof item.price === 'object') {
         showSizeModal(index);
     } else {
-        // Regular item (Burger/BBQ), add directly
         confirmAddToCart(index, item.price, 'Standard');
     }
 }
@@ -135,9 +130,8 @@ function showSizeModal(index) {
     const nameLabel = document.getElementById('modalItemName');
 
     nameLabel.innerText = item.name;
-    optionsContainer.innerHTML = ""; // Clear old buttons
+    optionsContainer.innerHTML = ""; 
 
-    // Create buttons for available sizes
     for (let size in item.price) {
         let btn = document.createElement("button");
         btn.classList.add("size-choice-btn");
@@ -148,19 +142,18 @@ function showSizeModal(index) {
         };
         optionsContainer.appendChild(btn);
     }
-
     modal.style.display = "flex";
 }
 
 function confirmAddToCart(index, price, size) {
-    // Create a unique key so Small Pizza and Large Pizza stay separate in cart
+    // Generate unique key
     let cartKey = index + "_" + size;
 
     if (checkOutList[cartKey] == null) {
         checkOutList[cartKey] = { 
             ...ArrProducts[index], 
             quantity: 1, 
-            price: price, // Save the selected price
+            price: price, 
             selectedSize: size 
         };
     } else {
@@ -174,14 +167,14 @@ function closeModal() {
     document.getElementById('sizeModal').style.display = "none";
 }
 
-// Update reloadCart to show the size name in the cart
 function reloadCart() {
   if (!productList) return;
   productList.innerHTML = "";
   let count = 0;
   let totalPrice = 0;
 
-  for (let key in checkOutList) {
+  // Use Object.keys for the object loop
+  Object.keys(checkOutList).forEach(key => {
     let item = checkOutList[key];
     if (item != null) {
       totalPrice += item.price * item.quantity;
@@ -190,7 +183,7 @@ function reloadCart() {
       let li = document.createElement("li");
       li.innerHTML = `
         <div class="cart-item-info">
-            <div class="name">${item.name} (${item.selectedSize})</div>
+            <div class="name" style="font-size:0.9rem; font-weight:bold;">${item.name} (${item.selectedSize})</div>
             <div class="price">${item.price} Rs</div>
         </div>
         <div class="quantityContainer">
@@ -202,11 +195,12 @@ function reloadCart() {
       `;
       productList.appendChild(li);
     }
-  }
+  });
 
   if (total) total.innerHTML = `<small>Total: </small> ${totalPrice} Rs`;
   if (quantity) quantity.innerHTML = count;
-  saveCart();
+  
+  saveCart(); // This keeps it in LocalStorage!
   updateCheckoutButton();
 }
 
@@ -230,8 +224,9 @@ function saveCart() {
 
 function updateCheckoutButton() {
   if (!checkk) return;
-  checkk.disabled = (quantity.innerHTML == 0);
-  checkk.style.opacity = (quantity.innerHTML == 0) ? "0.5" : "1";
+  let currentCount = parseInt(quantity.innerHTML);
+  checkk.disabled = (currentCount === 0);
+  checkk.style.opacity = (currentCount === 0) ? "0.5" : "1";
 }
 
 // ==========================================
@@ -240,17 +235,15 @@ function updateCheckoutButton() {
 function onInIt() {
     setupCategoryFilters();
     displayProducts(ArrProducts);
-    reloadCart();
+    reloadCart(); // This loads the saved items when page starts!
 }
 
-// Cart UI Toggle
 if (shoppingBasket) shoppingBasket.onclick = () => body.classList.add("active");
 if (closeCart) closeCart.onclick = () => body.classList.remove("active");
 
-// THIS IS THE FIX: Open your checkout page
 if (checkk) {
     checkk.onclick = () => {
-        window.location.href = "checkout.html"; // Make sure your file is named exactly this
+        window.location.href = "checkout.html";
     };
 }
 
