@@ -2,15 +2,15 @@
 // 1. DATA ARRAY (ArrProducts)
 // ==========================================
 const ArrProducts = [
-  { id: 1, category: "B.B.Q", name: "Chicken Tikka (Chest)", price: 450},
-  { id: 2, category: "B.B.Q", name: "Chicken Tikka (Leg)", price: 400 },
-  { id: 3, category: "B.B.Q", name: "Green Tikka (Chest)", price: 520 },
-  { id: 14, category: "Rolls", name: "Chicken Roll", price: 220 },
-  { id: 15, category: "Rolls", name: "Chicken Zinger Roll", price: 350},
+  { id: 1, category: "B.B.Q", name: "Chicken Tikka (Chest)", price: 20},
+  { id: 2, category: "B.B.Q", name: "Chicken Tikka (Leg)", price: 30 },
+  { id: 3, category: "B.B.Q", name: "Green Tikka (Chest)", price: 10 },
+  { id: 14, category: "Rolls", name: "Chicken Roll", price: 40 },
+  { id: 15, category: "Rolls", name: "Chicken Zinger Roll", price: 35},
   { id: 31, category: "Burger", name: "Zinger Burger", price: 400},
-  { id: 32, category: "Burger", name: "Zinger Cheese Burger", price: 450 },
-  { id: 37, category: "Pizza", name: "Chicken Tikka Pizza", price: { small: 400, medium: 700, large: 999 } },
-  { id: 43, category: "SIDES", name: "French Fries", price: 100 }
+  { id: 32, category: "Burger", name: "Zinger Cheese Burger", price: 39 },
+  { id: 37, category: "Pizza", name: "Chicken Tikka Pizza", price: { small: 30, medium: 40, large: 55 } },
+  { id: 43, category: "SIDES", name: "French Fries", price: 5 }
 ];
 const hamburger = document.getElementById('hamburger');
 const navMenu = document.getElementById('navMenu');
@@ -188,7 +188,7 @@ function displayProducts(itemsToDisplay) {
             let originalIndex = ArrProducts.findIndex(p => p.id === item.id);
             let div = document.createElement("div");
             div.classList.add("item");
-            let priceDisplay = typeof item.price === 'object' ? `S:${item.price.small} Rs` : `${item.price} Rs`;
+            let priceDisplay = typeof item.price === 'object' ? `S:${item.price.small} £` : `${item.price} £`;
 
             div.innerHTML = `
                 <div class="name">${item.name}</div>
@@ -272,7 +272,7 @@ function reloadCart() {
     }
   });
 
-  if (total) total.innerHTML = `<small>Total: </small> ${totalPrice} Rs`;
+  if (total) total.innerHTML = `<small>Total: </small> ${totalPrice} £`;
   if (quantity) quantity.innerHTML = count;
   const cartBadge = document.getElementById('cart-count');
   if (cartBadge) {
