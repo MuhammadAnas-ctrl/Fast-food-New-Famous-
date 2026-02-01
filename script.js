@@ -407,10 +407,27 @@ function timeAgo(date) {
 }
 
 // 1. Your "Featured" Reviews (These show up if the container is empty)
+// 1. Updated Default Reviews with "Real" timestamps
 const defaultReviews = [
-    { item: "Chicken Tikka", name: "Management", text: "Our best seller! Always fresh and juicy.", time: "2 days ago"},
-    { item: "Zinger Burger", name: "Chef Choice", text: "Crunchy, spicy, and perfectly fried.", time: "4 days ago" },
-    { item: "Beef Burger", name: "Foodie Guide", text: "The most authentic beef taste in the city!",time: "6 days ago"}
+    { 
+        item: "Chicken Tikka", 
+        name: "Management", 
+        text: "Our best seller! Always fresh and juicy.", 
+        // Generates a date exactly 2 days ago
+        time: new Date(Date.now() - 2 * 24 * 60 * 60 * 1000).toISOString() 
+    },
+    { 
+        item: "Zinger Burger", 
+        name: "Chef Choice", 
+        text: "Crunchy, spicy, and perfectly fried.", 
+        time: new Date(Date.now() - 4 * 24 * 60 * 60 * 1000).toISOString() 
+    },
+    { 
+        item: "Beef Burger", 
+        name: "Foodie Guide", 
+        text: "The most authentic beef taste in the city!",
+        time: new Date(Date.now() - 6 * 24 * 60 * 60 * 1000).toISOString() 
+    }
 ];
 
 function loadReviews() {
@@ -421,26 +438,23 @@ function loadReviews() {
     const tenDaysInMs = 10 * 24 * 60 * 60 * 1000;
     const now = new Date().getTime();
 
-    // Remove reviews older than 10 days
     allReviews = allReviews.filter(rev => (now - new Date(rev.time).getTime()) < tenDaysInMs);
     localStorage.setItem("customerReviews", JSON.stringify(allReviews));
 
     container.innerHTML = ""; 
 
-    // 💡 THE TRICK: If no customer reviews exist, use the Default ones!
+    // Combine real reviews with default ones
     const reviewsToDisplay = allReviews.length > 0 ? allReviews.reverse() : defaultReviews;
 
     reviewsToDisplay.forEach(rev => {
         const timeDisplay = timeAgo(rev.time);
         const card = document.createElement('div');
         card.className = 'review-card';
-        // If it's a default review, show "Featured" instead of time
-        const displayTime = timeDisplay ? timeDisplay : "Featured"; 
-
+        
         card.innerHTML = `
             <h4>${rev.item}</h4>
             <p>"${rev.text}"</p>
-            <span>- ${rev.name} • <small>${displayTime}</small></span>
+            <span>- ${rev.name} • <small>${timeDisplay || "Featured"}</small></span>
         `;
         container.appendChild(card);
     });
