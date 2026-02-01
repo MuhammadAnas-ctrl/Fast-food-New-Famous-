@@ -412,16 +412,7 @@ const defaultReviews = [
     { item: "Zinger Burger", name: "Chef Choice", text: "Crunchy, spicy, and perfectly fried.", time: "4 days ago" },
     { item: "Beef Burger", name: "Foodie Guide", text: "The most authentic beef taste in the city!",time: "6 days ago"}
 ];
-reviewsContainer.innerHTML = defaultReviews.map(rev => `
-            <div class="review-card">
-                <div class="review-header">
-                    <strong>${rev.name}</strong>
-                    <span class="review-time">${rev.time}</span>
-                </div>
-                <p>${rev.text}</p>
-            </div>
-        `).join('');
-        return;
+
 function loadReviews() {
     const container = document.getElementById('reviewsContainer');
     if (!container) return;
