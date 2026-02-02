@@ -189,27 +189,37 @@ function displayProducts(itemsToDisplay) {
             let div = document.createElement("div");
             div.classList.add("item");
 
-            // 💡 DISCOUNT LOGIC
-            // Check if item has a discountPrice and it's lower than the original price
-            const hasDiscount = item.discountPrice && item.discountPrice < item.price;
-            const displayPrice = hasDiscount ? item.discountPrice : item.price;
-            
-            // Format the price display (handling your £ symbol or Rs.)
             let priceHTML = "";
-            if (hasDiscount) {
-                priceHTML = `
-                    <span class="old-price" style="text-decoration: line-through; color: #ff4d4d; font-size: 0.8em; margin-right: 5px;">
-                        ${item.price} £
-                    </span>
-                    <span class="current-price" style="font-weight: bold;">
-                        ${item.discountPrice} £
-                    </span>
-                `;
+            let hasDiscount = false;
+
+            // 💡 FIX: Check if price is a single number or a size object
+            if (typeof item.price === 'object') {
+                // For Pizzas/Sizes, we show the 'small' price as the starting price
+                let startingPrice = item.price.small;
+                hasDiscount = item.discountPrice && item.discountPrice < startingPrice;
+                
+                if (hasDiscount) {
+                    priceHTML = `
+                        <span style="font-size: 0.7em; color: #666;">Starts from:</span><br>
+                        <span class="old-price" style="text-decoration: line-through; color: #ff4d4d; font-size: 0.8em;">${startingPrice} Rs</span>
+                        <span class="current-price" style="font-weight: bold;">${item.discountPrice} Rs</span>
+                    `;
+                } else {
+                    priceHTML = `<span style="font-size: 0.7em; color: #666;">Starts from:</span> ${startingPrice} Rs`;
+                }
             } else {
-                priceHTML = `<span class="current-price">${item.price} £</span>`;
+                // For Standard items (like Burgers)
+                hasDiscount = item.discountPrice && item.discountPrice < item.price;
+                if (hasDiscount) {
+                    priceHTML = `
+                        <span class="old-price" style="text-decoration: line-through; color: #ff4d4d; font-size: 0.8em; margin-right: 5px;">${item.price} Rs</span>
+                        <span class="current-price" style="font-weight: bold;">${item.discountPrice} Rs</span>
+                    `;
+                } else {
+                    priceHTML = `<span class="current-price">${item.price} Rs</span>`;
+                }
             }
 
-            // Add a "SALE" badge if there's a discount
             const saleBadge = hasDiscount ? `<div class="sale-tag">SALE</div>` : "";
 
             div.innerHTML = `
