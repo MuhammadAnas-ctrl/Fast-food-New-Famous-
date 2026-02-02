@@ -24,7 +24,7 @@ function applyPromo() {
     loadCheckout(); 
 }
 // Load and render checkout list
-let deliveryCharge = 50; // Permanent fee 🛵
+let deliveryCharge = 70; // 💡 Your fixed delivery fee
 
 function loadCheckout() {
   if (!checkoutList) return;
@@ -32,14 +32,15 @@ function loadCheckout() {
   let totalPrice = 0;
   let count = 0;
 
-  // 1. Calculate the price of food items only
   Object.keys(cartItems).forEach((key) => {
     let item = cartItems[key];
     if (item != null) {
-      totalPrice += item.price * item.quantity;
+      let itemTotal = item.price * item.quantity;
+      totalPrice += itemTotal;
       count += item.quantity;
 
       let sizeInfo = item.selectedSize !== 'Standard' ? `(${item.selectedSize})` : '';
+
       const li = document.createElement("li");
       li.innerHTML = `
         <div class="name">${item.name} ${sizeInfo}</div>
@@ -54,29 +55,22 @@ function loadCheckout() {
     }
   });
 
-  // 2. Promo Section
   const promoDiv = document.createElement("div");
   promoDiv.className = "promo-section";
   promoDiv.innerHTML = `
-      <input type="text" id="promoInput" placeholder="Promo code" value="${promoDiscount > 0 ? 'CRUNCHY20' : ''}">
+      <input type="text" id="promoInput" placeholder="Promo code">
       <button onclick="applyPromo()">Apply</button>
       <div id="promoMessage"></div>
   `;
   checkoutList.appendChild(promoDiv);
 
-  // 3. 💡 MATH LOGIC: Discount ONLY applies to totalPrice (items)
+  // 💡 The Calculation: (Items - Discount) + Fixed Delivery
   let discountAmount = totalPrice * (typeof promoDiscount !== 'undefined' ? promoDiscount : 0);
-  let finalPrice = (totalPrice - discountAmount) + deliveryCharge; 
+  let finalPrice = (totalPrice - discountAmount) + deliveryCharge;
 
-  // 4. Update the display
   if (checkoutTotal) {
-    checkoutTotal.innerHTML = `
-      <div style="font-size: 0.85rem; color: #666;">Items Subtotal: ${totalPrice} Rs</div>
-      ${promoDiscount > 0 ? `<div style="font-size: 0.85rem; color: green;">Discount: -${discountAmount.toFixed(0)} Rs</div>` : ''}
-      <div style="font-size: 0.85rem; color: #666;">Delivery: ${deliveryCharge} Rs (Fixed)</div>
-      <hr style="margin: 5px 0; border: 0.5px solid #eee;">
-      <div style="font-weight: bold; font-size: 1.1rem;">Total to Pay: ${finalPrice.toFixed(0)} Rs</div>
-    `;
+    // Keeping your exact text style and direction
+    checkoutTotal.innerHTML = `Subtotal (${count} items): ${finalPrice.toFixed(0)} Rs`;
   }
 }
 // Remove item using the unique Key
