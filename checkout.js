@@ -55,21 +55,22 @@ function loadCheckout() {
     }
   });
 
+  // 1. Promo Section
   const promoDiv = document.createElement("div");
   promoDiv.className = "promo-section";
   promoDiv.innerHTML = `
-      <input type="text" id="promoInput" placeholder="Promo code">
+      <input type="text" id="promoInput" placeholder="Promo code" value="${promoDiscount > 0 ? 'CRUNCHY20' : ''}">
       <button onclick="applyPromo()">Apply</button>
       <div id="promoMessage"></div>
   `;
   checkoutList.appendChild(promoDiv);
 
-  // 💡 The Calculation: (Items - Discount) + Fixed Delivery
+  // 💡 2. MATH: Apply discount to totalPrice, THEN add deliveryCharge
   let discountAmount = totalPrice * (typeof promoDiscount !== 'undefined' ? promoDiscount : 0);
   let finalPrice = (totalPrice - discountAmount) + deliveryCharge;
 
+  // 💡 3. Keeping your exact text format
   if (checkoutTotal) {
-    // Keeping your exact text style and direction
     checkoutTotal.innerHTML = `Subtotal (${count} items): ${finalPrice.toFixed(0)} Rs`;
   }
 }
