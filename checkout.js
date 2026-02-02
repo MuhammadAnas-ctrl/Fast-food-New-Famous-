@@ -26,7 +26,7 @@ function loadCheckout() {
       const li = document.createElement("li");
       // Keeping your exact innerHTML structure and classes
       li.innerHTML = `
-        <img src="${item.image}" alt="${item.name}" />
+        
         <div class="name">${item.name} ${sizeInfo}</div>
         <div class="quantityContainer">
           <button onclick="changeQuantity('${key}', ${item.quantity - 1})">-</button>
@@ -122,4 +122,30 @@ if (placeOrderBtn) {
     e.preventDefault();
     placeOrder();
   });
+}
+
+
+
+
+
+
+let appliedDiscount = 0; // Global variable to store the discount %
+
+function applyPromo() {
+    const code = document.getElementById('promoInput').value.trim().toUpperCase();
+    const message = document.getElementById('promoMessage');
+
+    if (code === "CRUNCHY20") {
+        appliedDiscount = 0.20; // 20% off
+        message.style.color = "green";
+        message.innerText = "✅ Promo Applied! 20% off your total.";
+    } else if (code === "") {
+        message.innerText = "";
+    } else {
+        appliedDiscount = 0;
+        message.style.color = "red";
+        message.innerText = "❌ Invalid Code";
+    }
+    
+    reloadCart(); // Refresh the total price
 }
