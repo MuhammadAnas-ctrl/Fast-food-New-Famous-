@@ -24,13 +24,13 @@ function applyPromo() {
     loadCheckout(); 
 }
 // Load and render checkout list
+
 function loadCheckout() {
   if (!checkoutList) return;
   checkoutList.innerHTML = "";
   let totalPrice = 0;
   let count = 0;
 
-  // 1. Loop through items and build the list
   Object.keys(cartItems).forEach((key) => {
     let item = cartItems[key];
     if (item != null) {
@@ -54,47 +54,26 @@ function loadCheckout() {
     }
   });
 
-  // 💡 2. Add the Promo Input (Small & Clean)
-  // We use a ternary operator to keep the code in the box if it's valid!
+  // 💡 1. Add the Small Promo Input after the list
   const promoDiv = document.createElement("div");
   promoDiv.className = "promo-section";
   promoDiv.innerHTML = `
-      <input type="text" id="promoInput" placeholder="Promo code" value="${promoDiscount > 0 ? 'CRUNCHY20' : ''}">
+      <input type="text" id="promoInput" placeholder="Promo code">
       <button onclick="applyPromo()">Apply</button>
       <div id="promoMessage"></div>
   `;
   checkoutList.appendChild(promoDiv);
 
-  // 💡 3. Calculate Final Price
+  // 💡 2. Calculate Final Price with Discount
   let finalPrice = totalPrice;
   if (typeof promoDiscount !== 'undefined' && promoDiscount > 0) {
       finalPrice = totalPrice - (totalPrice * promoDiscount);
   }
 
-  // 💡 4. Update the Total Display
+  // 💡 3. Display Subtotal (Fixed the count variable)
   if (checkoutTotal) {
-    if (promoDiscount > 0) {
-      // Show the original price crossed out so they see the savings!
-      checkoutTotal.innerHTML = `
-        <div style="font-size: 0.8rem; color: #888;"><s>Original: ${totalPrice} Rs</s></div>
-        Subtotal (${count} items): <span style="color: #28a745; font-weight: bold;">${finalPrice.toFixed(0)} Rs</span>
-      `;
-    } else {
-      checkoutTotal.innerHTML = `Subtotal (${count} items): ${totalPrice} Rs`;
-    }
+    checkoutTotal.innerHTML = `Subtotal (${count} items): ${finalPrice.toFixed(0)} Rs`;
   }
-}
-  // 💡 1. Add the Small Promo Input after the list
-  let promoDiscount = 0; // Global variable at the top of your script
-
-function applyPromo() {
-    const code = document.getElementById('promoInput').value.trim().toUpperCase();
-    if (code === "CRUNCHY20") {
-        promoDiscount = 0.20;
-    } else {
-        promoDiscount = 0;
-    }
-    loadCheckout(); // This triggers the function above to refresh the screen!
 }
 // Remove item using the unique Key
 function removeItem(key) {
