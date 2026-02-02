@@ -25,6 +25,8 @@ function applyPromo() {
 }
 // Load and render checkout list
 
+let deliveryCharge = 50; // 💡 Set your delivery fee here
+
 function loadCheckout() {
   if (!checkoutList) return;
   checkoutList.innerHTML = "";
@@ -54,25 +56,45 @@ function loadCheckout() {
     }
   });
 
-  // 💡 1. Add the Small Promo Input after the list
+  // 💡 1. Add Promo Input (Maintains value if discount is active)
   const promoDiv = document.createElement("div");
   promoDiv.className = "promo-section";
   promoDiv.innerHTML = `
-      <input type="text" id="promoInput" placeholder="Promo code">
+      <input type="text" id="promoInput" placeholder="Promo code" value="${promoDiscount > 0 ? 'CRUNCHY20' : ''}">
       <button onclick="applyPromo()">Apply</button>
-      <div id="promoMessage"></div>
+      <div id="promoMessage" style="color: ${promoDiscount > 0 ? 'green' : 'red'}; font-size: 0.8rem;">
+        ${promoDiscount > 0 ? '✅ 20% Discount Applied!' : ''}
+      </div>
   `;
   checkoutList.appendChild(promoDiv);
 
-  // 💡 2. Calculate Final Price with Discount
-  let finalPrice = totalPrice;
-  if (typeof promoDiscount !== 'undefined' && promoDiscount > 0) {
-      finalPrice = totalPrice - (totalPrice * promoDiscount);
-  }
+  // 💡 2. Math: (Items - Discount) + Delivery
+  let discountAmount = totalPrice * (typeof promoDiscount !== 'undefined' ? promoDiscount : 0);
+  let subtotalAfterDiscount = totalPrice - discountAmount;
+  let finalGrandTotal = subtotalAfterDiscount + deliveryCharge;
 
-  // 💡 3. Display Subtotal (Fixed the count variable)
+  // 💡 3. Professional Price Breakdown
   if (checkoutTotal) {
-    checkoutTotal.innerHTML = `Subtotal (${count} items): ${finalPrice.toFixed(0)} Rs`;
+    checkoutTotal.innerHTML = `
+      <div style="display: flex; justify-content: space-between; font-size: 0.9rem; color: #555;">
+        <span>Items Total:</span>
+        <span>${totalPrice} Rs</span>
+      </div>
+      ${promoDiscount > 0 ? `
+      <div style="display: flex; justify-content: space-between; font-size: 0.9rem; color: green;">
+        <span>Discount:</span>
+        <span>-${discountAmount.toFixed(0)} Rs</span>
+      </div>` : ''}
+      <div style="display: flex; justify-content: space-between; font-size: 0.9rem; color: #555;">
+        <span>Delivery Fee:</span>
+        <span>${deliveryCharge} Rs</span>
+      </div>
+      <hr style="margin: 8px 0; border: 0.5px solid #ddd;">
+      <div style="display: flex; justify-content: space-between; font-size: 1.1rem; font-weight: bold;">
+        <span>Total (${count} items):</span>
+        <span>${finalGrandTotal.toFixed(0)} Rs</span>
+      </div>
+    `;
   }
 }
 // Remove item using the unique Key
@@ -95,63 +117,45 @@ function changeQuantity(key, newQuantity) {
 
 // --- WhatsApp Order Logic ---
 function placeOrder() {
-  // 💡 Use the global cartItems or fetch from storage
   let currentCart = JSON.parse(localStorage.getItem("cartItems")) || {};
-
-  if (Object.keys(currentCart).length === 0) {
-    alert("🛒 Your cart is empty!");
-    return;
-  }
+  if (Object.keys(currentCart).length === 0) return alert("🛒 Your cart is empty!");
 
   let name = document.getElementById("name").value.trim();
   let phone = document.getElementById("phone").value.trim();
   let address = document.getElementById("address").value.trim();
   let city = document.getElementById("city").value.trim();
 
-  if (!name || !phone || !address || !city) {
-    alert("⚠️ Please fill all delivery details");
-    return;
-  }
+  if (!name || !phone || !address || !city) return alert("⚠️ Please fill all delivery details");
 
   let customerId = "ORD" + Date.now().toString().slice(-6);
   let message = `🛍️ *New Order Received*\n\n`;
   message += `🆔 Order ID: ${customerId}\n`;
-  message += `👤 Name: ${name}\n`;
-  message += `📞 Phone: ${phone}\n`;
-  message += `🏠 Address: ${address}\n🏙️ City: ${city}\n\n`;
+  message += `👤 Name: ${name}\n📞 Phone: ${phone}\n`;
+  message += `🏠 Address: ${address}, ${city}\n\n`;
   message += `🍕 *Items:*\n`;
 
-  let totalBeforeDiscount = 0;
+  let itemTotal = 0;
   Object.keys(currentCart).forEach(key => {
     let item = currentCart[key];
     let sub = item.price * item.quantity;
-    totalBeforeDiscount += sub;
-    let sizeText = item.selectedSize !== 'Standard' ? `(${item.selectedSize})` : '';
-    message += `• ${item.name} ${sizeText} × ${item.quantity} = ${sub} Rs\n`;
+    itemTotal += sub;
+    message += `• ${item.name} × ${item.quantity} = ${sub} Rs\n`;
   });
 
-  // 💡 APPLY THE DISCOUNT HERE
-  // This uses the 'promoDiscount' variable from your applyPromo function
-  let finalTotal = totalBeforeDiscount;
-  if (typeof promoDiscount !== 'undefined' && promoDiscount > 0) {
-      finalTotal = totalBeforeDiscount - (totalBeforeDiscount * promoDiscount);
-      message += `\n🎟️ *Promo Applied:* 20% OFF`;
-      message += `\n📉 *Original Price:* ${totalBeforeDiscount} Rs`;
-  }
+  // 💡 Math: (Subtotal - Discount) + Delivery
+  let afterDiscount = itemTotal - (itemTotal * promoDiscount);
+  let finalTotal = afterDiscount + deliveryCharge;
 
-  message += `\n💰 *Total Amount:* ${finalTotal.toFixed(0)} Rs\n`;
-  message += `\nThank you for your order! 😊`;
+  if (promoDiscount > 0) message += `\n🎟️ *Promo:* 20% OFF (-${(itemTotal * promoDiscount).toFixed(0)} Rs)`;
+  
+  message += `\n📦 *Delivery:* ${deliveryCharge} Rs`;
+  message += `\n💰 *Total Amount:* *${finalTotal.toFixed(0)} Rs*\n`;
+  message += `\nThank you! 😊`;
 
-  const encodedMessage = encodeURIComponent(message);
-  let ownerNumber = "03021206595"; 
-
-  window.open(`https://wa.me/${ownerNumber}?text=${encodedMessage}`, "_blank");
-
-  // Clear cart after order
+  window.open(`https://wa.me/03021206595?text=${encodeURIComponent(message)}`, "_blank");
   localStorage.removeItem("cartItems");
   window.location.href = "index.html";
 }
-
 // Initialize on load
 loadCheckout();
 
