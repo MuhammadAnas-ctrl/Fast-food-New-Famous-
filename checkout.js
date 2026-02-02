@@ -11,22 +11,17 @@ function loadCheckout() {
   let totalPrice = 0;
   let count = 0;
 
-  // Convert Object keys to a loop
   Object.keys(cartItems).forEach((key) => {
     let item = cartItems[key];
-    
     if (item != null) {
       let itemTotal = item.price * item.quantity;
       totalPrice += itemTotal;
       count += item.quantity;
 
-      // Handle displaying size if it exists
       let sizeInfo = item.selectedSize !== 'Standard' ? `(${item.selectedSize})` : '';
 
       const li = document.createElement("li");
-      // Keeping your exact innerHTML structure and classes
       li.innerHTML = `
-        
         <div class="name">${item.name} ${sizeInfo}</div>
         <div class="quantityContainer">
           <button onclick="changeQuantity('${key}', ${item.quantity - 1})">-</button>
@@ -39,8 +34,25 @@ function loadCheckout() {
     }
   });
 
+  // 💡 1. Add the Small Promo Input after the list
+  const promoDiv = document.createElement("div");
+  promoDiv.className = "promo-section";
+  promoDiv.innerHTML = `
+      <input type="text" id="promoInput" placeholder="Promo code">
+      <button onclick="applyPromo()">Apply</button>
+      <div id="promoMessage"></div>
+  `;
+  checkoutList.appendChild(promoDiv);
+
+  // 💡 2. Calculate Final Price with Discount
+  let finalPrice = totalPrice;
+  if (typeof promoDiscount !== 'undefined' && promoDiscount > 0) {
+      finalPrice = totalPrice - (totalPrice * promoDiscount);
+  }
+
+  // 💡 3. Display Subtotal (Fixed the count variable)
   if (checkoutTotal) {
-    checkoutTotal.innerHTML = `Subtotal (${count} items): ${totalPrice} Rs`;
+    checkoutTotal.innerHTML = `Subtotal (${count} items): ${finalPrice.toFixed(0)} Rs`;
   }
 }
 
