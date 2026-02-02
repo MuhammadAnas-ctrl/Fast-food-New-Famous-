@@ -24,8 +24,7 @@ function applyPromo() {
     loadCheckout(); 
 }
 // Load and render checkout list
-
-let deliveryCharge = 50; // 💡 Set your delivery fee here
+let deliveryCharge = 50; // Permanent fee 🛵
 
 function loadCheckout() {
   if (!checkoutList) return;
@@ -33,15 +32,14 @@ function loadCheckout() {
   let totalPrice = 0;
   let count = 0;
 
+  // 1. Calculate the price of food items only
   Object.keys(cartItems).forEach((key) => {
     let item = cartItems[key];
     if (item != null) {
-      let itemTotal = item.price * item.quantity;
-      totalPrice += itemTotal;
+      totalPrice += item.price * item.quantity;
       count += item.quantity;
 
       let sizeInfo = item.selectedSize !== 'Standard' ? `(${item.selectedSize})` : '';
-
       const li = document.createElement("li");
       li.innerHTML = `
         <div class="name">${item.name} ${sizeInfo}</div>
@@ -56,44 +54,28 @@ function loadCheckout() {
     }
   });
 
-  // 💡 1. Add Promo Input (Maintains value if discount is active)
+  // 2. Promo Section
   const promoDiv = document.createElement("div");
   promoDiv.className = "promo-section";
   promoDiv.innerHTML = `
       <input type="text" id="promoInput" placeholder="Promo code" value="${promoDiscount > 0 ? 'CRUNCHY20' : ''}">
       <button onclick="applyPromo()">Apply</button>
-      <div id="promoMessage" style="color: ${promoDiscount > 0 ? 'green' : 'red'}; font-size: 0.8rem;">
-        ${promoDiscount > 0 ? '✅ 20% Discount Applied!' : ''}
-      </div>
+      <div id="promoMessage"></div>
   `;
   checkoutList.appendChild(promoDiv);
 
-  // 💡 2. Math: (Items - Discount) + Delivery
+  // 3. 💡 MATH LOGIC: Discount ONLY applies to totalPrice (items)
   let discountAmount = totalPrice * (typeof promoDiscount !== 'undefined' ? promoDiscount : 0);
-  let subtotalAfterDiscount = totalPrice - discountAmount;
-  let finalGrandTotal = subtotalAfterDiscount + deliveryCharge;
+  let finalPrice = (totalPrice - discountAmount) + deliveryCharge; 
 
-  // 💡 3. Professional Price Breakdown
+  // 4. Update the display
   if (checkoutTotal) {
     checkoutTotal.innerHTML = `
-      <div style="display: flex; justify-content: space-between; font-size: 0.9rem; color: #555;">
-        <span>Items Total:</span>
-        <span>${totalPrice} Rs</span>
-      </div>
-      ${promoDiscount > 0 ? `
-      <div style="display: flex; justify-content: space-between; font-size: 0.9rem; color: green;">
-        <span>Discount:</span>
-        <span>-${discountAmount.toFixed(0)} Rs</span>
-      </div>` : ''}
-      <div style="display: flex; justify-content: space-between; font-size: 0.9rem; color: #555;">
-        <span>Delivery Fee:</span>
-        <span>${deliveryCharge} Rs</span>
-      </div>
-      <hr style="margin: 8px 0; border: 0.5px solid #ddd;">
-      <div style="display: flex; justify-content: space-between; font-size: 1.1rem; font-weight: bold;">
-        <span>Total (${count} items):</span>
-        <span>${finalGrandTotal.toFixed(0)} Rs</span>
-      </div>
+      <div style="font-size: 0.85rem; color: #666;">Items Subtotal: ${totalPrice} Rs</div>
+      ${promoDiscount > 0 ? `<div style="font-size: 0.85rem; color: green;">Discount: -${discountAmount.toFixed(0)} Rs</div>` : ''}
+      <div style="font-size: 0.85rem; color: #666;">Delivery: ${deliveryCharge} Rs (Fixed)</div>
+      <hr style="margin: 5px 0; border: 0.5px solid #eee;">
+      <div style="font-weight: bold; font-size: 1.1rem;">Total to Pay: ${finalPrice.toFixed(0)} Rs</div>
     `;
   }
 }
