@@ -134,7 +134,7 @@ function placeOrder() {
   message += `\nThank you for your order! 😊`;
 
   const encodedMessage = encodeURIComponent(message);
-  let ownerNumber = "YOUR NUMBER"; 
+  let ownerNumber = "03021206595"; 
 
   window.open(`https://wa.me/${ownerNumber}?text=${encodedMessage}`, "_blank");
 
