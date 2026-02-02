@@ -228,10 +228,17 @@ function displayProducts(itemsToDisplay) {
 // ==========================================
 function addtoCart(index) {
     const item = ArrProducts[index];
+    
+    // If it has sizes (object), let the modal handle it
     if (typeof item.price === 'object') {
         showSizeModal(index);
     } else {
-        confirmAddToCart(index, item.price, 'Standard');
+        // 💡 Check if there is a discount on the standard item
+        const finalPrice = (item.discountPrice && item.discountPrice < item.price) 
+                           ? item.discountPrice 
+                           : item.price;
+
+        confirmAddToCart(index, finalPrice, 'Standard');
         showToast(item.name);
     }
 }
@@ -258,12 +265,23 @@ function showSizeModal(index) {
 }
 
 function confirmAddToCart(index, price, size) {
+    // Example cartKey: "0_Standard" or "2_Large"
     let cartKey = index + "_" + size;
+
     if (checkOutList[cartKey] == null) {
-        checkOutList[cartKey] = { ...ArrProducts[index], quantity: 1, price: price, selectedSize: size };
+        // We spread the product details but OVERWRITE the price with the one passed in
+        // This ensures the discounted price is the one that gets saved!
+        checkOutList[cartKey] = { 
+            ...ArrProducts[index], 
+            quantity: 1, 
+            price: price, // 🔥 This is your Discounted Price
+            selectedSize: size 
+        };
     } else {
+        // If it's already there, just bump the quantity
         checkOutList[cartKey].quantity += 1;
     }
+    
     reloadCart();
 }
 
@@ -276,31 +294,38 @@ function reloadCart() {
   Object.keys(checkOutList).forEach(key => {
     let item = checkOutList[key];
     if (item != null) {
+      // 💰 This correctly uses the discount price we saved earlier!
       totalPrice += item.price * item.quantity;
       count += item.quantity;
 
       let li = document.createElement("li");
       li.innerHTML = `
         <div class="item-info">
-                    <div class="name">${item.name}</div>
-                    <div style="font-size: 0.9rem; color: #666;">${item.price} Rs</div>
-                </div>
-                <div class="quantityContainer">
-                    <button class="btn-minus" onclick="changeQuantity('${key}', ${item.quantity - 1})">-</button>
-                    <div class="quantity-val">${item.quantity}</div>
-                    <button class="btn-plus" onclick="changeQuantity('${key}', ${item.quantity + 1})">+</button>
-                    <button class="removeBtn" onclick="removeItem('${key}')">🗑️</button>
-                </div>  `;
+            <div class="name">${item.name} <small>(${item.selectedSize})</small></div>
+            <div class="cart-item-price" style="font-weight: bold; color: #333;">
+                ${item.price} Rs
+            </div>
+        </div>
+        <div class="quantityContainer">
+            <button class="btn-minus" onclick="changeQuantity('${key}', ${item.quantity - 1})">-</button>
+            <div class="quantity-val">${item.quantity}</div>
+            <button class="btn-plus" onclick="changeQuantity('${key}', ${item.quantity + 1})">+</button>
+            <button class="removeBtn" onclick="removeItem('${key}')" style="margin-left: 10px; border: none; background: none; cursor: pointer;">🗑️</button>
+        </div>`;
       productList.appendChild(li);
     }
   });
 
-  if (total) total.innerHTML = `<small>Total: </small> ${totalPrice} £`;
+  // 🏷️ Keeping currency consistent (Changed £ to Rs to match your items)
+  if (total) total.innerHTML = `<small>Total: </small> ${totalPrice} Rs`;
   if (quantity) quantity.innerHTML = count;
+  
   const cartBadge = document.getElementById('cart-count');
   if (cartBadge) {
       cartBadge.textContent = count;
   }
+
+  // 💾 Save to memory so it stays even if they refresh!
   localStorage.setItem("cartItems", JSON.stringify(checkOutList));
   
   if (checkk) {
