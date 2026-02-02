@@ -18,6 +18,32 @@ html {
 section {
     scroll-margin-top: 80px; 
 }
+.discount-bar {
+    background: linear-gradient(90deg, #ff4b2b, #ff416c); /* A bold, tasty red/orange gradient */
+    color: white;
+    text-align: center;
+    padding: 10px 0;
+    font-size: 0.9rem;
+    letter-spacing: 1px;
+    font-weight: 600;
+    width: 100%;
+    z-index: 100000; /* Stays above the navbar */
+}
+
+.discount-bar strong {
+    background: rgba(255, 255, 255, 0.2);
+    padding: 2px 8px;
+    border-radius: 4px;
+    color: #fff;
+}
+
+/* 📱 Make text slightly smaller on mobile so it doesn't wrap weirdly */
+@media (max-width: 480px) {
+    .discount-bar {
+        font-size: 0.8rem;
+        padding: 8px 5px;
+    }
+}
 /* --- Desktop & Base Styles --- */
 .logo {
     font-size: 1.8rem;      /* Increased size from 1.5rem */
