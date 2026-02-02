@@ -3,11 +3,11 @@
 // ==========================================
 const ArrProducts = [
   { id: 1, category: "B.B.Q", name: "Chicken Tikka (Chest)", price: 20},
-  { id: 2, category: "B.B.Q", name: "Chicken Tikka (Leg)", price: 30 },
+  { id: 2, category: "B.B.Q", name: "Chicken Tikka (Leg)", price: 30,discountPrice: 25, },
   { id: 3, category: "B.B.Q", name: "Green Tikka (Chest)", price: 10 },
-  { id: 14, category: "Rolls", name: "Chicken Roll", price: 40 },
+  { id: 14, category: "Rolls", name: "Chicken Roll", price: 40,discountPrice: 39, },
   { id: 15, category: "Rolls", name: "Chicken Zinger Roll", price: 35},
-  { id: 31, category: "Burger", name: "Zinger Burger", price: 400},
+  { id: 31, category: "Burger", name: "Zinger Burger", price: 10, discountPrice: 5,},
   { id: 32, category: "Burger", name: "Zinger Cheese Burger", price: 39 },
   { id: 37, category: "Pizza", name: "Chicken Tikka Pizza", price: { small: 30, medium: 40, large: 55 } },
   { id: 43, category: "SIDES", name: "French Fries", price: 5 }
@@ -188,11 +188,34 @@ function displayProducts(itemsToDisplay) {
             let originalIndex = ArrProducts.findIndex(p => p.id === item.id);
             let div = document.createElement("div");
             div.classList.add("item");
-            let priceDisplay = typeof item.price === 'object' ? `S:${item.price.small} £` : `${item.price} £`;
+
+            // 💡 DISCOUNT LOGIC
+            // Check if item has a discountPrice and it's lower than the original price
+            const hasDiscount = item.discountPrice && item.discountPrice < item.price;
+            const displayPrice = hasDiscount ? item.discountPrice : item.price;
+            
+            // Format the price display (handling your £ symbol or Rs.)
+            let priceHTML = "";
+            if (hasDiscount) {
+                priceHTML = `
+                    <span class="old-price" style="text-decoration: line-through; color: #ff4d4d; font-size: 0.8em; margin-right: 5px;">
+                        ${item.price} £
+                    </span>
+                    <span class="current-price" style="font-weight: bold;">
+                        ${item.discountPrice} £
+                    </span>
+                `;
+            } else {
+                priceHTML = `<span class="current-price">${item.price} £</span>`;
+            }
+
+            // Add a "SALE" badge if there's a discount
+            const saleBadge = hasDiscount ? `<div class="sale-tag">SALE</div>` : "";
 
             div.innerHTML = `
+                ${saleBadge}
                 <div class="name">${item.name}</div>
-                <div class="price">${priceDisplay}</div>
+                <div class="price">${priceHTML}</div>
                 <button onClick="addtoCart(${originalIndex})"><i class="fa fa-cart-plus"></i> Add</button>
             `;
             productsContainer.appendChild(div);
