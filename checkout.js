@@ -3,7 +3,26 @@ let cartItems = JSON.parse(localStorage.getItem("cartItems")) || {};
 
 const checkoutList = document.querySelector(".checkoutList");
 const checkoutTotal = document.querySelector(".checkoutTotal");
+let promoDiscount = 0; // 💡 Use this name everywhere
 
+function applyPromo() {
+    const input = document.getElementById('promoInput');
+    const code = input.value.trim().toUpperCase();
+    const message = document.getElementById('promoMessage');
+
+    if (code === "CRUNCHY20") {
+        promoDiscount = 0.20; // 20% off
+        message.style.color = "green";
+        message.innerText = "✅ Promo Applied! 20% off.";
+    } else {
+        promoDiscount = 0;
+        message.style.color = "red";
+        message.innerText = "❌ Invalid Code";
+    }
+    
+    // 💡 On the checkout page, we must call this to refresh the view
+    loadCheckout(); 
+}
 // Load and render checkout list
 function loadCheckout() {
   if (!checkoutList) return;
@@ -11,6 +30,7 @@ function loadCheckout() {
   let totalPrice = 0;
   let count = 0;
 
+  // 1. Loop through items and build the list
   Object.keys(cartItems).forEach((key) => {
     let item = cartItems[key];
     if (item != null) {
@@ -34,28 +54,48 @@ function loadCheckout() {
     }
   });
 
-  // 💡 1. Add the Small Promo Input after the list
+  // 💡 2. Add the Promo Input (Small & Clean)
+  // We use a ternary operator to keep the code in the box if it's valid!
   const promoDiv = document.createElement("div");
   promoDiv.className = "promo-section";
   promoDiv.innerHTML = `
-      <input type="text" id="promoInput" placeholder="Promo code">
+      <input type="text" id="promoInput" placeholder="Promo code" value="${promoDiscount > 0 ? 'CRUNCHY20' : ''}">
       <button onclick="applyPromo()">Apply</button>
       <div id="promoMessage"></div>
   `;
   checkoutList.appendChild(promoDiv);
 
-  // 💡 2. Calculate Final Price with Discount
+  // 💡 3. Calculate Final Price
   let finalPrice = totalPrice;
   if (typeof promoDiscount !== 'undefined' && promoDiscount > 0) {
       finalPrice = totalPrice - (totalPrice * promoDiscount);
   }
 
-  // 💡 3. Display Subtotal (Fixed the count variable)
+  // 💡 4. Update the Total Display
   if (checkoutTotal) {
-    checkoutTotal.innerHTML = `Subtotal (${count} items): ${finalPrice.toFixed(0)} Rs`;
+    if (promoDiscount > 0) {
+      // Show the original price crossed out so they see the savings!
+      checkoutTotal.innerHTML = `
+        <div style="font-size: 0.8rem; color: #888;"><s>Original: ${totalPrice} Rs</s></div>
+        Subtotal (${count} items): <span style="color: #28a745; font-weight: bold;">${finalPrice.toFixed(0)} Rs</span>
+      `;
+    } else {
+      checkoutTotal.innerHTML = `Subtotal (${count} items): ${totalPrice} Rs`;
+    }
   }
 }
+  // 💡 1. Add the Small Promo Input after the list
+  let promoDiscount = 0; // Global variable at the top of your script
 
+function applyPromo() {
+    const code = document.getElementById('promoInput').value.trim().toUpperCase();
+    if (code === "CRUNCHY20") {
+        promoDiscount = 0.20;
+    } else {
+        promoDiscount = 0;
+    }
+    loadCheckout(); // This triggers the function above to refresh the screen!
+}
 // Remove item using the unique Key
 function removeItem(key) {
   delete cartItems[key];
@@ -141,23 +181,3 @@ if (placeOrderBtn) {
 
 
 
-let appliedDiscount = 0; // Global variable to store the discount %
-
-function applyPromo() {
-    const code = document.getElementById('promoInput').value.trim().toUpperCase();
-    const message = document.getElementById('promoMessage');
-
-    if (code === "CRUNCHY20") {
-        appliedDiscount = 0.20; // 20% off
-        message.style.color = "green";
-        message.innerText = "✅ Promo Applied! 20% off your total.";
-    } else if (code === "") {
-        message.innerText = "";
-    } else {
-        appliedDiscount = 0;
-        message.style.color = "red";
-        message.innerText = "❌ Invalid Code";
-    }
-    
-    reloadCart(); // Refresh the total price
-}
