@@ -24,7 +24,7 @@ function applyPromo() {
     loadCheckout(); 
 }
 // Load and render checkout list
-let deliveryCharge = 70; // 💡 Your fixed delivery fee
+let deliveryCharge = 70; // 💡 Set to 70 for your 150 Rs example
 
 function loadCheckout() {
   if (!checkoutList) return;
@@ -55,23 +55,45 @@ function loadCheckout() {
     }
   });
 
-  // 1. Promo Section
+  // 💡 1. Promo Input Section
   const promoDiv = document.createElement("div");
   promoDiv.className = "promo-section";
   promoDiv.innerHTML = `
       <input type="text" id="promoInput" placeholder="Promo code" value="${promoDiscount > 0 ? 'CRUNCHY20' : ''}">
       <button onclick="applyPromo()">Apply</button>
-      <div id="promoMessage"></div>
+      <div id="promoMessage" style="color: ${promoDiscount > 0 ? 'green' : 'red'}; font-size: 0.8rem;">
+        ${promoDiscount > 0 ? '✅ 20% Discount Applied!' : ''}
+      </div>
   `;
   checkoutList.appendChild(promoDiv);
 
-  // 💡 2. MATH: Apply discount to totalPrice, THEN add deliveryCharge
+  // 💡 2. FIXED MATH: (Items - Discount) + Delivery
+  // Discount is calculated ONLY on totalPrice (food items)
   let discountAmount = totalPrice * (typeof promoDiscount !== 'undefined' ? promoDiscount : 0);
-  let finalPrice = (totalPrice - discountAmount) + deliveryCharge;
+  let finalGrandTotal = (totalPrice - discountAmount) + deliveryCharge;
 
-  // 💡 3. Keeping your exact text format
+  // 💡 3. Layout (Keeping the directions you liked)
   if (checkoutTotal) {
-    checkoutTotal.innerHTML = `Subtotal (${count} items): ${finalPrice.toFixed(0)} Rs`;
+    checkoutTotal.innerHTML = `
+      <div style="display: flex; justify-content: space-between; font-size: 0.9rem; color: #555;">
+        <span>Items Total:</span>
+        <span>${totalPrice} Rs</span>
+      </div>
+      ${promoDiscount > 0 ? `
+      <div style="display: flex; justify-content: space-between; font-size: 0.9rem; color: green;">
+        <span>Discount:</span>
+        <span>-${discountAmount.toFixed(0)} Rs</span>
+      </div>` : ''}
+      <div style="display: flex; justify-content: space-between; font-size: 0.9rem; color: #555;">
+        <span>Delivery Fee:</span>
+        <span>${deliveryCharge} Rs</span>
+      </div>
+      <hr style="margin: 8px 0; border: 0.5px solid #ddd;">
+      <div style="display: flex; justify-content: space-between; font-size: 1.1rem; font-weight: bold;">
+        <span>Total (${count} items):</span>
+        <span>${finalGrandTotal.toFixed(0)} Rs</span>
+      </div>
+    `;
   }
 }
 // Remove item using the unique Key
