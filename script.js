@@ -251,12 +251,28 @@ function showSizeModal(index) {
     optionsContainer.innerHTML = ""; 
 
     for (let size in item.price) {
+        let originalPrice = item.price[size];
+        
+        // 💡 DISCOUNT LOGIC: Use discountPrice if it exists, otherwise use original
+        // Note: You can also create size-specific discounts later if you want!
+        let finalPrice = (item.discountPrice && item.discountPrice < originalPrice) 
+                         ? item.discountPrice 
+                         : originalPrice;
+
         let btn = document.createElement("button");
         btn.classList.add("size-choice-btn");
-        btn.innerText = `${size.toUpperCase()} - ${item.price[size]} Rs`;
+
+        // 🎨 Make it look attractive: Show old price if it's on sale
+        if (finalPrice < originalPrice) {
+            btn.innerHTML = `${size.toUpperCase()} - <span style="text-decoration: line-through; color: #ff4d4d; font-size: 0.8em;">${originalPrice} Rs</span> <strong>${finalPrice} Rs</strong>`;
+        } else {
+            btn.innerText = `${size.toUpperCase()} - ${originalPrice} Rs`;
+        }
+
         btn.onclick = () => {
-            confirmAddToCart(index, item.price[size], size);
-            showToast(`${item.name} (${size})`);
+            // ✅ Now we pass the CORRECT finalPrice to the cart
+            confirmAddToCart(index, finalPrice, size);
+            showToast(`${item.name} (${size}) added!`);
             closeModal();
         };
         optionsContainer.appendChild(btn);
