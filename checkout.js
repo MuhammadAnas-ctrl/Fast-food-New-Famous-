@@ -95,6 +95,7 @@ function changeQuantity(key, newQuantity) {
 
 // --- WhatsApp Order Logic ---
 function placeOrder() {
+  // 💡 Use the global cartItems or fetch from storage
   let currentCart = JSON.parse(localStorage.getItem("cartItems")) || {};
 
   if (Object.keys(currentCart).length === 0) {
@@ -102,7 +103,6 @@ function placeOrder() {
     return;
   }
 
-  // Get customer details from your form IDs
   let name = document.getElementById("name").value.trim();
   let phone = document.getElementById("phone").value.trim();
   let address = document.getElementById("address").value.trim();
@@ -121,16 +121,25 @@ function placeOrder() {
   message += `🏠 Address: ${address}\n🏙️ City: ${city}\n\n`;
   message += `🍕 *Items:*\n`;
 
-  let total = 0;
+  let totalBeforeDiscount = 0;
   Object.keys(currentCart).forEach(key => {
     let item = currentCart[key];
     let sub = item.price * item.quantity;
-    total += sub;
+    totalBeforeDiscount += sub;
     let sizeText = item.selectedSize !== 'Standard' ? `(${item.selectedSize})` : '';
     message += `• ${item.name} ${sizeText} × ${item.quantity} = ${sub} Rs\n`;
   });
 
-  message += `\n💰 *Total Amount:* ${total} Rs\n`;
+  // 💡 APPLY THE DISCOUNT HERE
+  // This uses the 'promoDiscount' variable from your applyPromo function
+  let finalTotal = totalBeforeDiscount;
+  if (typeof promoDiscount !== 'undefined' && promoDiscount > 0) {
+      finalTotal = totalBeforeDiscount - (totalBeforeDiscount * promoDiscount);
+      message += `\n🎟️ *Promo Applied:* 20% OFF`;
+      message += `\n📉 *Original Price:* ${totalBeforeDiscount} Rs`;
+  }
+
+  message += `\n💰 *Total Amount:* ${finalTotal.toFixed(0)} Rs\n`;
   message += `\nThank you for your order! 😊`;
 
   const encodedMessage = encodeURIComponent(message);
