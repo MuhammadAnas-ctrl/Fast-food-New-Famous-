@@ -183,6 +183,7 @@ section {
     width:80%;
     margin-bottom: 10px;
     color: #333;
+    margin-top:20px;
     text-align: centre;
     text-transform: uppercase;
     margin-left:15px;
@@ -191,7 +192,6 @@ section {
     content: '';
     display: block;
     width: 80px;
-    
     height: 4px;
     background: #87CEEB; /* Your Sky Blue */
     margin: 10px auto;
@@ -202,6 +202,7 @@ section {
     color: #666;
     margin-bottom: 40px;
     display: block;
+    margin-top:10px;
     margin-left:15px;
 }
 @media (max-width: 768px) {
