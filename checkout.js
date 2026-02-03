@@ -151,7 +151,11 @@ function placeOrder() {
   message += `\n💰 *Total Amount:* *${finalTotal.toFixed(0)} Rs*\n`;
   message += `\nThank you! 😊`;
   
-  window.open(`https://wa.me/Yournumber?text=${encodeURIComponent(message)}`, "_blank");
+  // 💡 Put your number here (with country code, no plus sign)
+let ownerNumber = "YOURNUMBER"; 
+
+// 💡 The updated link using the variable and $ sign (template literal)
+window.open(`https://wa.me/${ownerNumber}?text=${encodeURIComponent(message)}`, "_blank");
   localStorage.removeItem("cartItems");
   window.location.href = "index.html";
 }
