@@ -150,8 +150,8 @@ function placeOrder() {
   message += `\n📦 *Delivery:* ${deliveryCharge} Rs`;
   message += `\n💰 *Total Amount:* *${finalTotal.toFixed(0)} Rs*\n`;
   message += `\nThank you! 😊`;
-  let yournumber = "YOUR NUMBER";
-  window.open(`https://wa.me/${yournumber}?text=${encodeURIComponent(message)}`, "_blank");
+  
+  window.open(`https://wa.me/Yournumber?text=${encodeURIComponent(message)}`, "_blank");
   localStorage.removeItem("cartItems");
   window.location.href = "index.html";
 }
