@@ -2,15 +2,15 @@
 // 1. DATA ARRAY (ArrProducts)
 // ==========================================
 const ArrProducts = [
-  { id: 1, category: "B.B.Q", name: "Chicken Tikka (Chest)", price: 20},
-  { id: 2, category: "B.B.Q", name: "Chicken Tikka (Leg)", price: 30,discountPrice: 25, },
-  { id: 3, category: "B.B.Q", name: "Green Tikka (Chest)", price: 10 },
-  { id: 14, category: "Rolls", name: "Chicken Roll", price: 40,discountPrice: 39, },
-  { id: 15, category: "Rolls", name: "Chicken Zinger Roll", price: 35},
-  { id: 31, category: "Burger", name: "Zinger Burger", price: 10, discountPrice: 5,},
-  { id: 32, category: "Burger", name: "Zinger Cheese Burger", price: 39 },
-  { id: 37, category: "Pizza", name: "Chicken Tikka Pizza", price: { small: 30, medium: 40, large: 55 } },
-  { id: 43, category: "SIDES", name: "French Fries", price: 5 }
+  { id: 1, category: "B.B.Q", name: "Chicken Tikka (Chest)", price: 200},
+  { id: 2, category: "B.B.Q", name: "Chicken Tikka (Leg)", price: 300,discountPrice: 25, },
+  { id: 3, category: "B.B.Q", name: "Green Tikka (Chest)", price: 250 },
+  { id: 14, category: "Rolls", name: "Chicken Roll", price: 350,discountPrice: 300, },
+  { id: 15, category: "Rolls", name: "Chicken Zinger Roll", price: 320},
+  { id: 31, category: "Burger", name: "Zinger Burger", price: 400, discountPrice: 350,},
+  { id: 32, category: "Burger", name: "Zinger Cheese Burger", price: 450 },
+  { id: 37, category: "Pizza", name: "Chicken Tikka Pizza", price: { small: 450, medium: 900, large: 1200 } },
+  { id: 43, category: "SIDES", name: "French Fries", price: 100 }
 ];
 const hamburger = document.getElementById('hamburger');
 const navMenu = document.getElementById('navMenu');
