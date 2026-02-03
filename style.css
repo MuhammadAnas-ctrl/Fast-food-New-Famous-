@@ -186,7 +186,7 @@ section {
     margin-top:30px;
     text-align: centre;
     text-transform: uppercase;
-    margin-left:15px;
+    margin-left:25px;
 }
 #h2::after {
     content: '';
