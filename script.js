@@ -3,7 +3,7 @@
 // ==========================================
 const ArrProducts = [
   { id: 1, category: "B.B.Q", name: "Chicken Tikka (Chest)", price: 200},
-  { id: 2, category: "B.B.Q", name: "Chicken Tikka (Leg)", price: 300,discountPrice: 25, },
+  { id: 2, category: "B.B.Q", name: "Chicken Tikka (Leg)", price: 300,discountPrice: 250, },
   { id: 3, category: "B.B.Q", name: "Green Tikka (Chest)", price: 250 },
   { id: 14, category: "Rolls", name: "Chicken Roll", price: 350,discountPrice: 300, },
   { id: 15, category: "Rolls", name: "Chicken Zinger Roll", price: 320},
