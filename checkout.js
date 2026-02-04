@@ -152,7 +152,7 @@ function placeOrder() {
   message += `\nThank you! 😊`;
   
   // 💡 Put your number here (with country code, no plus sign)
-let ownerNumber = "YOURNUMBER"; 
+let ownerNumber = "923294847025"; 
 
 // 💡 The updated link using the variable and $ sign (template literal)
 window.open(`https://wa.me/${ownerNumber}?text=${encodeURIComponent(message)}`, "_blank");
